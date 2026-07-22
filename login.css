@@ -32,14 +32,7 @@ body {
 .auth-header {
   padding: 1.5rem 2rem 0;
 }
-.auth-img{
-  display: block;
-  width: 70px;
-  height:70px;
-  border-radius: 2rem;
-  object-fit: contain;
-  flex-shrink: 0;
-}
+
 
 .brand-link {
   display: inline-flex;
