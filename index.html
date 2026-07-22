@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PondGuard — Community</title>
   <script src="script.js"></script>
   <link rel="stylesheet" href="style.css">
-  <title>PondGuard — Community</title>
 </head>
 <body>
   <header class="site-header">
@@ -21,60 +21,151 @@
   </header>
 
   <main class="container">
-    <section class="section">
-      <div class="section-header">
-        <h2>Community Timeline</h2>
-      </div>
-      <div class="timeline">
-        <div class=\"timeline-item\">
-          <h3>Water Quality Testing</h3>
-          <p>April 15 • 10:00 AM • Central Pond</p>
+    <section class="section hero-section">
+      <div class="hero-content">
+        <div class="hero-panel">
+          <span class="eyebrow">Community-powered pond care</span>
+          <h1>Neighbors protecting local waterways together.</h1>
+          <p>Join cleanup days, share observations, and help keep the shoreline healthy with practical, everyday action.</p>
+          <div class="hero-buttons">
+            <a class="button button-primary" href="#community-signup">Join the next event</a>
+            <a class="button button-secondary" href="#timeline">See upcoming activities</a>
+          </div>
         </div>
-        <div class=\"timeline-item\">
-          <h3>Cleanup Event</h3>
-          <p>April 28 • 11:00 AM • Riverside Area</p>
-        </div>
-        <div class=\"timeline-item\">
-          <h3>Educational Workshop</h3>
-          <p>May 5 • 2:00 PM • Community Center</p>
-        </div>
-        <div class=\"timeline-item\">
-          <h3>Fish Stocking Initiative</h3>
-</body>
-</html>
-          <p>May 10 • 9:00 AM • Lakeside Park</p>
-        </div>
-        <div class=\"timeline-item\">
-          <h3>Shoreline Planting</h3>
-          <p>May 24 • 8:30 AM • West Bank</p>
+        <div class="panel-card">
+          <h2>Next meetup</h2>
+          <p>Saturday • 9:00 AM • Riverside Loop</p>
+          <p>Bring gloves, water, and a friendly spirit.</p>
         </div>
       </div>
     </section>
 
-    <section class=\"section\">
-      <div class=\"section-header\">
-        <h2>Recent Community Activities</h2>
+    <section class="section section-alt">
+      <div class="stats-grid">
+        <article>
+          <h2>124</h2>
+          <p>active volunteers</p>
+        </article>
+        <article>
+          <h2>18</h2>
+          <p>events hosted this year</p>
+        </article>
+        <article>
+          <h2>92%</h2>
+          <p>water quality improvement</p>
+        </article>
       </div>
-      <div class=\"grid-two\">
-        <div class=\"activity-card\">
-          <h3>Volunteer Drive</h3>
-          <p>Local families joined to clear shoreline waste and monitor water conditions.</p>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="section-header">
+        <h2>Community timeline</h2>
+        <p>Recent and upcoming activities that keep the pond ecosystem thriving.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-badge">Apr 15</div>
+          <div>
+            <h3>Water quality testing</h3>
+            <p>10:00 AM • Central Pond</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-badge">Apr 28</div>
+          <div>
+            <h3>Cleanup event</h3>
+            <p>11:00 AM • Riverside Area</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-badge">May 05</div>
+          <div>
+            <h3>Educational workshop</h3>
+            <p>2:00 PM • Community Center</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-badge">May 10</div>
+          <div>
+            <h3>Fish stocking initiative</h3>
+            <p>9:00 AM • Lakeside Park</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-badge">May 24</div>
+          <div>
+            <h3>Shoreline planting</h3>
+            <p>8:30 AM • West Bank</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="section-header">
+        <h2>Featured initiatives</h2>
+      </div>
+      <div class="grid-three">
+        <article class="info-card">
+          <h3>Volunteer spotlight</h3>
+          <p>Families, students, and local gardeners are working together to remove invasive plants and protect nesting areas.</p>
+        </article>
+        <article class="info-card">
+          <h3>Citizen science</h3>
+          <p>Residents report sightings and log water conditions so the whole community can respond faster.</p>
+        </article>
+        <article class="info-card">
+          <h3>Shared learning</h3>
+          <p>Weekly workshops teach simple, sustainable ways to reduce runoff and improve pond health.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid-two">
+        <div class="activity-card">
+          <h3>Recent community activities</h3>
+          <ul>
+            <li>Local families cleared shoreline waste and recorded water conditions.</li>
+            <li>Residents completed a habitat survey for native birds and aquatic life.</li>
+            <li>Community members shared photos and tips in the monthly update.</li>
+          </ul>
         </div>
-        <div class=\"activity-card\">
-          <h3>Protection Workshop</h3>
-          <p>Residents learned how to identify pollution threats and maintain pond health.</p>
+        <div class="activity-card">
+          <h3>Stay in the loop</h3>
+          <form id="community-signup" class="community-form">
+            <label>
+              Name
+              <input name="name" required>
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" required>
+            </label>
+            <label>
+              Interest
+              <select name="interest" required>
+                <option value="">Choose one</option>
+                <option>Volunteer days</option>
+                <option>Education workshops</option>
+                <option>Citizen reporting</option>
+              </select>
+            </label>
+            <button class="button button-primary" type="submit">Sign me up</button>
+          </form>
+          <p id="communityMessage" class="form-message" aria-live="polite"></p>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class=\"site-footer\">
-    <div class=\"container footer-content\">
+  <footer class="site-footer">
+    <div class="container footer-content">
       <p>© 2026 PondGuard. Community-driven pond protection.</p>
-      <nav class=\"footer-nav\">
-        <a href=\"index.html\">Home</a>
-        <a href=\"dashboard.html\">Dashboard</a>
-        <a href=\"report.html\">Report</a>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="report.html">Report</a>
       </nav>
     </div>
   </footer>
