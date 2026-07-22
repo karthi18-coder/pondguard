@@ -39,6 +39,7 @@ body {
   font-family: Inter, system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
+  line-height: 1.6;
 }
 
 a {
@@ -189,6 +190,109 @@ img {
 
 .section-alt {
   background: var(--surface-alt);
+}
+
+.map-section {
+  margin-top: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.map-frame-wrap {
+  margin-top: 1rem;
+  border-radius: 18px;
+  overflow: hidden;
+  min-height: 360px;
+  box-shadow: var(--shadow);
+}
+
+#mapFrame {
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+}
+
+.report-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.report-form label {
+  display: grid;
+  gap: 0.6rem;
+  font-weight: 600;
+}
+
+.report-form select,
+.report-form textarea,
+.report-form input[type="file"] {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(17, 56, 43, 0.12);
+  border-radius: 0.9rem;
+  background: #fff;
+  color: var(--text);
+}
+
+.report-form textarea {
+  min-height: 140px;
+}
+
+.file-upload input {
+  cursor: pointer;
+}
+
+.form-message {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 720px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.report-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.report-form label {
+  display: grid;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.report-form select,
+.report-form textarea,
+.report-form input[type="file"] {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(17, 56, 43, 0.12);
+  border-radius: 0.85rem;
+  background: #fff;
+}
+
+.report-form textarea {
+  min-height: 140px;
+}
+
+.file-upload input {
+  cursor: pointer;
+}
+
+.form-message {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
 }
 
 .section-header h2,
@@ -377,10 +481,47 @@ img {
 }
 
 .timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
   background: var(--surface);
   border-radius: var(--radius);
   border: 1px solid var(--border);
   padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.timeline-badge {
+  flex-shrink: 0;
+  min-width: 5rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(84, 191, 169, 0.14);
+  color: var(--primary);
+  font-weight: 700;
+  text-align: center;
+}
+
+.community-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.community-form label {
+  display: grid;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+
+.community-form input,
+.community-form select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text);
+  font: inherit;
 }
 
 .site-footer {
@@ -429,4 +570,4 @@ img {
   .hero-section {
     padding-top: 2.5rem;
   }
-}
+  }
