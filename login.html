@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | PondGuardian</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="auth-page">
+    <header class="auth-header">
+      <a class="brand-link" href="index.html">
+        <span class="brand-mark">PG</span>
+        <span>PondGuardian</span>
+      </a>
+    </header>
+
+    <main class="auth-container">
+      <section class="auth-panel">
+        <div class="panel-heading">
+          <p class="panel-tag">Welcome back to PondGuardian</p>
+          <h1>Secure your pond community access.</h1>
+        </div>
+
+        <div class="auth-card sign-in">
+          <h2>Sign In</h2>
+          <form id="signin-form" novalidate>
+            <div class="form-group">
+              <label for="signin-email">Email</label>
+              <input type="email" id="signin-email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="signin-password">Password</label>
+              <input type="password" id="signin-password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="sign-in-toggle">
+                Show password
+              </label>
+              <a href="#" class="text-link">Forgot Password?</a>
+            </div>
+            <div class="message" aria-live="polite"></div>
+            <button type="submit" class="btn btn-primary">Sign In</button>
+          </form>
+          <p class="switch-text">
+            New to PondGuardian? <a href="#" id="show-register">Create an Account</a>
+          </p>
+        </div>
+
+        <div class="auth-card register hidden">
+          <h2>Create Account</h2>
+          <form id="register-form" novalidate>
+            <div class="form-group">
+              <label for="register-name">Full Name</label>
+              <input type="text" id="register-name" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email</label>
+              <input type="email" id="register-email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" name="password" placeholder="Create a password" required>
+            </div>
+            <div class="form-group">
+              <label for="register-confirm">Confirm Password</label>
+              <input type="password" id="register-confirm" name="confirm" placeholder="Repeat your password" required>
+            </div>
+            <div class="form-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="register-toggle">
+                Show password
+              </label>
+            </div>
+            <div class="message" aria-live="polite"></div>
+            <button type="submit" class="btn btn-primary">Create Account</button>
+          </form>
+          <p class="switch-text">
+            Already have an account? <a href="#" id="show-sign-in">Sign In</a>
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="login.js"></script>
+</body>
+</html>
