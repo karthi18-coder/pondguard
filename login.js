@@ -72,7 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    showMessage(signInForm, 'Sign in successful. Redirecting to report page soon.', 'success');
+    showMessage(signInForm, 'Sign in successful. Redirecting to your dashboard...', 'success');
+    setTimeout(function () {
+      window.location.href = 'user-dashboard.html';
+    }, 800);
   });
 
   registerForm.addEventListener('submit', function (event) {
@@ -104,6 +107,9 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    showMessage(registerForm, 'Account created successfully. Please sign in to continue.', 'success');
+    showMessage(registerForm, 'Account created successfully. Redirecting to your dashboard...', 'success');
+    setTimeout(function () {
+      window.location.href = 'user-dashboard.html';
+    }, 800);
   });
 });

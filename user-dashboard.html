@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard | PondGuardian</title>
+  <style>
+    :root {
+      --bg: #f5fbff;
+      --card: #ffffff;
+      --primary: #1d7fd7;
+      --primary-dark: #0f5fa8;
+      --accent: #2aa857;
+      --accent-soft: #e9f8ef;
+      --text: #123043;
+      --muted: #678095;
+      --warning: #ffb300;
+      --danger: #e25c4c;
+      --border: #dbe7f0;
+      --shadow: 0 10px 30px rgba(16, 64, 98, 0.1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef8ff 0%, #f8fcff 100%);
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .brand .logo {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+    .hero, .panel, .summary-card, .report-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .hero {
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+    .btn {
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      padding: 12px 16px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 8px 18px rgba(29, 127, 215, 0.25);
+    }
+    .btn-secondary {
+      background: #edf4fa;
+      color: var(--primary-dark);
+    }
+    .grid-2 { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .section-title { font-size: 1.35rem; margin: 0 0 10px; }
+    .muted { color: var(--muted); }
+    .welcome { font-size: 1.05rem; margin-top: 10px; }
+    .summary-card { padding: 16px; }
+    .summary-card .count { font-size: 1.9rem; font-weight: 800; margin: 8px 0 4px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .badge.pending{ background:#fff4d8; color:#9b6c00; }
+    .badge.review{ background:#dfeeff; color:#185fa2; }
+    .badge.resolved{ background:#e1f6e8; color:#1d7a42; }
+    .report-list { display: grid; gap: 10px; }
+    .report-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fbfdff;
+    }
+    .report-cta {
+      width: 100%;
+      padding: 16px 18px;
+      font-size: 1.05rem;
+      margin-top: 12px;
+    }
+    .status-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .status-card {
+      padding: 14px;
+      background: #fbfeff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .status-card strong { display: block; margin-bottom: 6px; }
+    @media (max-width: 720px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">🌊</div>
+        <span>PondGuardian</span>
+      </div>
+      <div class="muted">Welcome back, user community portal</div>
+    </div>
+
+    <section class="hero">
+      <h1 class="section-title">Welcome back, User</h1>
+      <p class="welcome">Help protect local ponds by reporting issues, tracking status, and supporting community action.</p>
+      <a href="report.html" class="btn btn-primary report-cta">🚨 Report an Issue</a>
+    </section>
+
+    <section class="grid-3" style="margin-bottom: 18px;">
+      <div class="summary-card">
+        <div class="muted">My Reports</div>
+        <div class="count">3</div>
+      </div>
+      <div class="summary-card">
+        <div class="muted">Pending</div>
+        <div class="count">2</div>
+      </div>
+      <div class="summary-card">
+        <div class="muted">Resolved</div>
+        <div class="count">1</div>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="panel" style="padding: 18px;">
+        <h2 class="section-title">My Reports</h2>
+        <div class="report-list">
+          <div class="report-item">
+            <div>
+              <strong>PG-TN-100201</strong>
+              <div class="muted">Anna Nagar Pond • Water Pollution</div>
+              <div class="muted">2026-07-20</div>
+            </div>
+            <span class="badge pending">Pending Verification</span>
+          </div>
+          <div class="report-item">
+            <div>
+              <strong>PG-TN-100202</strong>
+              <div class="muted">Kallankulam Pond • Garbage Dumping</div>
+              <div class="muted">2026-07-18</div>
+            </div>
+            <span class="badge review">Under Review</span>
+          </div>
+          <div class="report-item">
+            <div>
+              <strong>PG-TN-100203</strong>
+              <div class="muted">Mela Oorani • Dead Fish</div>
+              <div class="muted">2026-07-15</div>
+            </div>
+            <span class="badge resolved">Resolved</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="padding: 18px;">
+        <h2 class="section-title">Complaint Status Cards</h2>
+        <div class="status-list">
+          <div class="status-card">
+            <strong>Submitted</strong>
+            <div class="muted">Your complaint is stored in the mock queue.</div>
+          </div>
+          <div class="status-card">
+            <strong>In Review</strong>
+            <div class="muted">A local officer is checking pond evidence and description.</div>
+          </div>
+          <div class="status-card">
+            <strong>Resolved</strong>
+            <div class="muted">Issue has been marked complete in the sample dashboard.</div>
+          </div>
+        </div>
+        <div style="margin-top: 16px;">
+          <a href="report.html" class="btn btn-secondary" style="width: 100%;">Report Another Issue</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
