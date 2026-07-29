@@ -64,7 +64,7 @@ body {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 2.2rem;
+  gap:3rem;
 }
 
 .site-nav a {
