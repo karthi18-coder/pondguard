@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
   const signInSection = document.querySelector('.auth-card.sign-in');
   const registerSection = document.querySelector('.auth-card.register');
@@ -113,3 +112,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 800);
   });
 });
+
