@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Report an Issue | PondGuardian</title>
   <link rel="stylesheet" href="report.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
   <div class="container">
     <div class="topbar">
-      <div class="brand"><div class="logo">🌊</div> PondGuardian</div>
+      <div class="brand"><img src="logo.png" alt="Pondguardian logo" class="logo"></div>
       <div class="muted">Tamil Nadu Pond Reporting Platform</div>
     </div>
 
@@ -26,225 +27,136 @@
             <span class="chip active">📸 Evidence</span>
           </div>
         </div>
-        <div class="panel" style="padding:18px;">
-          <h2 class="section-title">Get started</h2>
-          <button class="btn btn-primary" id="showLoginBtn">Login / Register</button>
-          <button class="btn btn-secondary" style="margin-top:10px; width:100%;" id="demoDashBtn">View Demo Dashboard</button>
-        </div>
       </div>
     </section>
+    <!-- Report Form -->
+<div class="panel report-form">
 
-    <section id="authScreen" class="panel hidden" style="padding:20px; margin-bottom:18px;">
-      <h2 class="section-title">Login / Register</h2>
-      <div class="grid-2">
-        <div class="field">
-          <label>Full Name</label>
-          <input type="text" id="nameInput" placeholder="Enter your name" />
-        </div>
-        <div class="field">
-          <label>Mobile Number</label>
-          <input type="text" id="phoneInput" placeholder="Enter your mobile number" />
-        </div>
-      </div>
-      <div class="grid-2" style="margin-top:12px;">
-        <button class="btn btn-primary" id="loginBtn">Continue to Dashboard</button>
-        <button class="btn btn-ghost" id="backHomeBtn">Back to Home</button>
-      </div>
-    </section>
+    <h2>📍 Report a Pond Issue</h2>
 
-    <section id="dashboardScreen" class="hidden">
-      <div class="dashboard-header">
-        <div>
-          <h2 class="section-title">Welcome back, <span id="userNameLabel">User</span></h2>
-          <div class="muted">Help protect Tamil Nadu's ponds. Report a problem you see.</div>
-        </div>
-      </div>
+    <!-- Step 1 : Location -->
+    <label>District</label>
 
-      <div class="hero">
-        <h2 class="section-title">Have you noticed a problem with a pond?</h2>
-        <button class="btn btn-primary floating-btn" id="reportPrimaryBtn">🚨 Report an Issue</button>
-      </div>
+    <!-- District -->
+    <label>District</label>
+    <select id="district" required>
+        <option value="">Select District</option>
+        <option>Ariyalur</option>
+        <option>Chengalpattu</option>
+        <option>Chennai</option>
+        <option>Coimbatore</option>
+        <option>Cuddalore</option>
+        <option>Dharmapuri</option>
+        <option>Dindigul</option>
+        <option>Erode</option>
+        <option>Kallakurichi</option>
+        <option>Kanchipuram</option>
+        <option>Kanyakumari</option>
+        <option>Karur</option>
+        <option>Krishnagiri</option>
+        <option>Madurai</option>
+        <option>Mayiladuthurai</option>
+        <option>Nagapattinam</option>
+        <option>Namakkal</option>
+        <option>Nilgiris</option>
+        <option>Perambalur</option>
+        <option>Pudukkottai</option>
+        <option>Ramanathapuram</option>
+        <option>Ranipet</option>
+        <option>Salem</option>
+        <option>Sivaganga</option>
+        <option>Tenkasi</option>
+        <option>Thanjavur</option>
+        <option>Theni</option>
+        <option>Thoothukudi</option>
+        <option>Tiruchirappalli</option>
+        <option>Tirunelveli</option>
+        <option>Tirupathur</option>
+        <option>Tiruppur</option>
+        <option>Tiruvallur</option>
+        <option>Tiruvannamalai</option>
+        <option>Tiruvarur</option>
+        <option>Vellore</option>
+        <option>Viluppuram</option>
+        <option>Virudhunagar</option>
+    </select>
 
-      <div class="grid-3" style="margin-bottom:18px;">
-        <div class="summary-card">
-          <div class="muted">My Reports</div>
-          <div class="count" id="summaryReports">3</div>
-        </div>
-        <div class="summary-card">
-          <div class="muted">Pending</div>
-          <div class="count" id="summaryPending">2</div>
-        </div>
-        <div class="summary-card">
-          <div class="muted">Resolved</div>
-          <div class="count" id="summaryResolved">1</div>
-        </div>
-      </div>
+    <!-- Taluk -->
+    <label>Taluk</label>
+    <input type="text" id="taluk" placeholder="Enter Taluk Name" required>
 
-      <div class="panel" style="padding:18px;">
-        <h2 class="section-title">My Recent Reports</h2>
-        <div class="report-list" id="recentReports"></div>
-      </div>
-    </section>
+    <!-- Pond Name -->
+    <label>Pond / Lake / Dam Name</label>
+    <input type="text" id="pondName" placeholder="Enter Water Body Name" required>
 
-    <section id="reportFlowScreen" class="panel hidden" style="padding:20px;">
-      <div class="step-indicator" id="stepIndicator">Step 1 of 4 — Select Pond</div>
-      <div class="progress-bar"><span id="progressFill"></span></div>
+    <!-- Upload -->
+     <h3>Upload Evidence</h3>
 
-      <div id="step1" class="step-step">
-        <h2 class="section-title">Which pond has a problem?</h2>
-        <div class="option-grid">
-          <div class="option-card" data-select-type="search">
-            <span class="option-icon">🔎</span>
-            <strong>Search for a Pond</strong>
-            <div class="tiny">Search by pond name, village, town, or district</div>
-          </div>
-          <div class="option-card" data-select-type="location">
-            <span class="option-icon">📍</span>
-            <strong>Use My Current Location</strong>
-            <div class="tiny">Use browser geolocation permission and find nearby ponds</div>
-          </div>
-          <div class="option-card" data-select-type="map">
-            <span class="option-icon">🗺️</span>
-            <strong>Select on Map</strong>
-            <div class="tiny">Show a map interface and allow selection</div>
-          </div>
-        </div>
+<!-- Camera Preview -->
+<video id="camera" autoplay playsinline width="400"></video>
 
-        <div id="searchArea" class="stack" style="margin-top:16px;">
-          <div class="field">
-            <label>Search pond, village, town, or district</label>
-            <input type="text" id="pondSearch" placeholder="Example: Kottur pond, Madurai" />
-          </div>
-          <div id="searchResults" class="option-grid"></div>
-        </div>
+<br><br>
 
-        <div id="locationArea" class="hidden stack" style="margin-top:16px;">
-          <button class="btn btn-secondary" id="getLocationBtn">Use Current Location</button>
-          <div class="map-card" id="mapCard">
-            <div class="map-pin" style="left: 38%; top: 48%;"></div>
-            <div class="map-pin" style="left: 68%; top: 30%;"></div>
-            <div class="map-pin" style="left: 55%; top: 64%;"></div>
-          </div>
-          <div class="tiny">Nearby pond suggestion: <strong id="nearbyPond">Anna Nagar Pond, Madurai</strong></div>
-        </div>
+<button type="button" onclick="startCamera()">
+    📷 Open Camera
+</button>
 
-        <div id="mapArea" class="hidden stack" style="margin-top:16px;">
-          <div class="map-card" id="selectMapCard">
-            <div class="map-pin" style="left: 42%; top: 40%;"></div>
-            <div class="map-pin" style="left: 62%; top: 58%;"></div>
-            <div class="map-pin" style="left: 51%; top: 26%;"></div>
-          </div>
+<button type="button" onclick="takePhoto()">
+    📸 Take Photo
+</button>
 
-          <div class="field">
-            <label for="districtSelect">Select District</label>
-            <select id="districtSelect">
-              <option value="">Choose a district</option>
-            </select>
-          </div>
+<button type="button" onclick="startRecording()">
+    🎥 Start Video
+</button>
 
-          <div class="field">
-            <label for="locationInput">Location / Area Name</label>
-            <input type="text" id="locationInput" placeholder="Example: Mela Market, Ram Nagar, or nearby street" />
-          </div>
+<button type="button" onclick="stopRecording()">
+    ⏹ Stop Video
+</button>
 
-          <div class="field">
-            <label for="pondInput">Pond / Waterbody Name</label>
-            <input type="text" id="pondInput" placeholder="Example: Anna Nagar Pond or Kovil Tank" />
-          </div>
+<br><br>
 
-          <div class="district-map" id="districtMap"></div>
-          <div class="tiny">Select a district from the Tamil Nadu list or type the exact location and pond name.</div>
-        </div>
+<canvas id="photoCanvas" style="display:none;"></canvas>
 
-        <div id="selectedPondPreview" class="hidden panel" style="margin-top:16px; padding:16px;">
-          <div class="red">Selected Pond</div>
-          <div class="field"><strong id="selectedPondName"></strong></div>
-          <div class="field">District: <span id="selectedPondDistrict"></span></div>
-          <div class="field">Location: <span id="selectedPondLocation"></span></div>
-          <div class="field">Pond ID: <span id="selectedPondId"></span></div>
-        </div>
-        <div class="error" id="step1Error"></div>
-      </div>
+<img id="photoPreview" width="300">
 
-      <div id="step2" class="step-step hidden">
-        <h2 class="section-title">What problem did you notice?</h2>
-        <div class="option-grid" id="problemGrid"></div>
-        <div style="margin-top:18px;">
-          <h3>How serious is the problem?</h3>
-          <div class="severity-row">
-            <div class="severity-box severity-low" data-severity="Low"><div style="font-size:1.5rem;">🟢</div><strong>Low</strong><div class="tiny">Minor issue that can be fixed soon</div></div>
-            <div class="severity-box severity-moderate" data-severity="Moderate"><div style="font-size:1.5rem;">🟡</div><strong>Moderate</strong><div class="tiny">Needs attention and follow-up</div></div>
-            <div class="severity-box severity-critical" data-severity="Critical"><div style="font-size:1.5rem;">🔴</div><strong>Critical</strong><div class="tiny">Urgent danger to people, wildlife, or water quality</div></div>
-          </div>
-        </div>
-        <div class="error" id="step2Error"></div>
-      </div>
+<br><br>
 
-      <div id="step3" class="step-step hidden">
-        <h2 class="section-title">Help us understand the problem</h2>
-        <div class="upload-box">
-          <div class="tiny">Photos and videos help us verify the issue and take action faster.</div>
-          <div class="grid-2" style="margin-top:12px;">
-            <div class="field">
-              <label>Upload photos</label>
-              <input type="file" id="photoUpload" accept="image/*" multiple />
-            </div>
-            <div class="field">
-              <label>Upload a short video</label>
-              <input type="file" id="videoUpload" accept="video/*" />
-            </div>
-          </div>
-          <button class="btn btn-secondary" style="margin-top:10px;" id="cameraBtn">📷 Take a Photo Using Camera</button>
-        </div>
+<video id="videoPreview" controls width="400"></video>
 
-        <div class="field" style="margin-top:14px;">
-          <label>Description</label>
-          <textarea id="descriptionInput" placeholder="Tell us what you noticed. For example: Garbage has been dumped near the pond entrance for the past few days."></textarea>
-        </div>
+    
+    <label for="image">Upload Image</label>
+<input type="file" id="image" name="image"
+       accept="image/*"
+       multiple>
 
-        <div class="chip-row" style="margin-top:14px;">
-          <button class="btn btn-secondary" id="collectLocationBtn">📍 Auto-collect my location</button>
-          <div class="tiny" id="locationStatus">Location not collected yet.</div>
-        </div>
-        <div class="error" id="step3Error"></div>
-      </div>
+<br><br>
+<label for="video">Upload Video</label>
+<input type="file" id="video" name="video"
+       accept="video/*"
+       multiple>
 
-      <div id="step4" class="step-step hidden">
-        <h2 class="section-title">Review & Submit</h2>
-        <div class="report-card" style="padding:16px;">
-          <div class="stack">
-            <div><strong>Pond:</strong> <span id="reviewPondName"></span></div>
-            <div><strong>Location:</strong> <span id="reviewLocation"></span></div>
-            <div><strong>Issue:</strong> <span id="reviewIssue"></span></div>
-            <div><strong>Severity:</strong> <span id="reviewSeverity"></span></div>
-            <div><strong>Evidence:</strong> <span id="reviewEvidence"></span></div>
-            <div><strong>Description:</strong> <span id="reviewDescription"></span></div>
-          </div>
-        </div>
-        <div class="error" id="step4Error"></div>
-      </div>
+    <!-- Description -->
+    <label>Describe the Issue</label>
+    <textarea id="description"
+        rows="5"
+        placeholder="Example: Plastic waste has accumulated around the pond. Water is polluted..."
+        required></textarea>
 
-      <div class="grid-2" style="margin-top:18px;">
-        <button class="btn btn-ghost" id="prevStepBtn">← Previous</button>
-        <button class="btn btn-primary" id="nextStepBtn">Next</button>
-      </div>
-    </section>
+</div>
+ <hr>
 
-    <section id="successScreen" class="hidden success-screen">
-      <div class="check">✅</div>
-      <h2>Report Submitted Successfully</h2>
-      <p class="muted">Thank you for helping protect our ponds.</p>
-      <div class="status-box">
-        Complaint ID: <strong id="complaintIdOutput">PG-TN-XXXXXX</strong><br />
-        Status: <strong>Pending Verification</strong>
-      </div>
-      <div class="grid-3">
-        <button class="btn btn-primary" id="trackBtn">Track My Report</button>
-        <button class="btn btn-secondary" id="anotherReportBtn">Report Another Issue</button>
-        <button class="btn btn-ghost" id="dashboardBtn">Go to Dashboard</button>
-      </div>
-    </section>
-  </div>
+
+    <hr>
+
+      <div class="submit-container">
+    <button type="submit" class="submit-btn">
+         Submit Report
+    </button>
+</div>
+
+</div> 
+
+
 
   <script src="report.js"></script>
 </body>
