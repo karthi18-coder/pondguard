@@ -228,9 +228,58 @@
 <h2 class="font-headline-md text-headline-md text-primary">Location Details</h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-2">District</label>
-<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 focus:border-primary" placeholder="e.g. North District" type="text"/>
+    <div>
+        <label class="block font-label-md text-label-md text-on-surface mb-2">
+            District
+        </label>
+
+        <select
+            id="district"
+            name="district"
+            required
+            class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow focus:border-primary"
+        >
+            <option value="">Select District</option>
+            <option value="Ariyalur">Ariyalur</option>
+            <option value="Chengalpattu">Chengalpattu</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Coimbatore">Coimbatore</option>
+            <option value="Cuddalore">Cuddalore</option>
+            <option value="Dharmapuri">Dharmapuri</option>
+            <option value="Dindigul">Dindigul</option>
+            <option value="Erode">Erode</option>
+            <option value="Kallakurichi">Kallakurichi</option>
+            <option value="Kanchipuram">Kanchipuram</option>
+            <option value="Kanyakumari">Kanyakumari</option>
+            <option value="Karur">Karur</option>
+            <option value="Krishnagiri">Krishnagiri</option>
+            <option value="Madurai">Madurai</option>
+            <option value="Mayiladuthurai">Mayiladuthurai</option>
+            <option value="Nagapattinam">Nagapattinam</option>
+            <option value="Namakkal">Namakkal</option>
+            <option value="Nilgiris">Nilgiris</option>
+            <option value="Perambalur">Perambalur</option>
+            <option value="Pudukkottai">Pudukkottai</option>
+            <option value="Ramanathapuram">Ramanathapuram</option>
+            <option value="Ranipet">Ranipet</option>
+            <option value="Salem">Salem</option>
+            <option value="Sivaganga">Sivaganga</option>
+            <option value="Tenkasi">Tenkasi</option>
+            <option value="Thanjavur">Thanjavur</option>
+            <option value="Theni">Theni</option>
+            <option value="Thoothukudi">Thoothukudi</option>
+            <option value="Tiruchirappalli">Tiruchirappalli</option>
+            <option value="Tirunelveli">Tirunelveli</option>
+            <option value="Tirupathur">Tirupathur</option>
+            <option value="Tiruppur">Tiruppur</option>
+            <option value="Tiruvallur">Tiruvallur</option>
+            <option value="Tiruvannamalai">Tiruvannamalai</option>
+            <option value="Tiruvarur">Tiruvarur</option>
+            <option value="Vellore">Vellore</option>
+            <option value="Viluppuram">Viluppuram</option>
+            <option value="Virudhunagar">Virudhunagar</option>
+        </select>
+    </div>
 </div>
 <div>
 <label class="block font-label-md text-label-md text-on-surface mb-2">Taluk / Local Area</label>
@@ -317,49 +366,4 @@
 </div>
 <div class="relative flex-shrink-0 w-32 h-32 rounded-[12px] overflow-hidden group border border-outline-variant shadow-sm">
 <div class="bg-cover bg-center w-full h-full" data-alt="A wide shot of a community park pond bordered by lush green grass. The scene is bright and airy, communicating environmental optimism and modern corporate reliability. Soft, diffused shadows play across the vibrant green landscape." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB8hxYPFvJqLgGAzh4g3zdjtgFyX_FNenC-8Yy0sxytHmQvVXyix2-hjN16l-y4D3HhaWJf0kOiwMPl7zKIR1iP5J2o2Y0W5mq9USndrVbFEBZLrwI7NMZQG9AL4bZRGjd5nTBScj4iclSqElCnDo-jCvB3nvaeHxMq8ZbkTJb7LvkEN4aHqtoWCtWpoSD3yOZRpp
-    <!-- District -->
-    <label>District</label>
-    <select id="district" required>
-        <option value="">Select District</option>
-        <option>Ariyalur</option>
-        <option>Chengalpattu</option>
-        <option>Chennai</option>
-        <option>Coimbatore</option>
-        <option>Cuddalore</option>
-        <option>Dharmapuri</option>
-        <option>Dindigul</option>
-        <option>Erode</option>
-        <option>Kallakurichi</option>
-        <option>Kanchipuram</option>
-        <option>Kanyakumari</option>
-        <option>Karur</option>
-        <option>Krishnagiri</option>
-        <option>Madurai</option>
-        <option>Mayiladuthurai</option>
-        <option>Nagapattinam</option>
-        <option>Namakkal</option>
-        <option>Nilgiris</option>
-        <option>Perambalur</option>
-        <option>Pudukkottai</option>
-        <option>Ramanathapuram</option>
-        <option>Ranipet</option>
-        <option>Salem</option>
-        <option>Sivaganga</option>
-        <option>Tenkasi</option>
-        <option>Thanjavur</option>
-        <option>Theni</option>
-        <option>Thoothukudi</option>
-        <option>Tiruchirappalli</option>
-        <option>Tirunelveli</option>
-        <option>Tirupathur</option>
-        <option>Tiruppur</option>
-        <option>Tiruvallur</option>
-        <option>Tiruvannamalai</option>
-        <option>Tiruvarur</option>
-        <option>Vellore</option>
-        <option>Viluppuram</option>
-        <option>Virudhunagar</option>
-    </select>
-  
 
-    
