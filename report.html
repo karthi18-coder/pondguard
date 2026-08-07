@@ -1,42 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Report an Issue | PondGuardian</title>
-  <link rel="stylesheet" href="report.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-</head>
-<body>
-  <div class="container">
-    <div class="topbar">
-      <div class="brand"><img src="logo.png" alt="Pondguardian logo" class="logo"></div>
-      <div class="muted">Tamil Nadu Pond Reporting Platform</div>
-    </div>
 
-    <section id="homeScreen" class="hero">
-      <h1>PondGuardian</h1>
-      <p class="welcome">Help protect Tamil Nadu's ponds. Report a problem you see.</p>
-      <div class="grid-2" style="margin-top:18px;">
-        <div class="panel" style="padding:18px;">
-          <h2 class="section-title">Report problems in your area</h2>
-          <p class="muted">A simple way for anyone to report pond issues, track status, and help improve local water bodies.</p>
-          <div class="chip-row" style="margin-top:14px;">
-            <span class="chip active">🏙️ Village</span>
-            <span class="chip active">💧 Pond</span>
-            <span class="chip active">📸 Evidence</span>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Report Form -->
-<div class="panel report-form">
-
-    <h2>📍 Report a Pond Issue</h2>
-
-    <!-- Step 1 : Location -->
-    <label>District</label>
-
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PondGuardian - Report Issue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+     darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-high": "#e8e8e5",
+                "on-tertiary-fixed": "#331111",
+                "on-primary-fixed": "#002114",
+                "surface": "#f9faf6",
+                "on-background": "#1a1c1a",
+                "tertiary-fixed-dim": "#f5b7b4",
+                "on-tertiary-fixed-variant": "#673a39",
+                "on-primary": "#ffffff",
+                "surface-variant": "#e2e3e0",
+                "primary-container": "#1b4332",
+                "inverse-on-surface": "#f0f1ee",
+                "primary-fixed": "#c1ecd4",
+                "primary": "#8B1E1E",
+                "on-secondary": "#ffffff",
+                "primary-fixed-dim": "#a5d0b9",
+                "on-surface-variant": "#414844",
+                "secondary-container": "#aeeecb",
+                "tertiary-fixed": "#ffdad8",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#f3f4f1",
+                "surface-container-lowest": "#ffffff",
+                "surface-tint": "#3f6653",
+                "tertiary": "#401b1b",
+                "on-primary-fixed-variant": "#274e3d",
+                "surface-container-highest": "#e2e3e0",
+                "outline-variant": "#c1c8c2",
+                "secondary": "#C62828",
+                "secondary-fixed": "#b1f0ce",
+                "on-tertiary-container": "#d29895",
+                "on-error": "#ffffff",
+                "on-secondary-fixed-variant": "#0e5138",
+                "outline": "#717973",
+                "surface-dim": "#dadad7",
+                "on-secondary-container": "#316e52",
+                "on-surface": "#1a1c1a",
+                "secondary-fixed-dim": "#95d4b3",
+                "tertiary-container": "#5a302f",
+                "on-primary-container": "#86af99",
+                "on-secondary-fixed": "#002114",
+                "inverse-primary": "#a5d0b9",
+                "surface-bright": "#f9faf6",
+                "inverse-surface": "#2f312f",
+                "error-container": "#ffdad6",
+                "surface-container": "#eeeeeb",
+                "background": "#f9faf6",
+                "on-error-container": "#93000a",
+                "error": "#ba1a1a"
+        },"borderRadius": {
+                "DEFAULT": "1rem",
+                "lg": "2rem",
+                "xl": "3rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "gutter": "24px",
+                "container-max": "1280px",
+                "margin-mobile": "16px",
+                "margin-desktop": "48px",
+                "unit": "8px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-lg-mobile": [
+                        "Plus Jakarta Sans"
+                ],
+                "label-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-xl": [
+                        "Plus Jakarta Sans"
+                ],
+                "label-sm": [
+                        "Plus Jakarta Sans"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                   {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+  
+  
     <!-- District -->
     <label>District</label>
     <select id="district" required>
@@ -81,83 +210,4 @@
         <option>Virudhunagar</option>
     </select>
 
-    <!-- Taluk -->
-    <label>Taluk</label>
-    <input type="text" id="taluk" placeholder="Enter Taluk Name" required>
-
-    <!-- Pond Name -->
-    <label>Pond / Lake / Dam Name</label>
-    <input type="text" id="pondName" placeholder="Enter Water Body Name" required>
-
-    <!-- Upload -->
-     <h3>Upload Evidence</h3>
-
-<!-- Camera Preview -->
-<video id="camera" autoplay playsinline width="400"></video>
-
-<br><br>
-
-<button type="button" onclick="startCamera()">
-    📷 Open Camera
-</button>
-
-<button type="button" onclick="takePhoto()">
-    📸 Take Photo
-</button>
-
-<button type="button" onclick="startRecording()">
-    🎥 Start Video
-</button>
-
-<button type="button" onclick="stopRecording()">
-    ⏹ Stop Video
-</button>
-
-<br><br>
-
-<canvas id="photoCanvas" style="display:none;"></canvas>
-
-<img id="photoPreview" width="300">
-
-<br><br>
-
-<video id="videoPreview" controls width="400"></video>
-
     
-    <label for="image">Upload Image</label>
-<input type="file" id="image" name="image"
-       accept="image/*"
-       multiple>
-
-<br><br>
-<label for="video">Upload Video</label>
-<input type="file" id="video" name="video"
-       accept="video/*"
-       multiple>
-
-    <!-- Description -->
-    <label>Describe the Issue</label>
-    <textarea id="description"
-        rows="5"
-        placeholder="Example: Plastic waste has accumulated around the pond. Water is polluted..."
-        required></textarea>
-
-</div>
- <hr>
-
-
-    <hr>
-
-      <div class="submit-container">
-    <button type="submit" class="submit-btn">
-         Submit Report
-    </button>
-</div>
-
-</div> 
-
-
-
-  <script src="report.js"></script>
-</body>
-</html>
