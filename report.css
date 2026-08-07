@@ -1,1 +1,30 @@
-
+body {
+            background: linear-gradient(135deg, theme('colors.primary') 0%, theme('colors.secondary') 100%);
+            color: theme('colors.on-background');
+            min-height: 100vh;
+        }
+        .water-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM42.11 0c-4.996 1.572-9.28 2-14.85 2V4c10.33 0 15.655-1.278 26.23-5.063l1.767-.662c2.475-.923 4.66-1.674 6.724-2.275h-6.335c-.358.13-.72.264-1.088.402l-1.768.661C44.838 1.87 39.296 3 29.5 3c-9.795 0-15.337-1.13-25.263-4.856l-1.768-.661C2.112-2.385 1.749-2.52 1.392-2.65h6.334c2.51.73 5.139 1.691 8.233 2.928C25.332-1.397 31.561 0 42.11 0z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+ .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .shadow-ambient {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .shadow-ambient-elevated {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        .input-ring:focus {
+            box-shadow: 0 0 0 1px theme('colors.primary');
+        }
