@@ -253,83 +253,6 @@ img { max-width: 100%; display: block; }
   to { transform: scale(1.035); }
 }
 
-/* Action cards below Report button */
-.action-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 28px;
-  width: 100%;
-  max-width: 520px;
-}
-
-.action-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  padding: 16px 20px;
-
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 18px;
-
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-
-  position: static;
-  transform: none;
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.action-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
-}
-
-.action-icon {
-  width: 52px;
-  height: 52px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  font-size: 24px;
-  background: #e8f5f1;
-}
-
-.action-card strong {
-  display: block;
-
-  font-size: 18px;
-  font-weight: 700;
-
-  color: #111827;
-}
-
-.action-card span {
-  display: block;
-
-  margin-top: 3px;
-
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.clean-card .action-icon {
-  background: #dcfce7;
-  color: #16a34a;
-}
-@keyframes floatCard {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
-}
-
 .process-section {
   width: 88%;
   margin: -5px auto 0;
@@ -735,6 +658,163 @@ img { max-width: 100%; display: block; }
   .site-footer {
     flex-direction: column;
     text-align: center;
+  }
+}
+/* =========================================
+   PONDGUARDIAN - ACTION CARDS FINAL FIX
+   ========================================= */
+
+.action-cards {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 16px !important;
+
+  width: 100% !important;
+  max-width: 900px !important;
+
+  margin: 30px auto 0 !important;
+  padding: 0 20px !important;
+
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+.action-card {
+  position: relative !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  gap: 14px !important;
+
+  min-height: 82px !important;
+  padding: 16px 18px !important;
+
+  background: #ffffff !important;
+
+  border: 1px solid #e5e7eb !important;
+  border-radius: 18px !important;
+
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+
+  transform: none !important;
+
+  box-sizing: border-box !important;
+
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease !important;
+}
+
+.action-card:hover {
+  transform: translateY(-4px) !important;
+
+  box-shadow:
+    0 14px 30px rgba(15, 23, 42, 0.12) !important;
+}
+
+.action-icon {
+  width: 52px !important;
+  height: 52px !important;
+
+  min-width: 52px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  border-radius: 50% !important;
+
+  font-size: 23px !important;
+
+  background: #e8f5f1 !important;
+
+  box-sizing: border-box !important;
+}
+
+.action-card > div:last-child {
+  min-width: 0 !important;
+}
+
+.action-card strong {
+  display: block !important;
+
+  margin: 0 !important;
+
+  font-size: 17px !important;
+  line-height: 1.3 !important;
+
+  font-weight: 700 !important;
+
+  color: #111827 !important;
+}
+
+.action-card span {
+  display: block !important;
+
+  margin: 4px 0 0 !important;
+
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+
+  color: #6b7280 !important;
+}
+
+.citizen-card .action-icon {
+  background: #e0f2fe !important;
+  color: #0284c7 !important;
+}
+
+.official-card .action-icon {
+  background: #dcfce7 !important;
+  color: #16a34a !important;
+}
+
+.clean-card .action-icon {
+  background: #dcfce7 !important;
+  color: #16a34a !important;
+}
+
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  .action-cards {
+    grid-template-columns: 1fr !important;
+
+    width: calc(100% - 32px) !important;
+
+    margin: 28px auto 0 !important;
+
+    padding: 0 !important;
+
+    gap: 12px !important;
+  }
+
+  .action-card {
+    width: 100% !important;
+
+    min-height: 76px !important;
+
+    padding: 14px 16px !important;
+
+    border-radius: 16px !important;
+  }
+
+  .action-icon {
+    width: 48px !important;
+    height: 48px !important;
+
+    min-width: 48px !important;
+
+    font-size: 21px !important;
+  }
+
+  .action-card strong {
+    font-size: 16px !important;
+  }
+
+  .action-card span {
+    font-size: 13px !important;
   }
 }
 
