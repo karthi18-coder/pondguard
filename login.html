@@ -1,100 +1,286 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | PondGuardian</title>
-  <link rel="stylesheet" href="login.css">
-</head>
-<body>
-  <div class="auth-page">
-    <header class="auth-header">
-      <a class="brand-link" href="index.html">
-        <img src="logo.png" alt="PondGuardian Logo" class="brand-logo">
-        <span>PondGuardian</span>
-      </a>
-    </header>
 
-    <main class="auth-container">
-      <section class="auth-panel">
-        <div class="panel-heading">
-          <a class="brand-link" href="index.html">
-            <img src="logo.png" alt="PondGuardian Logo" class="brand-logo">
-            <span>PondGuardian</span>
-          </a>
-          <p class="panel-tag">Welcome back to PondGuardian</p>
-          <h1>Secure your pond community access.</h1>
-        </div>
-
-        <div class="auth-card sign-in">
-          <h2>Sign In</h2>
-          <form id="signin-form" novalidate>
-            <div class="form-group">
-              <label for="signin-email">Email</label>
-              <input type="email" id="signin-email" name="email" placeholder="you@example.com" required>
-            </div>
-            <div class="form-group">
-              <label for="signin-password">Password</label>
-              <input type="password" id="signin-password" name="password" placeholder="Enter your password" required>
-            </div>
-            <div class="form-row">
-              <label class="checkbox-label">
-                <input type="checkbox" id="sign-in-toggle">
-                Show password
-              </label>
-              <a href="#" class="text-link">Forgot Password?</a>
-            </div>
-            <div class="message" aria-live="polite"></div>
-            <button type="submit" class="btn btn-primary">Sign In</button>
-          </form>
-          <p class="switch-text">
-            New to PondGuardian? <a href="#" id="show-register">Create an Account</a>
-          </p>
-        </div>
-
-        <div class="auth-card register hidden">
-          <h2>Create Account</h2>
-          <form id="register-form" novalidate>
-            <div class="form-group">
-              <label for="register-name">Full Name</label>
-              <input type="text" id="register-name" name="name" placeholder="Enter your full name" required>
-            </div>
-            <div class="form-group">
-              <label for="register-email">Email</label>
-              <input type="email" id="register-email" name="email" placeholder="you@example.com" required>
-            </div>
-            <div class="form-group">
-              <label for="register-mobile number" >Mobile Number</label>
-              <input type = "Mobile Number" id="Mobile Number" placeholder="0123456789" required
-              maxlength = "10"
-              minlength="10"
-              pattern="[0-9]{10}"
-              inputmode="numeric"></label>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PondGuardian - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#2f312f",
+                      "surface-container": "#eeeeeb",
+                      "surface-container-high": "#e8e8e5",
+                      "on-secondary-container": "#1b724f",
+                      "tertiary-fixed-dim": "#94ccff",
+                      "surface-bright": "#f9faf6",
+                      "secondary-fixed": "#a1f4c8",
+                      "background": "#f9faf6",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#002114",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#3f6653",
+                      "on-secondary": "#ffffff",
+                      "outline": "#717973",
+                      "on-secondary-fixed-variant": "#005236",
+                      "inverse-primary": "#a5d0b9",
+                      "primary": "#012d1d",
+                      "surface-dim": "#dadad7",
+                      "outline-variant": "#c1c8c2",
+                      "on-tertiary-fixed": "#001d32",
+                      "tertiary-container": "#003f63",
+                      "surface": "#f9faf6",
+                      "primary-fixed-dim": "#a5d0b9",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#274e3d",
+                      "on-tertiary-container": 
+                        "#59adef",
+                      "on-background": "#1a1c1a",
+                      "tertiary": "#002842",
+                      "inverse-on-surface": "#f0f1ee",
+                      "secondary": "#116c4a",
+                      "surface-variant": "#e2e3e0",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-low": "#f3f4f1",
+                      "primary-fixed": "#c1ecd4",
+                      "secondary-fixed-dim": "#86d7ad",
+                      "tertiary-fixed": "#cde5ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#414844",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed": "#002113",
+                      "surface-container-highest": "#e2e3e0",
+                      "on-surface": "#1a1c1a",
+                      "on-tertiary-fixed-variant": "#004b74",
+                      "primary-container": "#1b4332",
+                      "secondary-container": "#a1f4c8",
+                      "on-primary-container": "#86af99",
+                      "error-container": "#ffdad6"
+                        },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "64px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "caption": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "caption": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                        {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "56px",
+                              {
+                                      "lineHeight": "64px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Split Screen Container -->
+<div class="flex w-full min-h-screen">
+<!-- Left Side: Immersive Visual (Hidden on mobile) -->
+<div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-primary-container items-end p-margin-desktop">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<img alt="Lush green pond environment with water birds and a temple in the distance" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida/AP1WRLv4iFIiJgRbNVRglYn0cJq0zwQ1iHzt6i_PO5VDBFfS1KUMrG_nyjZxWlYurVWIUFbCFYbKqA1WtXiZbmkSEZYwjNr-zYlcy1YA2OueVG3XKUhBbMzuit2YtBCsR0z6Y2Sk0wyesrPD68ZtzEY_bMsC4yZ1CKRRknoh4Gf7NjjwH4NIqvqzpGZEl0MWBxIEAnBoWpK5NIV5zwhtEW_u-CpYooZWnq1Pvaf5EtInfwZTIirFD3Irh_TiRZ8"/>
+<!-- Subtle Gradient Overlay for Text Readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
 </div>
-            <div class="form-group">
-              <label for="register-password">Password</label>
-              <input type="password" id="register-password" name="password" placeholder="Create a password" required>
-            </div>
-            <div class="form-group">
-              <label for="register-confirm">Confirm Password</label>
-              <input type="password" id="register-confirm" name="confirm" placeholder="Repeat your password" required>
-            </div>
-            <div class="form-row">
-              <label class="checkbox-label">
-                <input type="checkbox" id="register-toggle">
-                Show password
-              </label>
-            </div>
-            <div class="message" aria-live="polite"></div>
-            <button type="submit" class="btn btn-primary">Create Account</button>
-          </form>
-          <p class="switch-text">
-            Already have an account? <a href="#" id="show-sign-in">Sign In</a>
-          </p>
-        </div>
-      </section>
-    </main>
+<!-- Content Overlay -->
+<div class="relative z-10 text-on-primary w-full max-w-lg mb-8">
+<!-- Logo -->
+<div class="mb-8 bg-white/10 backdrop-blur-md p-4 rounded-2xl inline-block border border-white/20">
+<img alt="PondGuardian Logo" class="h-16 w-16 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbqqbbpNJQn4KwYJp6vq8gbisMEqzDRtocbQci2EpXn4rPHTEhtIvbfdob0i-a1kmDngp4Gs6aLq1Rcjm7rZXa6p4nlf2xkCWiboiK2MtovqFBOyUPxJ5ufEl6vlIc7qdoQ01gLSO7ww1DX6LFBgR8spwHmeea1yX_-ku4KPYt7TsthI8Vxqn4Oazw7eiBKHkxy2dHE9NhhEtuAKmmNTdvpwWIOh4wQHwNPvNkI3ru_XpeD5wPYw45rhK1r-kjfGgXFw"/>
+</div>
+  <h1 class="font-display-lg text-display-lg text-on-primary mb-2">PondGuardian</h1>
+<h2 class="font-headline-lg text-headline-lg text-primary-fixed mb-6">Protecting water. Preserving life.</h2>
+<p class="font-body-lg text-body-lg text-inverse-on-surface/90 leading-relaxed">
+                    Together, we can keep our ponds, lakes and rivers cleaner for the future. Join the community of stewards dedicated to preserving freshwater ecosystems.
+                </p>
+</div>
+</div>
+<!-- Right Side: Authentication Card -->
+<div class="w-full lg:w-1/2 flex items-center justify-center p-gutter md:p-margin-desktop bg-surface relative">
+<!-- Mobile Logo (Visible only on small screens) -->
+<div class="absolute top-8 left-8 lg:hidden flex items-center gap-3">
+<img alt="PondGuardian Logo" class="h-10 w-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACVxo2PKClVgdJHoFNLqq22uCMkM_eRlCAP99Vaag0OqZ2E9JNbLdTyKSY7vV1_PiOL-VaBsIp1kFuSUJxi4-uYPt2zdwZ_VX75yav-h7FvfXntr2D6YxDQt7-a2Sh_nLbxd6CZGHnXNlE06wzmFkE6kpzZLJWkG1AyAkj2rfoj79PSUc6aW00D4jDbolxcP_5jjE8UaMj9VNoVU_0gt5r6IbQ5pCMBmQUlU3xdG5Z35W3OJILXqxCF5nVZdowcaMKRA"/>
+<span class="font-headline-md text-headline-md text-primary tracking-tight font-bold">PondGuardian</span>
+</div>
+  <!-- Login Card -->
+<div class="w-full max-w-md bg-surface-container-lowest rounded-xl p-8 md:p-10 soft-shadow relative z-10 border border-white/50">
+<!-- Header -->
+<div class="mb-10 text-center">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-3">Welcome back, Guardian</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Continue your journey to protect our water bodies.</p>
+</div>
+<!-- Form -->
+<form action="#" class="space-y-6" method="POST">
+<!-- Email/Phone Field -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md text-on-surface" for="identifier">Email or Phone</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="person">person</span>
+<input class="w-full pl-12 pr-4 py-4 bg-[#90e0ef]/10 border-none rounded-[16px] font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:bg-[#90e0ef]/20 transition-all placeholder:text-outline/70" id="identifier" name="identifier" placeholder="Enter your email or phone number" required="" type="text"/>
+</div>
+</div>
+  <!-- Password Field -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="lock">lock</span>
+<input class="w-full pl-12 pr-12 py-4 bg-[#90e0ef]/10 border-none rounded-[16px] font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-secondary focus:bg-[#90e0ef]/20 transition-all placeholder:text-outline/70" id="password" name="password" placeholder="Enter your password" required="" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember & Forgot -->
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center">
+<input class="h-5 w-5 rounded border-outline-variant text-secondary focus:ring-secondary bg-surface-container-lowest" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-3 block font-body-md text-body-md text-on-surface-variant" for="remember-me">
+                                Remember me
+</label>
   </div>
-  <script src="login.js"></script>
-</body>
-</html>
+<div class="text-sm">
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors hover:underline underline-offset-4" href="#">
+                                Forgot password?
+                            </a>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-4">
+<button class="w-full flex justify-center py-4 px-4 border border-transparent rounded-[16px] shadow-sm font-label-md text-label-md text-on-primary bg-secondary hover:bg-primary hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all duration-200" type="submit">
+                            Login
+                        </button>
+</div>
+</form>
+<!-- Divider -->
+<div class="mt-8 relative">
+<div aria-hidden="true" class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-surface-variant"></div>
+</div>
+<div class="relative flex justify-center">
+<span class="px-4 bg-surface-container-lowest font-caption text-caption text-outline">OR</span>
+</div>
+</div>
+  <!-- Footer / Sign Up -->
+<div class="mt-8 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        New to PondGuardian? 
+                        <a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors ml-1 hover:underline underline-offset-4" href="#">
+                            Create an account
+                        </a>
+</p>
+</div>
+</div>
+<!-- Decorative organic shape in background -->
+<div class="absolute -bottom-32 -right-32 w-96 h-96 bg-primary-fixed/30 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+<div class="absolute -top-32 -left-32 w-80 h-80 bg-secondary-fixed/20 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+</div>
+</div>
+</body></html>
+  
+
+
+
+
+
+
+
+
+
+  
