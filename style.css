@@ -253,53 +253,78 @@ img { max-width: 100%; display: block; }
   to { transform: scale(1.035); }
 }
 
-.floating-card {
-  position: absolute;
-  z-index: 10;
-  min-width: 190px;
+/* Action cards below Report button */
+.action-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 28px;
+  width: 100%;
+  max-width: 520px;
+}
+
+.action-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: 17px;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.13);
-  animation: floatCard 4s ease-in-out infinite;
+  gap: 16px;
+
+  padding: 16px 20px;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+  position: static;
+  transform: none;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.floating-card strong {
-  display: block;
-  margin-bottom: 3px;
-  color: #172536;
-  font-size: 14px;
+.action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
 }
 
-.floating-card small {
-  display: block;
-  color: #6c7c89;
-  font-size: 11px;
-}
+.action-icon {
+  width: 52px;
+  height: 52px;
 
-.floating-icon {
-  width: 43px;
-  height: 43px;
   flex-shrink: 0;
-  display: grid;
-  place-items: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 50%;
-  color: white;
-  font-size: 19px;
+
+  font-size: 24px;
+  background: #e8f5f1;
 }
 
-.floating-icon.blue { background: var(--primary); }
-.floating-icon.green { background: #168d63; }
-.floating-icon.success { background: #18a56b; }
+.action-card strong {
+  display: block;
 
-.citizen-card { top: 115px; right: 7%; }
-.official-card { top: 315px; right: 4%; animation-delay: 0.7s; }
-.result-card { bottom: 60px; right: 8%; animation-delay: 1.2s; }
+  font-size: 18px;
+  font-weight: 700;
 
+  color: #111827;
+}
+
+.action-card span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.clean-card .action-icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
 @keyframes floatCard {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-7px); }
