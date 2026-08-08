@@ -188,28 +188,18 @@ img { max-width: 100%; display: block; }
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
-.btn:hover { transform: translateY(-3px); }
-
 .btn-warning {
   background: #dc2626;
   color: #ffffff;
   border: 1px solid #dc2626;
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.20);
+  transition: all 0.25s ease;
 }
 
 .btn-warning:hover {
   background: #b91c1c;
   border-color: #b91c1c;
   transform: translateY(-2px);
-}
-.btn-secondary {
-  background: white;
-  color: var(--primary);
-  border: 1px solid #b9dceb;
-}
-
-.btn-secondary:hover {
-  background: var(--primary-soft);
-  border-color: var(--primary);
 }
 
 .guardian-message {
