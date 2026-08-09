@@ -660,33 +660,6 @@ img { max-width: 100%; display: block; }
     flex-direction: column;
     text-align: center;
   }
-}
-/* Remove unnecessary gap before How It Works */
-.hero {
-  margin-bottom: 0 !important;
-  padding-bottom: 30px !important;
-}
-
-.action-cards {
-  margin-bottom: 0 !important;
-}
-
-.process-section {
-  margin-top: 0 !important;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .hero {
-    padding-bottom: 20px !important;
-  }
-
-  .process-section {
-    width: 94%;
-    margin: 0 auto !important;
-    padding: 30px 18px;
-    border-radius: 22px;
-  }
 
   .section-heading {
     margin-bottom: 20px;
@@ -697,68 +670,21 @@ img { max-width: 100%; display: block; }
     line-height: 1.2;
   }
 }
-/* Remove unnecessary gap before How It Works */
-.hero {
-  margin-bottom: 0 !important;
-  padding-bottom: 30px !important;
-}
-
-.action-cards {
-  margin-bottom: 0 !important;
-}
-
-.process-section {
-  margin-top: 0 !important;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .hero {
-    padding-bottom: 20px !important;
-  }
-
-  .process-section {
-    width: 94%;
-    margin: 0 auto !important;
-    padding: 25px 18px;
-    border-radius: 22px;
-  }
-
-  .section-heading {
-    margin-bottom: 20px;
-  }
-
-  .section-heading h2 {
-    font-size: 30px;
-    line-height: 1.2;
-  }
-}
+/* Reduce gap between Report section and How It Works */
 @media (max-width: 768px) {
 
   .hero {
-    min-height: 0 !important;
-    height: auto !important;
-    padding-top: 40px !important;
-    padding-bottom: 20px !important;
-  }
-
-  .hero-copy {
-    padding-bottom: 0 !important;
+    padding-bottom: 10px !important;
     margin-bottom: 0 !important;
+    min-height: auto !important;
   }
 
   .guardian-message {
-    margin-top: 15px !important;
-    margin-bottom: 0 !important;
-  }
-
-  .action-cards {
-    margin-top: 18px !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 10px !important;
   }
 
   .process-section {
-    margin-top: 10px !important;
-    padding-top: 35px !important;
+    margin-top: 0 !important;
+    padding-top: 25px !important;
   }
 }
