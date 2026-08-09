@@ -733,3 +733,32 @@ img { max-width: 100%; display: block; }
     line-height: 1.2;
   }
 }
+@media (max-width: 768px) {
+
+  .hero {
+    min-height: 0 !important;
+    height: auto !important;
+    padding-top: 40px !important;
+    padding-bottom: 20px !important;
+  }
+
+  .hero-copy {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .guardian-message {
+    margin-top: 15px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .action-cards {
+    margin-top: 18px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .process-section {
+    margin-top: 10px !important;
+    padding-top: 35px !important;
+  }
+}
