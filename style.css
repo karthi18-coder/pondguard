@@ -117,133 +117,134 @@ img { max-width: 100%; display: block; }
 }
 
 .login-button::after { display: none !important; }
+/* ================================
+   SIMPLE HERO SECTION
+   ================================ */
 
 .hero {
-  min-height: auto;
-  padding-bottom: 30px;
-  display: grid;
-  grid-template-columns: 43% 57%;
-  background: #eef8fc;
-  overflow: hidden;
-}
-.hero-copy {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 70px 25px 40px 8%;
-  background: linear-gradient(90deg, #f5fbfe 78%, rgba(245, 251, 254, 0.75));
+    width: 100%;
+    min-height: auto;
+    padding: 25px 20px 35px;
+    background: #eef8fc;
+    overflow: hidden;
 }
 
-.hero-tag {
-  display: inline-block;
-  margin-bottom: 18px;
-  color: var(--primary);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 1.8px;
+.hero-main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.hero h1 {
-  max-width: 650px;
-  margin: 0;
-  font-family: "Manrope", sans-serif;
-  font-size: clamp(46px, 5vw, 74px);
-  line-height: 1.02;
-  letter-spacing: -3px;
-  color: #101722;
+/* Pond cleaning image */
+.hero-image-container {
+    width: 100%;
+    max-width: 1100px;
+    overflow: hidden;
+    border-radius: 28px;
 }
 
-.hero h1 span {
-  display: block;
-  color: var(--primary);
+.pond-cleaning-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 650px;
+
+    object-fit: cover;
+    object-position: center;
 }
 
-.hero-copy > p {
-  max-width: 570px;
-  margin: 25px 0 31px;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.75;
-}
-
+/* Report button */
 .hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 13px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    margin-top: 18px;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  padding: 15px 24px;
-  border-radius: 13px;
-  font-size: 14px;
-  font-weight: 700;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+.report-button {
+    width: 100%;
+    max-width: 600px;
+
+    min-height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    background: #e52525 !important;
+    color: white !important;
+
+    border: none;
+    border-radius: 16px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    box-shadow: 0 8px 22px rgba(229, 37, 37, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.btn-warning {
-  background: #dc2626;
-  color: #ffffff;
-  border: 1px solid #dc2626;
-  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.20);
-  transition: all 0.25s ease;
+.report-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(229, 37, 37, 0.28);
 }
 
-.btn-warning:hover {
-  background: #b91c1c;
-  border-color: #b91c1c;
-  transform: translateY(-2px);
+.report-button span {
+    font-size: 20px;
 }
 
-.guardian-message {
-  display: flex;
-  align-items: center;
-  padding-bottom: 10px;
-  margin-top: 18px;
-  margin-bottom: 10px;
-}
 
-.guardian-avatars { display: flex; }
-
-.guardian-avatars span {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  margin-left: -8px;
-  border-radius: 50%;
-  background: #e5f5fb;
-  border: 3px solid white;
-  font-size: 17px;
-}
-
-.guardian-avatars span:first-child { margin-left: 0; }
-
-.guardian-message p {
-  color: #687a89;
-  font-size: 13px;
-  line-height: 1.45;
-}
-
-.guardian-message strong { color: var(--primary); }
+/* ================================
+   MOBILE
+   ================================ */
 
 @media (max-width: 768px) {
-  .hero-visual {
-    display: none;
-    min-height: 0;
-  }
 
-  .hero-image {
-    display: none;
-    min-height: 0;
-  }
+    .hero {
+        padding: 15px 16px 25px !important;
+        min-height: auto !important;
+    }
+
+    .hero-main {
+        width: 100%;
+    }
+
+    .hero-image-container {
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    .pond-cleaning-image {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: cover;
+    }
+
+    .hero-actions {
+        margin-top: 14px;
+    }
+
+    .report-button {
+        width: 100%;
+        min-height: 58px;
+        border-radius: 14px;
+        font-size: 17px;
+    }
 }
+
+  
 
 @keyframes heroZoom {
   from { transform: scale(1); }
