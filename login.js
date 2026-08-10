@@ -1,10 +1,8 @@
-console.log("PondGuardian login.js loaded");
-
-import { auth, db } from "../firebase-config.js";
+import { auth, db } from "./firebase-config.js";
 
 import {
-    createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
     sendPasswordResetEmail,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -16,19 +14,69 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-// ===============================
-// GET LOGIN FORM
-// ===============================
+// ==========================================
+// ELEMENTS
+// ==========================================
 
 const loginForm = document.querySelector("form");
 
-const identifierInput = document.getElementById("identifier");
+const emailInput = document.getElementById("identifier");
 const passwordInput = document.getElementById("password");
 
+const createAccountBtn =
+    document.getElementById("createAccountBtn");
 
-// ===============================
+const forgotPasswordBtn =
+    document.getElementById("forgotPasswordBtn");
+
+
+// ==========================================
+// PASSWORD VISIBILITY
+// ==========================================
+
+const passwordVisibilityButton =
+    passwordInput?.parentElement?.querySelector(
+        'button[type="button"]'
+    );
+
+if (passwordVisibilityButton && passwordInput) {
+
+    passwordVisibilityButton.addEventListener("click", () => {
+
+        if (passwordInput.type === "password") {
+
+            passwordInput.type = "text";
+
+            const icon =
+                passwordVisibilityButton.querySelector(
+                    ".material-symbols-outlined"
+                );
+
+            if (icon) {
+                icon.textContent = "visibility_off";
+            }
+
+        } else {
+
+            passwordInput.type = "password";
+
+            const icon =
+                passwordVisibilityButton.querySelector(
+                    ".material-symbols-outlined"
+                );
+
+            if (icon) {
+                icon.textContent = "visibility";
+            }
+        }
+
+    });
+}
+
+
+// ==========================================
 // LOGIN
-// ===============================
+// ==========================================
 
 if (loginForm) {
 
@@ -36,10 +84,11 @@ if (loginForm) {
 
         event.preventDefault();
 
-        const email = identifierInput.value.trim();
+        const email = emailInput.value.trim();
         const password = passwordInput.value;
 
         if (!email || !password) {
+
             alert("Please enter your email and password.");
             return;
         }
@@ -53,151 +102,17 @@ if (loginForm) {
                     password
                 );
 
-            const user = userCredential.user;
-
-            console.log("Logged in:", user.uid);
-
-            // Check where the user came from
-            const params = new URLSearchParams(
-                window.location.search
+            console.log(
+                "Login successful:",
+                userCredential.user.email
             );
 
-            const redirect = params.get("redirect");
+            // Check whether user came from Report button
 
-            if (redirect === "report") {
-
-                window.location.href = "report.html";
-
-            } else {
-
-                window.location.href = "index.html";
-
-            }
-
-        } catch (error) {
-
-            console.error(error);
-
-            let message = "Login failed.";
-
-            if (error.code === "auth/invalid-credential") {
-                message = "Incorrect email or password.";
-            }
-
-            else if (error.code === "auth/user-not-found") {
-                message = "No account found with this email.";
-            }
-
-            else if (error.code === "auth/wrong-password") {
-                message = "Incorrect password.";
-            }
-
-            else if (error.code === "auth/invalid-email") {
-                message = "Please enter a valid email address.";
-            }
-
-            alert(message);
-        }
-
-    });
-
-}
-
-
-// ===============================
-// CREATE ACCOUNT
-// ===============================
-// ===============================
-// CREATE ACCOUNT BUTTON
-// ===============================
-
-const createAccountBtn =
-    document.getElementById("createAccountBtn");
-
-if (createAccountBtn) {
-
-    createAccountBtn.addEventListener("click", () => {
-
-        alert("Create account button is working!");
-
-    });
-
-}
-
-
-// ===============================
-// FORGOT PASSWORD BUTTON
-// ===============================
-
-const forgotPasswordBtn =
-    document.getElementById("forgotPasswordBtn");
-
-if (forgotPasswordBtn) {
-
-    forgotPasswordBtn.addEventListener("click", () => {
-
-        alert("Forgot password button is working!");
-
-    });
-
-}
-const createAccountLink =
-    document.querySelector("a[href='#']");
-
-if (createAccountLink) {
-
-    createAccountLink.addEventListener("click", async (event) => {
-
-        event.preventDefault();
-
-        const email = prompt("Enter your email:");
-
-        if (!email) return;
-
-        const password = prompt(
-            "Create a password (minimum 6 characters):"
-        );
-
-        if (!password) return;
-
-        if (password.length < 6) {
-
-            alert("Password must contain at least 6 characters.");
-            return;
-
-        }
-
-        try {
-
-            const userCredential =
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
+            const params =
+                new URLSearchParams(
+                    window.location.search
                 );
-
-            const user = userCredential.user;
-
-
-            // Create user profile in Firestore
-
-            await setDoc(
-                doc(db, "users", user.uid),
-                {
-                    email: user.email,
-                    createdAt: serverTimestamp()
-                }
-            );
-
-
-            alert("Account created successfully!");
-
-
-            // Go to report page
-
-            const params = new URLSearchParams(
-                window.location.search
-            );
 
             if (params.get("redirect") === "report") {
 
@@ -211,23 +126,33 @@ if (createAccountLink) {
 
         } catch (error) {
 
-            console.error(error);
+            console.error("Login error:", error);
 
-            let message = "Unable to create account.";
+            if (
+                error.code ===
+                "auth/invalid-credential"
+            ) {
 
-            if (error.code === "auth/email-already-in-use") {
-                message = "This email already has an account.";
+                alert(
+                    "Incorrect email or password."
+                );
+
+            } else if (
+                error.code ===
+                "auth/invalid-email"
+            ) {
+
+                alert(
+                    "Please enter a valid email address."
+                );
+
+            } else {
+
+                alert(
+                    "Login failed. Please try again."
+                );
             }
 
-            else if (error.code === "auth/invalid-email") {
-                message = "Please enter a valid email address.";
-            }
-
-            else if (error.code === "auth/weak-password") {
-                message = "Password must contain at least 6 characters.";
-            }
-
-            alert(message);
         }
 
     });
@@ -235,42 +160,196 @@ if (createAccountLink) {
 }
 
 
-// ===============================
-// FORGOT PASSWORD
-// ===============================
+// ==========================================
+// CREATE ACCOUNT
+// ==========================================
 
-const forgotPasswordLink =
-    document.querySelector("a[href='#']");
+if (createAccountBtn) {
 
-
-// Because there are two # links,
-// find the one containing "Forgot password"
-
-const links = document.querySelectorAll("a");
-
-links.forEach((link) => {
-
-    if (
-        link.textContent
-            .trim()
-            .toLowerCase()
-            .includes("forgot password")
-    ) {
-
-        link.addEventListener("click", async (event) => {
+    createAccountBtn.addEventListener(
+        "click",
+        async (event) => {
 
             event.preventDefault();
 
-            const email = identifierInput.value.trim();
+            const email =
+                prompt("Enter your email address:");
 
             if (!email) {
+                return;
+            }
+
+            const mobile =
+                prompt(
+                    "Enter your 10-digit mobile number:"
+                );
+
+            if (!mobile) {
+                return;
+            }
+
+            // Remove spaces
+            const cleanMobile =
+                mobile.replace(/\s/g, "");
+
+            if (!/^[0-9]{10}$/.test(cleanMobile)) {
 
                 alert(
-                    "Enter your email in the Email or Phone field first."
+                    "Mobile number must contain exactly 10 digits."
                 );
 
                 return;
             }
+
+            const password =
+                prompt(
+                    "Create a password (minimum 6 characters):"
+                );
+
+            if (!password) {
+                return;
+            }
+
+            if (password.length < 6) {
+
+                alert(
+                    "Password must contain at least 6 characters."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                // Create Firebase account
+
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+                const user =
+                    userCredential.user;
+
+
+                // Save user details in Firestore
+
+                await setDoc(
+                    doc(db, "users", user.uid),
+                    {
+                        email: user.email,
+                        mobile: cleanMobile,
+                        createdAt: serverTimestamp()
+                    }
+                );
+
+
+                alert(
+                    "Account created successfully!"
+                );
+
+
+                // Redirect
+
+                const params =
+                    new URLSearchParams(
+                        window.location.search
+                    );
+
+                if (
+                    params.get("redirect") ===
+                    "report"
+                ) {
+
+                    window.location.href =
+                        "report.html";
+
+                } else {
+
+                    window.location.href =
+                        "index.html";
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Account creation error:",
+                    error
+                );
+
+
+                if (
+                    error.code ===
+                    "auth/email-already-in-use"
+                ) {
+
+                    alert(
+                        "This email already has an account. Please login."
+                    );
+
+                } else if (
+                    error.code ===
+                    "auth/invalid-email"
+                ) {
+
+                    alert(
+                        "Please enter a valid email address."
+                    );
+
+                } else if (
+                    error.code ===
+                    "auth/weak-password"
+                ) {
+
+                    alert(
+                        "Password must contain at least 6 characters."
+                    );
+
+                } else {
+
+                    alert(
+                        "Unable to create account. Please try again."
+                    );
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+// ==========================================
+// FORGOT PASSWORD
+// ==========================================
+
+if (forgotPasswordBtn) {
+
+    forgotPasswordBtn.addEventListener(
+        "click",
+        async (event) => {
+
+            event.preventDefault();
+
+            const email =
+                emailInput.value.trim();
+
+            if (!email) {
+
+                alert(
+                    "Please enter your email address in the email field first."
+                );
+
+                emailInput.focus();
+
+                return;
+            }
+
 
             try {
 
@@ -280,38 +359,61 @@ links.forEach((link) => {
                 );
 
                 alert(
-                    "Password reset email sent. Check your inbox."
+                    "Password reset email sent. Please check your inbox."
                 );
 
             } catch (error) {
 
-                console.error(error);
-
-                alert(
-                    "Unable to send password reset email."
+                console.error(
+                    "Password reset error:",
+                    error
                 );
+
+                if (
+                    error.code ===
+                    "auth/invalid-email"
+                ) {
+
+                    alert(
+                        "Please enter a valid email address."
+                    );
+
+                } else {
+
+                    alert(
+                        "Unable to send password reset email."
+                    );
+                }
+
             }
 
-        });
+        }
+    );
+
+}
+
+
+// ==========================================
+// FIREBASE AUTH STATE
+// ==========================================
+
+onAuthStateChanged(
+    auth,
+    (user) => {
+
+        if (user) {
+
+            console.log(
+                "Currently logged in:",
+                user.email
+            );
+
+        } else {
+
+            console.log(
+                "No Firebase user logged in."
+            );
+        }
 
     }
-
-});
-
-
-// ===============================
-// CHECK CURRENT LOGIN
-// ===============================
-
-onAuthStateChanged(auth, (user) => {
-
-    if (user) {
-
-        console.log(
-            "Firebase user already logged in:",
-            user.email
-        );
-
-    }
-
-});
+);
