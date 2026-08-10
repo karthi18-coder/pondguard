@@ -121,130 +121,92 @@ img { max-width: 100%; display: block; }
    SIMPLE HERO SECTION
    ================================ */
 
+/* =========================================
+   POND CLEANUP IMAGE + REPORT BUTTON
+   FINAL ALIGNMENT
+   ========================================= */
+
 .hero {
-    width: 100%;
-    min-height: auto;
-    padding: 25px 20px 35px;
-    background: #eef8fc;
-    overflow: hidden;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .hero-main {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Pond cleaning image */
-.hero-image-container {
-    width: 100%;
-    max-width: 1100px;
-    overflow: hidden;
-    border-radius: 28px;
-}
-
-.pond-cleaning-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 650px;
-
-    object-fit: cover;
-    object-position: center;
+    margin-bottom: 0 !important;
 }
 
 /* Report button */
 .hero-actions {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-    margin-top: 18px;
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 14px 0 14px 0 !important;
+    padding: 0 !important;
+    z-index: 5 !important;
 }
 
 .report-button {
+    position: relative !important;
+    width: min(92%, 700px) !important;
+    margin: 0 auto !important;
+}
+
+/* Cleanup image section */
+.cleanup-image-section {
     width: 100%;
-    max-width: 600px;
-
-    min-height: 64px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-
-    background: #e52525 !important;
-    color: white !important;
-
-    border: none;
-    border-radius: 16px;
-
-    font-size: 18px;
-    font-weight: 700;
-
-    text-decoration: none;
-
-    box-shadow: 0 8px 22px rgba(229, 37, 37, 0.20);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    margin: 0 auto 16px auto !important;
+    padding: 0 !important;
 }
 
-.report-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(229, 37, 37, 0.28);
+.cleanup-image-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-.report-button span {
-    font-size: 20px;
+.cleanup-image-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
 }
 
+/* How it works */
+#how-it-works {
+    margin-top: 16px !important;
+    padding-top: 0 !important;
+}
 
-/* ================================
-   MOBILE
-   ================================ */
-
+/* Mobile */
 @media (max-width: 768px) {
 
-    .hero {
-        padding: 15px 16px 25px !important;
-        min-height: auto !important;
-    }
-
-    .hero-main {
-        width: 100%;
-    }
-
-    .hero-image-container {
-        width: 100%;
-        border-radius: 20px;
-    }
-
-    .pond-cleaning-image {
-        width: 100%;
-        height: auto;
-        max-height: none;
-        object-fit: cover;
-    }
-
     .hero-actions {
-        margin-top: 14px;
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
     }
 
     .report-button {
-        width: 100%;
-        min-height: 58px;
-        border-radius: 14px;
-        font-size: 17px;
+        width: 92% !important;
+    }
+
+    .cleanup-image-section {
+        margin-bottom: 12px !important;
+    }
+
+    .cleanup-image-wrapper {
+        border-radius: 12px;
+    }
+
+    #how-it-works {
+        margin-top: 12px !important;
     }
 }
-
-  
 
 @keyframes heroZoom {
   from { transform: scale(1); }
