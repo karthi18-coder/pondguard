@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PondGuardian | Login</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+        rel="stylesheet"
+    >
+
+    <!-- PondGuardian CSS -->
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+<div class="login-page">
+
+    <!-- =========================================
+         LEFT SIDE - PONDGUARDIAN BRANDING
+    ========================================== -->
+
+    <section class="brand-section">
+
+        <!-- Decorative background -->
+        <div class="water-circle circle-one"></div>
+        <div class="water-circle circle-two"></div>
+        <div class="leaf-shape leaf-one">🍃</div>
+        <div class="leaf-shape leaf-two">🌿</div>
+
+        <div class="brand-content">
+
+            <!-- YOUR LOGO -->
+            <div class="brand-logo-box">
+                <img
+                    src="logo.png"
+                    alt="PondGuardian Logo"
+                    class="brand-logo"
+                >
+            </div>
+
+            <h1>PondGuardian</h1>
+
+            <h2>
+                Protecting water.<br>
+                Preserving life.
+            </h2>
+
+            <p>
+                Together, we can keep our ponds, lakes and rivers
+                cleaner for the future.
+            </p>
+
+            <div class="brand-points">
+
+                <div class="brand-point">
+                    <span class="material-symbols-outlined">
+                        water_drop
+                    </span>
+                    <span>Protect our water bodies</span>
+                </div>
+
+                <div class="brand-point">
+                    <span class="material-symbols-outlined">
+                        ecology
+                    </span>
+                    <span>Build a cleaner environment</span>
+                </div>
+
+                <div class="brand-point">
+                    <span class="material-symbols-outlined">
+                        groups
+                    </span>
+                    <span>Connect communities</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         RIGHT SIDE - AUTHENTICATION
+    ========================================== -->
+
+    <section class="auth-section">
+
+        <!-- Mobile logo -->
+        <div class="mobile-brand">
+
+            <img
+                src="logo.png"
+                alt="PondGuardian Logo"
+            >
+
+            <div>
+                <strong>PondGuardian</strong>
+                <span>Save Our Water Bodies</span>
+            </div>
+
+        </div>
+
+
+        <!-- Authentication Card -->
+        <div class="auth-card">
+
+            <!-- Animated top accent -->
+            <div class="card-accent"></div>
+
+
+            <!-- =================================
+                 LOGIN FORM
+            ================================== -->
+
+            <div class="auth-panel login-panel active">
+
+                <div class="auth-header">
+
+                    <span class="welcome-icon">
+                        <span class="material-symbols-outlined">
+                            water_drop
+                        </span>
+                    </span>
+
+                    <h2>Welcome Back, Guardian</h2>
+
+                    <p>
+                        Continue your journey to protect our
+                        water bodies.
+                    </p>
+
+                </div>
+
+
+                <form id="signin-form">
+
+                    <!-- Email -->
+                    <div class="input-group">
+
+                        <label for="signin-email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="material-symbols-outlined">
+                                mail
+                            </span>
+
+                            <input
+                                id="signin-email"
+                                name="email"
+                                type="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="input-group">
+
+                        <label for="signin-password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="material-symbols-outlined">
+                                lock
+                            </span>
+
+                            <input
+                                id="signin-password"
+                                name="password"
+                                type="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="signin-password"
+                                aria-label="Show password"
+                            >
+                                <span class="material-symbols-outlined">
+                                    visibility
+                                </span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Remember / Forgot -->
+                    <div class="form-options">
+
+                        <label class="remember-option">
+
+                            <input
+                                type="checkbox"
+                                id="remember-me"
+                            >
+
+                            <span>Remember me</span>
+
+                        </label>
+
+                        <button
+                            type="button"
+                            class="forgot-password"
+                            id="forgot-password"
+                        >
+                            Forgot password?
+                        </button>
+
+                    </div>
+
+
+                    <!-- Message -->
+                    <div
+                        class="message"
+                        id="login-message"
+                        role="alert"
+                    ></div>
+
+
+                    <!-- Login -->
+                    <button
+                        type="submit"
+                        class="primary-button"
+                        id="login-button"
+                    >
+
+                        <span>Login</span>
+
+                        <span class="material-symbols-outlined">
+                            arrow_forward
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- Switch -->
+                <div class="switch-text">
+
+                    <span>New to PondGuardian?</span>
+
+                    <button
+                        type="button"
+                        id="show-register"
+                    >
+                        Create an account
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 REGISTER FORM
+            ================================== -->
+
+            <div class="auth-panel register-panel">
+
+                <div class="auth-header">
+
+                    <span class="welcome-icon">
+                        <span class="material-symbols-outlined">
+                            eco
+                        </span>
+                    </span>
+
+                    <h2>Join PondGuardian</h2>
+
+                    <p>
+                        Create your account and become a guardian
+                        of our water bodies.
+                    </p>
+
+                </div>
+
+
+                <form id="register-form">
+
+                    <!-- Name -->
+                    <div class="input-group">
+
+                        <label for="register-name">
+                            Full Name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="material-symbols-outlined">
+                                person
+                            </span>
+
+                            <input
+                                id="register-name"
+                                name="name"
+                                type="text"
+                                placeholder="Enter your name"
+                                autocomplete="name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="input-group">
+
+                        <label for="register-email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="material-symbols-outlined">
+                                mail
+                            </span>
+
+                            <input
+                                id="register-email"
+                                name="email"
+                                type="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Mobile -->
+                    <div class="input-group">
+
+                        <label for="register-mobile">
+                            Mobile Number
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="material-symbols-outlined">
+                                phone
+                            </span>
+
+                            <input
+                                id="register-mobile"
+                                name="mobile"
+                                type="tel"
+                                inputmode="numeric"
+                                maxlength="10"
+                                placeholder="Enter 10-digit mobile number"
+                                autocomplete="tel"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="input-group">
+
+                        <label for="register-password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="material-symbols-outlined">
+                                lock
+                            </span>
+
+                            <input
+                                id="register-password"
+                                name="password"
+                                type="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="register-password"
+                                aria-label="Show password"
+                            >
+                                <span class="material-symbols-outlined">
+                                    visibility
+                                </span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Confirm Password -->
+                    <div class="input-group">
+
+                        <label for="register-confirm">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="material-symbols-outlined">
+                                lock
+                            </span>
+
+                            <input
+                                id="register-confirm"
+                                name="confirm"
+                                type="password"
+                                placeholder="Confirm your password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="register-confirm"
+                                aria-label="Show password"
+                            >
+                                <span class="material-symbols-outlined">
+                                    visibility
+                                </span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Message -->
+                    <div
+                        class="message"
+                        id="register-message"
+                        role="alert"
+                    ></div>
+
+
+                    <!-- Register -->
+                    <button
+                        type="submit"
+                        class="primary-button"
+                        id="register-button"
+                    >
+
+                        <span>Create Account</span>
+
+                        <span class="material-symbols-outlined">
+                            arrow_forward
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <!-- Switch -->
+                <div class="switch-text">
+
+                    <span>Already have an account?</span>
+
+                    <button
+                        type="button"
+                        id="show-login"
+                    >
+                        Login
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Bottom text -->
+        <p class="footer-note">
+            © 2026 PondGuardian · Save Our Water Bodies
+        </p>
+
+    </section>
+
+</div>
+
+
+<script src="login.js"></script>
+
+</body>
+</html>
