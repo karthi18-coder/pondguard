@@ -198,15 +198,53 @@
 </div>
 </nav>
   <!-- Mobile Header Placeholder (simplistic for focused task flow) -->
-<header class="md:hidden flex items-center justify-between px-margin-mobile py-4 sticky top-0 bg-surface/95 backdrop-blur-md z-40 shadow-ambient border-b border-white/10">
-<button class="text-on-surface" onclick="history.back()">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
-<div class="flex items-center gap-2">
-<img alt="PondGuardian Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwkPW07m-UxgFIWj8agCHM79fZ05FcAPFIHH8pRjgRy3NvbN9w0HiaWPKvfQzoCch2qVD3-MSBcHX0SUq9jCP2DOEfglyWvkJPxOnl7jmf6-dsyVkT0Xar8XtiF80D77Q048pFUiNaNzVy3586Rlj9mTbedh_q_2w__mqP_O5gOELb3xCaTClx5xR3RnYSVxzlDCLZqYPOlZHG1UXF9HvmYF2BfQZdZrucMcWjSeYGMtoqZUzoQBgdVmD2jdxDLVMxvA"/>
-<span class="font-headline-md text-headline-md font-bold text-primary">New Report</span>
-</div>
-<div class="w-6"></div> <!-- Spacer -->
+<header class="md:hidden flex items-center justify-between px-margin-mobile py-4 sticky top-0 bg-surface z-50">
+
+    <!-- Back -->
+    <button
+        type="button"
+        class="text-on-surface"
+        onclick="history.back()">
+        <span class="material-symbols-outlined">
+            arrow_back
+        </span>
+    </button>
+
+    <!-- Logo + Title -->
+    <div class="flex items-center gap-2">
+
+        <img
+            alt="PondGuardian Logo"
+            class="h-8 w-auto object-contain"
+            src="YOUR_LOGO_URL">
+
+        <span class="font-headline-md text-headline-md font-bold text-primary">
+            New Report
+        </span>
+
+    </div>
+
+    <!-- Notification + Settings -->
+    <div class="flex items-center gap-3">
+
+        <button
+            type="button"
+            class="text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">
+                notifications
+            </span>
+        </button>
+
+        <button
+            type="button"
+            class="text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">
+                settings
+            </span>
+        </button>
+
+    </div>
+
 </header>
 <main class="relative z-10 max-w-3xl mx-auto px-margin-mobile md:px-0 py-8 md:py-16">
 <!-- Header -->
