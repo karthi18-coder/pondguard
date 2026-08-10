@@ -237,8 +237,29 @@
 <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 focus:border-primary" placeholder="e.g. John" type="text"/>
 </div>
   <div>
-<label class="block font-label-md text-label-md text-on-surface mb-2">Mobile Number</label>
-<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 focus:border-primary" placeholder="e.g.+910123456789" type="text"/>
+    <label
+        class="block font-label-md text-label-md text-on-surface mb-2"
+        for="mobile">
+        Mobile Number
+    </label>
+
+    <input
+        id="mobile"
+        name="mobile"
+        type="tel"
+        inputmode="numeric"
+        maxlength="10"
+        minlength="10"
+        pattern="[6-9][0-9]{9}"
+        required
+        placeholder="Enter 10-digit mobile number"
+        class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-4"
+        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
+    >
+
+    <p class="text-xs text-on-surface-variant mt-1">
+        Enter exactly 10 digits
+    </p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
     <div>
