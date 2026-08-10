@@ -1,602 +1,282 @@
-/* =====================================================
-   PONDGUARDIAN LOGIN JAVASCRIPT
-===================================================== */
+import { auth, db } from "../firebase-config.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-    /* ================================================
-       ELEMENTS
-    ================================================ */
-
-    const loginPanel =
-        document.querySelector(".login-panel");
-
-    const registerPanel =
-        document.querySelector(".register-panel");
-
-    const showRegister =
-        document.getElementById("show-register");
-
-    const showLogin =
-        document.getElementById("show-login");
-
-    const loginForm =
-        document.getElementById("signin-form");
-
-    const registerForm =
-        document.getElementById("register-form");
-
-    const forgotPassword =
-        document.getElementById("forgot-password");
+import {
+    doc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-    /* ================================================
-       SWITCH LOGIN / REGISTER
-    ================================================ */
+// ===============================
+// GET LOGIN FORM
+// ===============================
 
-    function showRegisterPanel() {
+const loginForm = document.querySelector("form");
 
-        loginPanel.classList.remove("active");
-
-        setTimeout(() => {
-            registerPanel.classList.add("active");
-        }, 80);
-    }
+const identifierInput = document.getElementById("identifier");
+const passwordInput = document.getElementById("password");
 
 
-    function showLoginPanel() {
+// ===============================
+// LOGIN
+// ===============================
 
-        registerPanel.classList.remove("active");
+if (loginForm) {
 
-        setTimeout(() => {
-            loginPanel.classList.add("active");
-        }, 80);
-    }
+    loginForm.addEventListener("submit", async (event) => {
 
+        event.preventDefault();
 
-    showRegister.addEventListener(
-        "click",
-        showRegisterPanel
-    );
+        const email = identifierInput.value.trim();
+        const password = passwordInput.value;
 
+        if (!email || !password) {
+            alert("Please enter your email and password.");
+            return;
+        }
 
-    showLogin.addEventListener(
-        "click",
-        showLoginPanel
-    );
+        try {
 
-
-    /* ================================================
-       PASSWORD VISIBILITY
-    ================================================ */
-
-    const passwordButtons =
-        document.querySelectorAll(".password-toggle");
-
-
-    passwordButtons.forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            const targetId =
-                button.dataset.target;
-
-            const input =
-                document.getElementById(targetId);
-
-            const icon =
-                button.querySelector(
-                    ".material-symbols-outlined"
+            const userCredential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
                 );
 
+            const user = userCredential.user;
 
-            if (input.type === "password") {
+            console.log("Logged in:", user.uid);
 
-                input.type = "text";
+            // Check where the user came from
+            const params = new URLSearchParams(
+                window.location.search
+            );
 
-                icon.textContent = "visibility_off";
+            const redirect = params.get("redirect");
 
-                button.setAttribute(
-                    "aria-label",
-                    "Hide password"
-                );
+            if (redirect === "report") {
+
+                window.location.href = "report.html";
 
             } else {
 
-                input.type = "password";
+                window.location.href = "index.html";
 
-                icon.textContent = "visibility";
+            }
 
-                button.setAttribute(
-                    "aria-label",
-                    "Show password"
+        } catch (error) {
+
+            console.error(error);
+
+            let message = "Login failed.";
+
+            if (error.code === "auth/invalid-credential") {
+                message = "Incorrect email or password.";
+            }
+
+            else if (error.code === "auth/user-not-found") {
+                message = "No account found with this email.";
+            }
+
+            else if (error.code === "auth/wrong-password") {
+                message = "Incorrect password.";
+            }
+
+            else if (error.code === "auth/invalid-email") {
+                message = "Please enter a valid email address.";
+            }
+
+            alert(message);
+        }
+
+    });
+
+}
+
+
+// ===============================
+// CREATE ACCOUNT
+// ===============================
+
+const createAccountLink =
+    document.querySelector("a[href='#']");
+
+if (createAccountLink) {
+
+    createAccountLink.addEventListener("click", async (event) => {
+
+        event.preventDefault();
+
+        const email = prompt("Enter your email:");
+
+        if (!email) return;
+
+        const password = prompt(
+            "Create a password (minimum 6 characters):"
+        );
+
+        if (!password) return;
+
+        if (password.length < 6) {
+
+            alert("Password must contain at least 6 characters.");
+            return;
+
+        }
+
+        try {
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+            const user = userCredential.user;
+
+
+            // Create user profile in Firestore
+
+            await setDoc(
+                doc(db, "users", user.uid),
+                {
+                    email: user.email,
+                    createdAt: serverTimestamp()
+                }
+            );
+
+
+            alert("Account created successfully!");
+
+
+            // Go to report page
+
+            const params = new URLSearchParams(
+                window.location.search
+            );
+
+            if (params.get("redirect") === "report") {
+
+                window.location.href = "report.html";
+
+            } else {
+
+                window.location.href = "index.html";
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            let message = "Unable to create account.";
+
+            if (error.code === "auth/email-already-in-use") {
+                message = "This email already has an account.";
+            }
+
+            else if (error.code === "auth/invalid-email") {
+                message = "Please enter a valid email address.";
+            }
+
+            else if (error.code === "auth/weak-password") {
+                message = "Password must contain at least 6 characters.";
+            }
+
+            alert(message);
+        }
+
+    });
+
+}
+
+
+// ===============================
+// FORGOT PASSWORD
+// ===============================
+
+const forgotPasswordLink =
+    document.querySelector("a[href='#']");
+
+
+// Because there are two # links,
+// find the one containing "Forgot password"
+
+const links = document.querySelectorAll("a");
+
+links.forEach((link) => {
+
+    if (
+        link.textContent
+            .trim()
+            .toLowerCase()
+            .includes("forgot password")
+    ) {
+
+        link.addEventListener("click", async (event) => {
+
+            event.preventDefault();
+
+            const email = identifierInput.value.trim();
+
+            if (!email) {
+
+                alert(
+                    "Enter your email in the Email or Phone field first."
+                );
+
+                return;
+            }
+
+            try {
+
+                await sendPasswordResetEmail(
+                    auth,
+                    email
+                );
+
+                alert(
+                    "Password reset email sent. Check your inbox."
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to send password reset email."
                 );
             }
 
         });
 
-    });
-
-
-    /* ================================================
-       VALIDATION HELPERS
-    ================================================ */
-
-    function validEmail(email) {
-
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            .test(email);
-
     }
 
+});
 
-    function validMobile(mobile) {
 
-        return /^[6-9][0-9]{9}$/
-            .test(mobile);
+// ===============================
+// CHECK CURRENT LOGIN
+// ===============================
 
-    }
+onAuthStateChanged(auth, (user) => {
 
+    if (user) {
 
-    function showMessage(
-        element,
-        message,
-        type
-    ) {
-
-        element.textContent = message;
-
-        element.className =
-            "message " + type;
-
-    }
-
-
-    function clearMessage(element) {
-
-        element.textContent = "";
-
-        element.className = "message";
-
-    }
-
-
-    /* ================================================
-       LOADING BUTTON
-    ================================================ */
-
-    function setLoading(
-        button,
-        loading,
-        originalText
-    ) {
-
-        if (loading) {
-
-            button.disabled = true;
-
-            button.classList.add("loading");
-
-            button.innerHTML = `
-                <span>Processing...</span>
-                <span class="material-symbols-outlined">
-                    progress_activity
-                </span>
-            `;
-
-        } else {
-
-            button.disabled = false;
-
-            button.classList.remove("loading");
-
-            button.innerHTML = `
-                <span>${originalText}</span>
-                <span class="material-symbols-outlined">
-                    arrow_forward
-                </span>
-            `;
-
-        }
-
-    }
-
-
-    /* ================================================
-       LOGIN
-    ================================================ */
-
-    loginForm.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            const email =
-                document
-                    .getElementById("signin-email")
-                    .value
-                    .trim();
-
-            const password =
-                document
-                    .getElementById("signin-password")
-                    .value;
-
-
-            const message =
-                document.getElementById(
-                    "login-message"
-                );
-
-            const button =
-                document.getElementById(
-                    "login-button"
-                );
-
-
-            clearMessage(message);
-
-
-            /* Empty fields */
-
-            if (!email || !password) {
-
-                showMessage(
-                    message,
-                    "Please enter your email and password.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Email validation */
-
-            if (!validEmail(email)) {
-
-                showMessage(
-                    message,
-                    "Please enter a valid email address.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Password validation */
-
-            if (password.length < 6) {
-
-                showMessage(
-                    message,
-                    "Password must contain at least 6 characters.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Loading */
-
-            setLoading(
-                button,
-                true,
-                "Login"
-            );
-
-
-            /*
-             * TEMPORARY CLIENT-SIDE LOGIN
-             *
-             * Your current project does not yet connect
-             * this form to Supabase authentication.
-             *
-             * When Supabase Auth is connected, replace
-             * this section with the real authentication call.
-             */
-
-            setTimeout(() => {
-
-                showMessage(
-                    message,
-                    "Login successful. Opening your dashboard...",
-                    "success"
-                );
-
-
-                setTimeout(() => {
-
-                    window.location.href =
-                        "user-dashboard.html";
-
-                }, 700);
-
-            }, 900);
-
-        }
-    );
-
-
-    /* ================================================
-       REGISTER
-    ================================================ */
-
-    registerForm.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-
-            const name =
-                document
-                    .getElementById("register-name")
-                    .value
-                    .trim();
-
-            const email =
-                document
-                    .getElementById("register-email")
-                    .value
-                    .trim();
-
-            const mobile =
-                document
-                    .getElementById("register-mobile")
-                    .value
-                    .trim();
-
-            const password =
-                document
-                    .getElementById("register-password")
-                    .value;
-
-            const confirm =
-                document
-                    .getElementById("register-confirm")
-                    .value;
-
-
-            const message =
-                document.getElementById(
-                    "register-message"
-                );
-
-            const button =
-                document.getElementById(
-                    "register-button"
-                );
-
-
-            clearMessage(message);
-
-
-            /* Empty fields */
-
-            if (
-                !name ||
-                !email ||
-                !mobile ||
-                !password ||
-                !confirm
-            ) {
-
-                showMessage(
-                    message,
-                    "Please complete all fields.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Name validation */
-
-            if (name.length < 2) {
-
-                showMessage(
-                    message,
-                    "Please enter your full name.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Email */
-
-            if (!validEmail(email)) {
-
-                showMessage(
-                    message,
-                    "Please enter a valid email address.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Mobile */
-
-            if (!validMobile(mobile)) {
-
-                showMessage(
-                    message,
-                    "Enter a valid 10-digit Indian mobile number.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Password */
-
-            if (password.length < 6) {
-
-                showMessage(
-                    message,
-                    "Password must contain at least 6 characters.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Confirm */
-
-            if (password !== confirm) {
-
-                showMessage(
-                    message,
-                    "Passwords do not match.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            /* Loading */
-
-            setLoading(
-                button,
-                true,
-                "Create Account"
-            );
-
-
-            /*
-             * TEMPORARY CLIENT-SIDE REGISTER
-             *
-             * Supabase authentication should be connected
-             * here later.
-             */
-
-            setTimeout(() => {
-
-                showMessage(
-                    message,
-                    "Account details validated successfully.",
-                    "success"
-                );
-
-
-                setTimeout(() => {
-
-                    showLoginPanel();
-
-                    registerForm.reset();
-
-                    const loginEmail =
-                        document.getElementById(
-                            "signin-email"
-                        );
-
-                    loginEmail.value = email;
-
-                    setLoading(
-                        button,
-                        false,
-                        "Create Account"
-                    );
-
-                }, 900);
-
-            }, 900);
-
-        }
-    );
-
-
-    /* ================================================
-       MOBILE NUMBER - ONLY NUMBERS
-    ================================================ */
-
-    const mobileInput =
-        document.getElementById(
-            "register-mobile"
+        console.log(
+            "Firebase user already logged in:",
+            user.email
         );
 
-
-    mobileInput.addEventListener(
-        "input",
-        () => {
-
-            mobileInput.value =
-                mobileInput.value
-                    .replace(/\D/g, "")
-                    .slice(0, 10);
-
-        }
-    );
-
-
-    /* ================================================
-       FORGOT PASSWORD
-    ================================================ */
-
-    forgotPassword.addEventListener(
-        "click",
-        () => {
-
-            const email =
-                document
-                    .getElementById("signin-email")
-                    .value
-                    .trim();
-
-
-            if (!email) {
-
-                showMessage(
-                    document.getElementById(
-                        "login-message"
-                    ),
-                    "Enter your email address first, then use Forgot Password.",
-                    "error"
-                );
-
-                document
-                    .getElementById("signin-email")
-                    .focus();
-
-                return;
-            }
-
-
-            if (!validEmail(email)) {
-
-                showMessage(
-                    document.getElementById(
-                        "login-message"
-                    ),
-                    "Please enter a valid email address.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            showMessage(
-                document.getElementById(
-                    "login-message"
-                ),
-                "Password reset will be available when authentication is connected.",
-                "success"
-            );
-
-        }
-    );
+    }
 
 });
