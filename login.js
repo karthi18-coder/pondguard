@@ -105,7 +105,40 @@ if (loginForm) {
 // ===============================
 // CREATE ACCOUNT
 // ===============================
+// ===============================
+// CREATE ACCOUNT BUTTON
+// ===============================
 
+const createAccountBtn =
+    document.getElementById("createAccountBtn");
+
+if (createAccountBtn) {
+
+    createAccountBtn.addEventListener("click", () => {
+
+        alert("Create account button is working!");
+
+    });
+
+}
+
+
+// ===============================
+// FORGOT PASSWORD BUTTON
+// ===============================
+
+const forgotPasswordBtn =
+    document.getElementById("forgotPasswordBtn");
+
+if (forgotPasswordBtn) {
+
+    forgotPasswordBtn.addEventListener("click", () => {
+
+        alert("Forgot password button is working!");
+
+    });
+
+}
 const createAccountLink =
     document.querySelector("a[href='#']");
 
