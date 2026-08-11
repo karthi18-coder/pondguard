@@ -18,7 +18,7 @@ import {
 // ELEMENTS
 // ==========================================
 
-const signinForm = document.getElementById("signin-form");
+const loginForm = document.getElementById("signin-form");
 const registerForm = document.getElementById("register-form");
 
 const signinEmail = document.getElementById("signin-email");
@@ -61,35 +61,7 @@ function showMessage(element, message, type = "error") {
     if (!element) return;
 
     element.textContent = message;
-    element.className = "message " + type;
-
-}
-
-
-// ==========================================
-// CREATE ACCOUNT → SHOW REGISTER FORM
-// ==========================================
-
-if (createAccountBtn) {
-
-    createAccountBtn.addEventListener("click", function (event) {
-
-        event.preventDefault();
-
-        if (loginPanel) {
-            loginPanel.classList.remove("active");
-        }
-
-        if (registerPanel) {
-            registerPanel.classList.add("active");
-        }
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    });
+    element.className = `message ${type}`;
 
 }
 
@@ -98,17 +70,37 @@ if (createAccountBtn) {
 // SHOW LOGIN
 // ==========================================
 
-if (showLoginBtn) {
+function showLogin() {
 
-    showLoginBtn.addEventListener("click", function () {
+    loginPanel?.classList.add("active");
+    registerPanel?.classList.remove("active");
 
-        if (registerPanel) {
-            registerPanel.classList.remove("active");
-        }
+}
 
-        if (loginPanel) {
-            loginPanel.classList.add("active");
-        }
+
+// ==========================================
+// SHOW REGISTER
+// ==========================================
+
+function showRegister() {
+
+    loginPanel?.classList.remove("active");
+    registerPanel?.classList.add("active");
+
+}
+
+
+// ==========================================
+// CREATE ACCOUNT BUTTON
+// ==========================================
+
+if (createAccountBtn) {
+
+    createAccountBtn.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        showRegister();
 
     });
 
@@ -116,12 +108,76 @@ if (showLoginBtn) {
 
 
 // ==========================================
+// BACK TO LOGIN
+// ==========================================
+
+if (showLoginBtn) {
+
+    showLoginBtn.addEventListener("click", () => {
+
+        showLogin();
+
+    });
+
+}
+
+
+// ==========================================
+// PASSWORD VISIBILITY
+// ==========================================
+
+document.querySelectorAll(".password-toggle").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const targetId = button.dataset.target;
+        const input = document.getElementById(targetId);
+
+        if (!input) return;
+
+        const icon =
+            button.querySelector(".material-symbols-outlined");
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            if (icon) {
+                icon.textContent = "visibility_off";
+            }
+
+            button.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+        } else {
+
+            input.type = "password";
+
+            if (icon) {
+                icon.textContent = "visibility";
+            }
+
+            button.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    });
+
+});
+
+
+// ==========================================
 // LOGIN
 // ==========================================
 
-if (signinForm) {
+if (loginForm) {
 
-    signinForm.addEventListener("submit", async function (event) {
+    loginForm.addEventListener("submit", async (event) => {
 
         event.preventDefault();
 
@@ -140,63 +196,76 @@ if (signinForm) {
 
         try {
 
+            const userCredential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+            console.log(
+                "Login successful:",
+                userCredential.user.email
+            );
+
             showMessage(
                 loginMessage,
-                "Signing in...",
+                "Login successful!",
                 "success"
             );
 
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
+            // Redirect
             const params =
                 new URLSearchParams(
                     window.location.search
                 );
 
-            if (params.get("redirect") === "report") {
+            setTimeout(() => {
 
-                window.location.href = "report.html";
+                if (params.get("redirect") === "report") {
 
-            } else {
+                    window.location.href = "report.html";
 
-                window.location.href = "index.html";
+                } else {
 
-            }
+                    window.location.href = "index.html";
+
+                }
+
+            }, 500);
 
         } catch (error) {
 
             console.error("Login error:", error);
 
-            if (
-                error.code ===
-                "auth/invalid-credential"
-            ) {
+            if (error.code === "auth/invalid-credential") {
 
                 showMessage(
                     loginMessage,
                     "Incorrect email or password."
                 );
 
-            } else if (
-                error.code ===
-                "auth/invalid-email"
-            ) {
+            } else if (error.code === "auth/invalid-email") {
 
                 showMessage(
                     loginMessage,
                     "Please enter a valid email address."
                 );
 
+            } else if (error.code === "auth/user-not-found") {
+
+                showMessage(
+                    loginMessage,
+                    "No account found with this email."
+                );
+
             } else {
 
                 showMessage(
                     loginMessage,
-                    "Login failed. Please try again."
+                    error.message || "Login failed."
                 );
+
             }
 
         }
@@ -212,7 +281,7 @@ if (signinForm) {
 
 if (registerForm) {
 
-    registerForm.addEventListener("submit", async function (event) {
+    registerForm.addEventListener("submit", async (event) => {
 
         event.preventDefault();
 
@@ -232,7 +301,9 @@ if (registerForm) {
             registerConfirm.value;
 
 
-        // Name validation
+        // -------------------------------
+        // VALIDATION
+        // -------------------------------
 
         if (!name) {
 
@@ -241,11 +312,11 @@ if (registerForm) {
                 "Please enter your full name."
             );
 
+            registerName.focus();
+
             return;
         }
 
-
-        // Email validation
 
         if (!email) {
 
@@ -254,17 +325,18 @@ if (registerForm) {
                 "Please enter your email address."
             );
 
+            registerEmail.focus();
+
             return;
         }
 
 
-        // Mobile validation
-
+        // 10 digit mobile number
         if (!/^[0-9]{10}$/.test(mobile)) {
 
             showMessage(
                 registerMessage,
-                "Mobile number must be exactly 10 digits."
+                "Mobile number must contain exactly 10 digits."
             );
 
             registerMobile.focus();
@@ -273,8 +345,6 @@ if (registerForm) {
         }
 
 
-        // Password validation
-
         if (password.length < 6) {
 
             showMessage(
@@ -282,11 +352,11 @@ if (registerForm) {
                 "Password must contain at least 6 characters."
             );
 
+            registerPassword.focus();
+
             return;
         }
 
-
-        // Confirm password
 
         if (password !== confirmPassword) {
 
@@ -295,9 +365,15 @@ if (registerForm) {
                 "Passwords do not match."
             );
 
+            registerConfirm.focus();
+
             return;
         }
 
+
+        // -------------------------------
+        // FIREBASE ACCOUNT CREATION
+        // -------------------------------
 
         try {
 
@@ -308,8 +384,6 @@ if (registerForm) {
             );
 
 
-            // Firebase Authentication
-
             const userCredential =
                 await createUserWithEmailAndPassword(
                     auth,
@@ -317,20 +391,30 @@ if (registerForm) {
                     password
                 );
 
+
             const user =
                 userCredential.user;
 
 
-            // Firestore user profile
+            // -------------------------------
+            // SAVE USER DATA TO FIRESTORE
+            // -------------------------------
 
             await setDoc(
                 doc(db, "users", user.uid),
                 {
+                    uid: user.uid,
                     name: name,
-                    email: email,
+                    email: user.email,
                     mobile: mobile,
                     createdAt: serverTimestamp()
                 }
+            );
+
+
+            console.log(
+                "Account created:",
+                user.email
             );
 
 
@@ -341,27 +425,25 @@ if (registerForm) {
             );
 
 
-            // Redirect after signup
+            // -------------------------------
+            // REDIRECT
+            // -------------------------------
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
 
             setTimeout(() => {
 
-                const params =
-                    new URLSearchParams(
-                        window.location.search
-                    );
+                if (params.get("redirect") === "report") {
 
-                if (
-                    params.get("redirect") ===
-                    "report"
-                ) {
-
-                    window.location.href =
-                        "report.html";
+                    window.location.href = "report.html";
 
                 } else {
 
-                    window.location.href =
-                        "index.html";
+                    window.location.href = "index.html";
 
                 }
 
@@ -371,7 +453,7 @@ if (registerForm) {
         } catch (error) {
 
             console.error(
-                "Signup error:",
+                "Account creation error:",
                 error
             );
 
@@ -406,12 +488,24 @@ if (registerForm) {
                     "Password must contain at least 6 characters."
                 );
 
+            } else if (
+                error.code ===
+                "auth/operation-not-allowed"
+            ) {
+
+                showMessage(
+                    registerMessage,
+                    "Email/Password login is not enabled in Firebase."
+                );
+
             } else {
 
                 showMessage(
                     registerMessage,
-                    "Account creation failed. Please try again."
+                    error.message ||
+                    "Unable to create account."
                 );
+
             }
 
         }
@@ -427,161 +521,116 @@ if (registerForm) {
 
 if (forgotPasswordBtn) {
 
-    forgotPasswordBtn.addEventListener("click", async function (event) {
+    forgotPasswordBtn.addEventListener(
+        "click",
+        async (event) => {
 
-        event.preventDefault();
-
-        const email =
-            signinEmail.value.trim();
-
-
-        if (!email) {
-
-            showMessage(
-                loginMessage,
-                "Enter your email address first, then click Forgot password."
-            );
-
-            signinEmail.focus();
-
-            return;
-        }
+            event.preventDefault();
 
 
-        try {
+            // IMPORTANT:
+            // Use signinEmail, not old emailInput
 
-            await sendPasswordResetEmail(
-                auth,
-                email
-            );
-
-            showMessage(
-                loginMessage,
-                "Password reset email sent. Check your inbox.",
-                "success"
-            );
+            const email =
+                signinEmail.value.trim();
 
 
-        } catch (error) {
-
-            console.error(
-                "Password reset error:",
-                error
-            );
-
-
-            if (
-                error.code ===
-                "auth/invalid-email"
-            ) {
+            if (!email) {
 
                 showMessage(
                     loginMessage,
-                    "Please enter a valid email address."
+                    "Please enter your email address first."
                 );
 
-            } else if (
-                error.code ===
-                "auth/user-not-found"
-            ) {
+                signinEmail.focus();
+
+                return;
+            }
+
+
+            try {
+
+                await sendPasswordResetEmail(
+                    auth,
+                    email
+                );
+
 
                 showMessage(
                     loginMessage,
-                    "No account was found with this email."
+                    "Password reset email sent! Check your inbox.",
+                    "success"
                 );
 
-            } else {
 
-                showMessage(
-                    loginMessage,
-                    "Unable to send the reset email."
+            } catch (error) {
+
+                console.error(
+                    "Password reset error:",
+                    error
                 );
+
+
+                if (
+                    error.code ===
+                    "auth/invalid-email"
+                ) {
+
+                    showMessage(
+                        loginMessage,
+                        "Please enter a valid email address."
+                    );
+
+                } else if (
+                    error.code ===
+                    "auth/user-not-found"
+                ) {
+
+                    showMessage(
+                        loginMessage,
+                        "No account found with this email."
+                    );
+
+                } else {
+
+                    showMessage(
+                        loginMessage,
+                        error.message ||
+                        "Unable to send password reset email."
+                    );
+
+                }
+
             }
 
         }
-
-    });
+    );
 
 }
-
-
-// ==========================================
-// PASSWORD SHOW / HIDE
-// ==========================================
-
-document
-    .querySelectorAll(".password-toggle")
-    .forEach(button => {
-
-        button.addEventListener("click", function () {
-
-            const targetId =
-                button.getAttribute("data-target");
-
-            const input =
-                document.getElementById(targetId);
-
-            const icon =
-                button.querySelector(
-                    ".material-symbols-outlined"
-                );
-
-            if (!input) return;
-
-
-            if (input.type === "password") {
-
-                input.type = "text";
-
-                if (icon) {
-                    icon.textContent =
-                        "visibility_off";
-                }
-
-                button.setAttribute(
-                    "aria-label",
-                    "Hide password"
-                );
-
-            } else {
-
-                input.type = "password";
-
-                if (icon) {
-                    icon.textContent =
-                        "visibility";
-                }
-
-                button.setAttribute(
-                    "aria-label",
-                    "Show password"
-                );
-            }
-
-        });
-
-    });
 
 
 // ==========================================
 // FIREBASE AUTH STATE
 // ==========================================
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(
+    auth,
+    (user) => {
 
-    if (user) {
+        if (user) {
 
-        console.log(
-            "Logged in:",
-            user.email
-        );
+            console.log(
+                "Currently logged in:",
+                user.email
+            );
 
-    } else {
+        } else {
 
-        console.log(
-            "No user logged in."
-        );
+            console.log(
+                "No Firebase user logged in."
+            );
+
+        }
 
     }
-
-});
+);
