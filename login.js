@@ -20,26 +20,15 @@ import {
 // ELEMENTS
 // ==========================================
 
-const loginCard =
-    document.getElementById("loginCard");
+const loginCard = document.getElementById("loginCard");
+const signupCard = document.getElementById("signupCard");
 
-const signupCard =
-    document.getElementById("signupCard");
+const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
 
-const loginForm =
-    document.getElementById("loginForm");
-
-const signupForm =
-    document.getElementById("signupForm");
-
-const showSignupBtn =
-    document.getElementById("showSignupBtn");
-
-const backToLoginBtn =
-    document.getElementById("backToLoginBtn");
-
-const backToLoginBottom =
-    document.getElementById("backToLoginBottom");
+const showSignupBtn = document.getElementById("showSignupBtn");
+const backToLoginBtn = document.getElementById("backToLoginBtn");
+const backToLoginBottom = document.getElementById("backToLoginBottom");
 
 const forgotPasswordBtn =
     document.getElementById("forgotPasswordBtn");
@@ -79,12 +68,12 @@ const signupButton =
 
 
 // ==========================================
-// MESSAGE
+// MESSAGE FUNCTION
 // ==========================================
 
-function showMessage(element, text, type) {
+function showMessage(element, message, type = "") {
 
-    element.textContent = text;
+    element.textContent = message;
 
     element.className = "message";
 
@@ -95,21 +84,29 @@ function showMessage(element, text, type) {
 
 
 // ==========================================
+// CLEAR MESSAGES
+// ==========================================
+
+function clearMessages() {
+
+    loginMessage.textContent = "";
+    signupMessage.textContent = "";
+
+    loginMessage.className = "message";
+    signupMessage.className = "message";
+}
+
+
+// ==========================================
 // SHOW SIGNUP
 // ==========================================
 
-showSignupBtn.addEventListener("click", () => {
+showSignupBtn.addEventListener("click", function () {
 
     loginCard.classList.add("hidden");
-
     signupCard.classList.remove("hidden");
 
     clearMessages();
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 
 });
 
@@ -121,15 +118,9 @@ showSignupBtn.addEventListener("click", () => {
 function showLogin() {
 
     signupCard.classList.add("hidden");
-
     loginCard.classList.remove("hidden");
 
     clearMessages();
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 }
 
 backToLoginBtn.addEventListener(
@@ -144,36 +135,16 @@ backToLoginBottom.addEventListener(
 
 
 // ==========================================
-// CLEAR MESSAGES
+// MOBILE NUMBER - ONLY 10 DIGITS
 // ==========================================
 
-function clearMessages() {
+signupMobile.addEventListener("input", function () {
 
-    loginMessage.textContent = "";
+    this.value = this.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
 
-    signupMessage.textContent = "";
-
-    loginMessage.className = "message";
-
-    signupMessage.className = "message";
-}
-
-
-// ==========================================
-// MOBILE NUMBER
-// ==========================================
-
-signupMobile.addEventListener(
-    "input",
-    () => {
-
-        signupMobile.value =
-            signupMobile.value
-                .replace(/\D/g, "")
-                .slice(0, 10);
-
-    }
-);
+});
 
 
 // ==========================================
@@ -184,37 +155,34 @@ document
     .querySelectorAll(".password-toggle")
     .forEach(button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+        button.addEventListener("click", function () {
 
-                const target =
-                    document.getElementById(
-                        button.dataset.target
-                    );
+            const target =
+                document.getElementById(
+                    this.dataset.target
+                );
 
-                const icon =
-                    button.querySelector(
-                        ".material-symbols-outlined"
-                    );
+            const icon =
+                this.querySelector(
+                    ".material-symbols-outlined"
+                );
 
-                if (target.type === "password") {
+            if (target.type === "password") {
 
-                    target.type = "text";
+                target.type = "text";
 
-                    icon.textContent =
-                        "visibility_off";
+                icon.textContent =
+                    "visibility_off";
 
-                } else {
+            } else {
 
-                    target.type = "password";
+                target.type = "password";
 
-                    icon.textContent =
-                        "visibility";
-                }
-
+                icon.textContent =
+                    "visibility";
             }
-        );
+
+        });
 
     });
 
@@ -223,193 +191,209 @@ document
 // LOGIN
 // ==========================================
 
-loginForm.addEventListener(
-    "submit",
-    async (event) => {
+loginForm.addEventListener("submit", async function (event) {
 
-        event.preventDefault();
-
-        clearMessages();
-
-        const email =
-            loginEmail.value.trim();
-
-        const password =
-            loginPassword.value;
-
-        if (!email || !password) {
-
-            showMessage(
-                loginMessage,
-                "Please enter your email and password.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        try {
-
-            const persistence =
-                rememberMe.checked
-                    ? browserLocalPersistence
-                    : browserSessionPersistence;
-
-            await setPersistence(
-                auth,
-                persistence
-            );
-
-
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-
-            showMessage(
-                loginMessage,
-                "Login successful. Redirecting...",
-                "success"
-            );
-
-
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
-
-            const redirect =
-                params.get("redirect");
-
-
-            setTimeout(() => {
-
-                if (redirect === "report") {
-
-                    window.location.href =
-                        "report.html";
-
-                } else {
-
-                    window.location.href =
-                        "index.html";
-                }
-
-            }, 700);
-
-
-        } catch (error) {
-
-            console.error(
-                "Login error:",
-                error
-            );
-
-
-            if (
-                error.code ===
-                "auth/invalid-credential"
-            ) {
-
-                showMessage(
-                    loginMessage,
-                    "Incorrect email or password.",
-                    "error"
-                );
-
-            } else if (
-                error.code ===
-                "auth/invalid-email"
-            ) {
-
-                showMessage(
-                    loginMessage,
-                    "Please enter a valid email address.",
-                    "error"
-                );
-
-            } else {
-
-                showMessage(
-                    loginMessage,
-                    "Login failed. Please try again.",
-                    "error"
-                );
-            }
-
-        }
-
-    }
-);
-
-
-// ==========================================
-// SIGNUP
-// ==========================================
-
-signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     clearMessages();
 
-    const name = signupName.value.trim();
-    const email = signupEmail.value.trim();
-    const mobile = signupMobile.value.trim();
-    const password = signupPassword.value;
-    const confirmPassword = signupConfirmPassword.value;
+    const email =
+        loginEmail.value.trim();
+
+    const password =
+        loginPassword.value;
+
+
+    if (!email || !password) {
+
+        showMessage(
+            loginMessage,
+            "Please enter your email and password.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const persistence =
+            rememberMe.checked
+                ? browserLocalPersistence
+                : browserSessionPersistence;
+
+        await setPersistence(
+            auth,
+            persistence
+        );
+
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        showMessage(
+            loginMessage,
+            "Login successful!",
+            "success"
+        );
+
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const redirect =
+            params.get("redirect");
+
+
+        setTimeout(function () {
+
+            if (redirect === "report") {
+
+                window.location.href =
+                    "report.html";
+
+            } else {
+
+                window.location.href =
+                    "index.html";
+            }
+
+        }, 700);
+
+
+    } catch (error) {
+
+        console.error(
+            "LOGIN FIREBASE ERROR:",
+            error
+        );
+
+        showMessage(
+            loginMessage,
+            error.code ||
+            error.message ||
+            "Login failed.",
+            "error"
+        );
+
+    }
+
+});
+
+
+// ==========================================
+// CREATE ACCOUNT
+// ==========================================
+
+signupForm.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+    clearMessages();
+
+
+    const name =
+        signupName.value.trim();
+
+    const email =
+        signupEmail.value.trim();
+
+    const mobile =
+        signupMobile.value.trim();
+
+    const password =
+        signupPassword.value;
+
+    const confirmPassword =
+        signupConfirmPassword.value;
+
+
+    // NAME
 
     if (name.length < 2) {
+
         showMessage(
             signupMessage,
             "Please enter your full name.",
             "error"
         );
+
         return;
     }
 
+
+    // EMAIL
+
     if (!email) {
+
         showMessage(
             signupMessage,
             "Please enter your email address.",
             "error"
         );
+
         return;
     }
 
+
+    // MOBILE
+
     if (!/^[0-9]{10}$/.test(mobile)) {
+
         showMessage(
             signupMessage,
             "Mobile number must be exactly 10 digits.",
             "error"
         );
+
         return;
     }
 
+
+    // PASSWORD
+
     if (password.length < 6) {
+
         showMessage(
             signupMessage,
             "Password must contain at least 6 characters.",
             "error"
         );
+
         return;
     }
 
+
+    // CONFIRM PASSWORD
+
     if (password !== confirmPassword) {
+
         showMessage(
             signupMessage,
             "Passwords do not match.",
             "error"
         );
+
         return;
     }
+
 
     try {
 
         signupButton.disabled = true;
-        signupButton.textContent = "Creating Account...";
+
+        signupButton.textContent =
+            "Creating Account...";
+
+
+        // CREATE FIREBASE AUTH ACCOUNT
 
         const userCredential =
             await createUserWithEmailAndPassword(
@@ -418,10 +402,19 @@ signupForm.addEventListener("submit", async (event) => {
                 password
             );
 
-        const user = userCredential.user;
+
+        const user =
+            userCredential.user;
+
+
+        // SAVE USER DETAILS TO FIRESTORE
 
         await setDoc(
-            doc(db, "users", user.uid),
+            doc(
+                db,
+                "users",
+                user.uid
+            ),
             {
                 uid: user.uid,
                 name: name,
@@ -431,242 +424,131 @@ signupForm.addEventListener("submit", async (event) => {
             }
         );
 
+
         showMessage(
             signupMessage,
             "Account created successfully!",
             "success"
         );
 
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 1000);
 
-    } catch (error) {
+        // REDIRECT
 
-        console.error("FIREBASE ERROR:", error);
-
-        showMessage(
-            signupMessage,
-            "Firebase Error: " +
-            (error.code || error.message),
-            "error"
-        );
-
-        signupButton.disabled = false;
-        signupButton.textContent = "Create Account";
-    }
-});
-
-        // Email
-
-        if (!email) {
-
-            showMessage(
-                signupMessage,
-                "Please enter your email address.",
-                "error"
+        const params =
+            new URLSearchParams(
+                window.location.search
             );
 
-            signupEmail.focus();
-
-            return;
-        }
+        const redirect =
+            params.get("redirect");
 
 
-        // Mobile
+        setTimeout(function () {
 
-        if (!/^[0-9]{10}$/.test(mobile)) {
+            if (redirect === "report") {
 
-            showMessage(
-                signupMessage,
-                "Mobile number must contain exactly 10 digits.",
-                "error"
-            );
-
-            signupMobile.focus();
-
-            return;
-        }
-
-
-        // Password
-
-        if (password.length < 6) {
-
-            showMessage(
-                signupMessage,
-                "Password must contain at least 6 characters.",
-                "error"
-            );
-
-            signupPassword.focus();
-
-            return;
-        }
-
-
-        // Confirm password
-
-        if (password !== confirmPassword) {
-
-            showMessage(
-                signupMessage,
-                "Passwords do not match.",
-                "error"
-            );
-
-            signupConfirmPassword.focus();
-
-            return;
-        }
-
-
-        try {
-
-            signupButton.disabled = true;
-
-            signupButton.textContent =
-                "Creating Account...";
-
-
-            // Create Firebase account
-
-            const credential =
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-
-            const user =
-                credential.user;
-
-
-            // Save user profile
-
-            await setDoc(
-                doc(
-                    db,
-                    "users",
-                    user.uid
-                ),
-                {
-                    uid: user.uid,
-                    name: name,
-                    email: email,
-                    mobile: mobile,
-                    createdAt: serverTimestamp()
-                }
-            );
-
-
-            showMessage(
-                signupMessage,
-                "Account created successfully!",
-                "success"
-            );
-
-
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
-
-            const redirect =
-                params.get("redirect");
-
-
-            setTimeout(() => {
-
-                if (redirect === "report") {
-
-                    window.location.href =
-                        "report.html";
-
-                } else {
-
-                    window.location.href =
-                        "index.html";
-
-                }
-
-            }, 1000);
-
-
-        } catch (error) {
-
-    console.error("🔥 FIREBASE SIGNUP ERROR");
-    console.error("Code:", error.code);
-    console.error("Message:", error.message);
-    console.error("Full error:", error);
-
-    showMessage(
-        signupMessage,
-        error.code
-            ? error.code + " — " + error.message
-            : "Error: " + error.message,
-        "error"
-    );
-
-    signupButton.disabled = false;
-    signupButton.textContent = "Create Account";
-        }
-
-
-            if (
-                error.code ===
-                "auth/email-already-in-use"
-            ) {
-
-                showMessage(
-                    signupMessage,
-                    "This email is already registered. Please login.",
-                    "error"
-                );
-
-            } else if (
-                error.code ===
-                "auth/invalid-email"
-            ) {
-
-                showMessage(
-                    signupMessage,
-                    "Please enter a valid email address.",
-                    "error"
-                );
-
-            } else if (
-                error.code ===
-                "auth/weak-password"
-            ) {
-
-                showMessage(
-                    signupMessage,
-                    "Password must contain at least 6 characters.",
-                    "error"
-                );
+                window.location.href =
+                    "report.html";
 
             } else {
 
-                showMessage(
-                    signupMessage,
-                    "Account creation failed. Please try again.",
-                    "error"
-                );
-
+                window.location.href =
+                    "index.html";
             }
 
+        }, 1000);
 
-            signupButton.disabled = false;
 
-            signupButton.textContent =
-                "Create Account";
+    } catch (error) {
+
+        console.error(
+            "🔥 SIGNUP FIREBASE ERROR",
+            error
+        );
+
+        console.error(
+            "Error code:",
+            error.code
+        );
+
+        console.error(
+            "Error message:",
+            error.message
+        );
+
+
+        let message =
+            error.code ||
+            error.message ||
+            "Account creation failed.";
+
+
+        if (
+            error.code ===
+            "auth/email-already-in-use"
+        ) {
+
+            message =
+                "This email is already registered.";
+
+        } else if (
+            error.code ===
+            "auth/invalid-email"
+        ) {
+
+            message =
+                "Please enter a valid email address.";
+
+        } else if (
+            error.code ===
+            "auth/weak-password"
+        ) {
+
+            message =
+                "Password must contain at least 6 characters.";
+
+        } else if (
+            error.code ===
+            "auth/operation-not-allowed"
+        ) {
+
+            message =
+                "Email/Password authentication is not enabled in Firebase.";
+
+        } else if (
+            error.code ===
+            "auth/unauthorized-domain"
+        ) {
+
+            message =
+                "This website domain is not authorized in Firebase.";
+
+        } else if (
+            error.code ===
+            "permission-denied"
+        ) {
+
+            message =
+                "Firestore permission denied.";
 
         }
 
+
+        showMessage(
+            signupMessage,
+            message,
+            "error"
+        );
+
+
+        signupButton.disabled = false;
+
+        signupButton.textContent =
+            "Create Account";
+
     }
-);
+
+});
 
 
 // ==========================================
@@ -675,9 +557,10 @@ signupForm.addEventListener("submit", async (event) => {
 
 forgotPasswordBtn.addEventListener(
     "click",
-    async () => {
+    async function () {
 
         clearMessages();
+
 
         const email =
             loginEmail.value.trim();
@@ -715,9 +598,15 @@ forgotPasswordBtn.addEventListener(
         } catch (error) {
 
             console.error(
-                "Password reset error:",
+                "PASSWORD RESET ERROR:",
                 error
             );
+
+
+            let message =
+                error.code ||
+                error.message ||
+                "Unable to send password reset email.";
 
 
             if (
@@ -725,31 +614,33 @@ forgotPasswordBtn.addEventListener(
                 "auth/invalid-email"
             ) {
 
-                showMessage(
-                    loginMessage,
-                    "Please enter a valid email address.",
-                    "error"
-                );
+                message =
+                    "Please enter a valid email address.";
 
             } else if (
                 error.code ===
                 "auth/user-not-found"
             ) {
 
-                showMessage(
-                    loginMessage,
-                    "No account found with this email.",
-                    "error"
-                );
+                message =
+                    "No account exists with this email.";
 
-            } else {
+            } else if (
+                error.code ===
+                "auth/operation-not-allowed"
+            ) {
 
-                showMessage(
-                    loginMessage,
-                    "Unable to send password reset email.",
-                    "error"
-                );
+                message =
+                    "Email/Password authentication is not enabled.";
+
             }
+
+
+            showMessage(
+                loginMessage,
+                message,
+                "error"
+            );
 
         }
 
@@ -758,5 +649,5 @@ forgotPasswordBtn.addEventListener(
 
 
 console.log(
-    "PondGuardian Firebase login system loaded successfully."
+    "PondGuardian Firebase system loaded."
 );
