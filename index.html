@@ -158,5 +158,33 @@
 </div>
 
 <script src="script.js"></script>
+  <script type="module">
+    import { auth } from "./firebase-config.js";
+
+    const reportButton =
+        document.getElementById("reportIssueBtn");
+
+    if (reportButton) {
+
+        reportButton.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            if (auth.currentUser) {
+
+                // Already logged in
+                window.location.href = "report.html";
+
+            } else {
+
+                // Not logged in
+                window.location.href =
+                    "login.html?redirect=report";
+            }
+
+        });
+
+    }
+  </script>
 </body>
 </html>
