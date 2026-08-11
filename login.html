@@ -13,6 +13,21 @@
 </head>
 
 <body>
+    <div id="loginMessage" style="
+    display: none;
+    margin: 15px;
+    padding: 14px 18px;
+    background: #e8f5e9;
+    border: 1px solid #81c784;
+    border-radius: 12px;
+    color: #1b5e20;
+    font-size: 15px;
+    text-align: center;
+">
+    🔐 <strong>Login Required</strong><br>
+    Please login first to report an issue.<br>
+    After logging in, you can submit your report.
+    </div>
 
 <div class="auth-page">
 
@@ -405,6 +420,12 @@
 
 
 <script type="module" src="login.js"></script>
+<script>
+    const params = new URLSearchParams(window.location.search);
 
+    if (params.get("message") === "loginfirst") {
+        document.getElementById("loginMessage").style.display = "block";
+    }
+</script>
 </body>
 </html>
