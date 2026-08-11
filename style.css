@@ -1106,37 +1106,50 @@ main {
     font-size: 27px;
   }
 }
-/* ================================
-   PondGuardian Profile Dropdown
-   ================================ */
+/* =================================
+   PondGuardian Profile Menu
+   ================================= */
 
 .profile-menu {
     position: relative;
     display: inline-block;
 }
 
-/* Profile button */
+/* Green Profile button */
 .profile-menu #profileBtn {
-    border: none;
-    cursor: pointer;
+    background: #4f8f5b !important;
+    color: #ffffff !important;
+    border: none !important;
     padding: 9px 20px;
-    border-radius: 20px;
+    border-radius: 22px;
     font-size: 14px;
     font-weight: 600;
-    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(50, 100, 60, 0.20);
 }
 
-/* Dropdown box */
+/* Profile button hover */
+.profile-menu #profileBtn:hover {
+    background: #3f7d4c !important;
+}
+
+/* Dropdown */
 .profile-dropdown {
     display: none;
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 7px);
     right: 0;
-    width: 230px;
+
+    width: 220px;
     background: #ffffff;
+
+    border: 1px solid #e3e9e3;
     border-radius: 14px;
-    padding: 10px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+
+    padding: 8px;
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+
     z-index: 9999;
 }
 
@@ -1145,57 +1158,64 @@ main {
     display: block;
 }
 
-/* Email */
+/* User email */
 .profile-email {
     padding: 10px 12px;
     margin-bottom: 5px;
-    border-bottom: 1px solid #e5e5e5;
-    color: #666;
+
+    color: #55705b;
     font-size: 13px;
-    line-height: 1.4;
-    word-break: break-word;
+    font-weight: 500;
+
+    border-bottom: 1px solid #edf1ed;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* My Reports + Logout */
 .profile-dropdown a,
 .profile-dropdown button {
+    width: 100%;
     display: flex;
     align-items: center;
-    width: 100%;
-    min-height: 40px;
+
     box-sizing: border-box;
-    padding: 10px 12px;
+
+    padding: 9px 11px;
     margin: 2px 0;
+
     border: none;
-    border-radius: 9px;
+    border-radius: 8px;
+
     background: transparent;
-    color: #333;
+
+    color: #3f5143;
+    font-size: 14px;
     text-decoration: none;
     text-align: left;
-    font-size: 14px;
+
     cursor: pointer;
 }
 
 /* Hover */
 .profile-dropdown a:hover,
 .profile-dropdown button:hover {
-    background: #eef7ef;
+    background: #edf6ef;
+    color: #35683f;
 }
 
-/* Mobile adjustment */
+/* Mobile */
 @media (max-width: 600px) {
 
-    .profile-dropdown {
-        right: 0;
-        width: 210px;
-    }
-
     .profile-menu #profileBtn {
-        padding: 12px 16px;
+        padding: 8px 17px;
         font-size: 13px;
     }
 
-    .profile-email {
-        font-size: 12px;
+    .profile-dropdown {
+        width: 210px;
+        right: 0;
     }
 }
