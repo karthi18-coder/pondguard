@@ -530,10 +530,22 @@ signupForm.addEventListener(
 
         } catch (error) {
 
-            console.error(
-                "Signup error:",
-                error
-            );
+    console.error("🔥 FIREBASE SIGNUP ERROR");
+    console.error("Code:", error.code);
+    console.error("Message:", error.message);
+    console.error("Full error:", error);
+
+    showMessage(
+        signupMessage,
+        error.code
+            ? error.code + " — " + error.message
+            : "Error: " + error.message,
+        "error"
+    );
+
+    signupButton.disabled = false;
+    signupButton.textContent = "Create Account";
+        }
 
 
             if (
