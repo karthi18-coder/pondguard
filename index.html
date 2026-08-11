@@ -185,6 +185,46 @@
             loginMessage.style.display = "flex";
         }
     });
+    import { onAuthStateChanged, signOut } 
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+const authNav = document.getElementById("authNav");
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        authNav.innerHTML = `
+            <div class="profile-menu">
+                <button id="profileBtn" class="login-button">
+                    👤 Profile
+                </button>
+
+                <div id="profileDropdown" class="profile-dropdown">
+                    <div class="profile-email">
+                        ${user.email || "User"}
+                    </div>
+
+                    <a href="report.html">📋 My Reports</a>
+
+                    <button id="logoutBtn">🚪 Logout</button>
+                </div>
+            </div>
+        `;
+
+        document.getElementById("profileBtn").addEventListener("click", () => {
+            const dropdown = document.getElementById("profileDropdown");
+            dropdown.classList.toggle("show");
+        });
+
+        document.getElementById("logoutBtn").addEventListener("click", async () => {
+            await signOut(auth);
+            window.location.href = "index.html";
+        });
+    } else {
+        authNav.innerHTML = `
+            <a href="login.html" class="login-button">Login</a>
+        `;
+    }
+});
 
     loginNowBtn.addEventListener("click", () => {
         window.location.href = "login.html?redirect=report";
