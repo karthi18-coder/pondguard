@@ -15,7 +15,7 @@ import { getFirestore } from
 // Firebase configuration
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAg_-1Zvv_vluxPmfd2s2mRMX5CjAXr7M",
+    apiKey: "AIzaSyAg_-1Zvv_vluxPmfd2s2m2RMX5CjAXr7M",
     authDomain: "pondguardian-b4808.firebaseapp.com",
     projectId: "pondguardian-b4808",
     storageBucket: "pondguardian-b4808.firebasestorage.app",
@@ -30,7 +30,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 
-// Firebase Authentication
+// Authentication
 
 const auth = getAuth(app);
 
