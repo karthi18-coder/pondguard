@@ -350,46 +350,112 @@ loginForm.addEventListener(
 // SIGNUP
 // ==========================================
 
-signupForm.addEventListener(
-    "submit",
-    async (event) => {
+signupForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-        event.preventDefault();
+    clearMessages();
 
-        clearMessages();
+    const name = signupName.value.trim();
+    const email = signupEmail.value.trim();
+    const mobile = signupMobile.value.trim();
+    const password = signupPassword.value;
+    const confirmPassword = signupConfirmPassword.value;
 
+    if (name.length < 2) {
+        showMessage(
+            signupMessage,
+            "Please enter your full name.",
+            "error"
+        );
+        return;
+    }
 
-        const name =
-            signupName.value.trim();
+    if (!email) {
+        showMessage(
+            signupMessage,
+            "Please enter your email address.",
+            "error"
+        );
+        return;
+    }
 
-        const email =
-            signupEmail.value.trim();
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        showMessage(
+            signupMessage,
+            "Mobile number must be exactly 10 digits.",
+            "error"
+        );
+        return;
+    }
 
-        const mobile =
-            signupMobile.value.trim();
+    if (password.length < 6) {
+        showMessage(
+            signupMessage,
+            "Password must contain at least 6 characters.",
+            "error"
+        );
+        return;
+    }
 
-        const password =
-            signupPassword.value;
+    if (password !== confirmPassword) {
+        showMessage(
+            signupMessage,
+            "Passwords do not match.",
+            "error"
+        );
+        return;
+    }
 
-        const confirmPassword =
-            signupConfirmPassword.value;
+    try {
 
+        signupButton.disabled = true;
+        signupButton.textContent = "Creating Account...";
 
-        // Name
-
-        if (name.length < 2) {
-
-            showMessage(
-                signupMessage,
-                "Please enter your full name.",
-                "error"
+        const userCredential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
             );
 
-            signupName.focus();
+        const user = userCredential.user;
 
-            return;
-        }
+        await setDoc(
+            doc(db, "users", user.uid),
+            {
+                uid: user.uid,
+                name: name,
+                email: email,
+                mobile: mobile,
+                createdAt: serverTimestamp()
+            }
+        );
 
+        showMessage(
+            signupMessage,
+            "Account created successfully!",
+            "success"
+        );
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
+
+    } catch (error) {
+
+        console.error("FIREBASE ERROR:", error);
+
+        showMessage(
+            signupMessage,
+            "Firebase Error: " +
+            (error.code || error.message),
+            "error"
+        );
+
+        signupButton.disabled = false;
+        signupButton.textContent = "Create Account";
+    }
+});
 
         // Email
 
