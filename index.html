@@ -171,47 +171,24 @@
   <script type="module">
     import { auth } from "./firebase-config.js";
 
-    const reportButton =
-        document.getElementById("reportIssueBtn");
+    const reportButton = document.getElementById("reportIssueBtn");
+    const loginMessage = document.getElementById("loginRequiredMessage");
+    const loginNowBtn = document.getElementById("loginNowBtn");
 
-    if (reportButton) {
+    reportButton.addEventListener("click", (event) => {
+        event.preventDefault();
 
-        reportButton.addEventListener("click", function (event) {
-
-            event.preventDefault();
-
-            if (auth.currentUser) {
-
-                // Already logged in
-                window.location.href = "report.html";
-} else {
-    // Not logged in
-    alert("🔐 Login Required\n\nPlease login first to report an issue.\nAfter logging in, you can submit your report.");
-
-    window.location.href =
-        "login.html?redirect=report&message =loginfirst";
-            }
-    <script type="module">
-
-    import { auth } from "./firebase-config.js";
-
-    import {
-        onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-
-    onAuthStateChanged(auth, (user) => {
-
-        if (!user) {
-
-            // User is not logged in
-            window.location.href =
-                "login.html?redirect=report";
-
+        if (auth.currentUser) {
+            window.location.href = "report.html";
+        } else {
+            loginMessage.style.display = "flex";
         }
-
     });
 
+    loginNowBtn.addEventListener("click", () => {
+        window.location.href = "login.html?redirect=report";
+    });
+  </script>
 </script>
   </script>
 </body>
