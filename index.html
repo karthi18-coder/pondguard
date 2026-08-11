@@ -174,17 +174,13 @@
 
                 // Already logged in
                 window.location.href = "report.html";
+} else {
+    // Not logged in
+    alert("🔐 Login Required\n\nPlease login first to report an issue.\nAfter logging in, you can submit your report.");
 
-            } else {
-
-                // Not logged in
-                window.location.href =
-                    "login.html?redirect=report";
+    window.location.href =
+        "login.html?redirect=report";
             }
-
-        });
-
-    }
     <script type="module">
 
     import { auth } from "./firebase-config.js";
