@@ -1,19 +1,18 @@
-// Firebase App
-import { initializeApp } 
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-// Firebase Authentication
-import { getAuth } 
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-// Firebase Firestore
-import { getFirestore } 
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
 // ==========================================
-// PONDGUARDIAN FIREBASE CONFIGURATION
+// PONDGUARDIAN FIREBASE CONFIG
 // ==========================================
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import { getAuth } from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import { getFirestore } from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+// Firebase configuration
 
 const firebaseConfig = {
     apiKey: "AIzaSyAg_-1Zvv_vluxPmfd2s2mRMX5CjAXr7M",
@@ -26,30 +25,22 @@ const firebaseConfig = {
 };
 
 
-// ==========================================
-// INITIALIZE FIREBASE
-// ==========================================
+// Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
 
 
-// ==========================================
-// INITIALIZE AUTHENTICATION
-// ==========================================
+// Firebase Authentication
 
 const auth = getAuth(app);
 
 
-// ==========================================
-// INITIALIZE FIRESTORE DATABASE
-// ==========================================
+// Firestore
 
 const db = getFirestore(app);
 
 
-// ==========================================
-// EXPORT
-// ==========================================
+// Export
 
 export {
     app,
