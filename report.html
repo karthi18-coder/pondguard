@@ -273,7 +273,7 @@
 <!-- Form Card -->
 <div class="bg-surface rounded-DEFAULT md:rounded-lg shadow-ambient-elevated p-6 md:p-10 mb-8 border border-white/20 relative overflow-hidden">
 <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-secondary"></div>
-<form>
+<form id="reportForm">
 <!-- Step 1: Location -->
 <div class="mb-10">
 <div class="flex items-center gap-3 mb-6 border-b border-surface-variant pb-4">
@@ -316,7 +316,7 @@
         </label>
 
         <select
-            id="district"
+            <select id="district">
             name="district"
             required
             class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow focus:border-primary"
@@ -364,6 +364,7 @@
     </div>
 </div>
 <div>
+  <input type="text" id="taluk">
 <label class="block font-label-md text-label-md text-on-surface mb-2">Taluk</label>
 <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 focus:border-primary" placeholder="" type="text"/>
 </div>
@@ -373,6 +374,7 @@
 <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 focus:border-primary" placeholder="" type="text"/>
     </div>
 <div>
+  <input type="text" id="waterBodyName">
   <label class="block font-label-md text-label-md text-on-surface mb-3">Water Body Type</label>
 <div class="flex flex-wrap gap-3">
 <label class="cursor-pointer">
@@ -413,6 +415,7 @@
 <div class="flex items-center gap-3 mb-6 border-b border-surface-variant pb-4">
 <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-label-md text-label-md border border-primary/20">2</div>
 <h2 class="font-headline-md text-headline-md text-primary">Describe Issue</h2>
+  <textarea id="issueDescription"></textarea>
 </div>
 <div>
 <label class="block font-label-md text-label-md text-on-surface mb-2">What's happening here?</label>
@@ -481,21 +484,15 @@
 
 <!-- Submit Button -->
 <div class="flex justify-end mt-6">
+  
     <button
-        type="submit"
-        class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
-               bg-emerald-700/85
-               text-white font-semibold
-               shadow-lg shadow-emerald-900/30
-               border border-emerald-500/30
-               hover:bg-emerald-800
-               hover:shadow-emerald-900/40
-               transition-all duration-200">
-
-        <span class="material-symbols-outlined text-xl">
-            send
-        </span>
-
-        Submit Report
-    </button>
-</div>
+    type="submit"
+    id="submitReportBtn"
+    class="inline-flex items-center justify-center gap-2 px-6 py-3
+    bg-emerald-700/85
+    text-white font-semibold
+    shadow-lg shadow-emerald-900/30
+    border border-emerald-500/30
+    hover:bg-emerald-800
+    hover:shadow-emerald-900/40
+    transition-all duration-200">
