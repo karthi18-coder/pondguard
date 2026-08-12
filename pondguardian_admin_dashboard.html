@@ -3,333 +3,2777 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="module">
-    import { auth, db } from "./firebase-config.js";
 
-    window.firebaseAuth = auth;
-    window.firebaseDB = db;
-  </script>
 <title>PondGuardian — Admin Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,Arial,sans-serif;background:#f4f8f4;color:#193126}
-.app{display:flex;min-height:100vh}
-.sidebar{width:250px;background:#123d2b;color:white;padding:24px 16px;position:fixed;inset:0 auto 0 0}
-.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800;padding:8px 12px 30px}
-.brand-mark{width:38px;height:38px;border-radius:12px;background:#4f9b68;display:grid;place-items:center}
-.nav-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#a9c8b4;padding:12px}
-.nav a{display:flex;gap:12px;align-items:center;color:#dcece1;text-decoration:none;padding:12px;border-radius:10px;margin:4px 0}
-.nav a.active,.nav a:hover{background:#255a41;color:#fff}
-.admin-card{position:absolute;left:16px;right:16px;bottom:20px;background:#1e5039;border:1px solid #35684d;border-radius:14px;padding:12px;font-size:13px}
-.main{margin-left:250px;width:calc(100% - 250px);padding:30px 34px}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-.top h1{margin:0;font-size:28px}.sub{color:#708277;margin-top:5px;font-size:14px}
-.admin{display:flex;align-items:center;gap:10px;background:white;border:1px solid #dce8df;padding:8px 12px;border-radius:30px}
-.avatar{width:34px;height:34px;border-radius:50%;background:#dcefe2;display:grid;place-items:center;color:#27643f;font-weight:800}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
-.card{background:white;border:1px solid #dce8df;border-radius:16px;padding:20px;box-shadow:0 5px 18px #163b2510}
-.stat-head{display:flex;justify-content:space-between;color:#708277;font-size:13px}.stat-icon{width:38px;height:38px;border-radius:10px;background:#eaf5ed;display:grid;place-items:center}
-.value{font-size:30px;font-weight:800;margin-top:14px}.trend{font-size:12px;color:#3c8154;margin-top:6px}
-.content{display:grid;grid-template-columns:1fr 310px;gap:20px}
-.table-card{background:white;border:1px solid #dce8df;border-radius:16px;overflow:hidden}
-.table-top{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid #e5eee7}
-.table-top h2{margin:0;font-size:18px}.filter{border:1px solid #d6e3da;border-radius:9px;padding:9px 12px;background:white;color:#40584a}
-table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:14px 16px;border-bottom:1px solid #edf2ee;font-size:13px}th{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:#728278;background:#fafcfb}
-.status{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:700}.pending{background:#fff4d9;color:#9a6a00}.progress{background:#e8f1ff;color:#32649a}.done{background:#e4f5e9;color:#267044}
-.side-card h3{margin-top:0;font-size:16px}.bar{height:9px;background:#e7eee9;border-radius:9px;overflow:hidden;margin:9px 0 17px}.bar span{display:block;height:100%;background:#4f9b68;border-radius:9px}.row{display:flex;justify-content:space-between;font-size:13px;color:#52675a}
-@media(max-width:950px){.stats{grid-template-columns:repeat(2,1fr)}.content{grid-template-columns:1fr}.sidebar{width:210px}.main{margin-left:210px;width:calc(100% - 210px)}}
-@media(max-width:650px){.sidebar{position:static;width:100%;height:auto}.app{display:block}.admin-card{position:static;margin-top:20px}.main{margin-left:0;width:100%;padding:20px}.stats{grid-template-columns:1fr}.top{align-items:flex-start;gap:15px;flex-direction:column}table{min-width:720px}.table-card{overflow:auto}}
-</style>
-</head>
-<body>
-<div class="app">
-<aside class="sidebar">
-<div class="brand"><div class="brand-mark">🌿</div>PondGuardian</div>
-<div class="nav-title">Dashboard</div>
-<nav class="nav">
-<a class="active" href="#">▦ <span>Overview</span></a>
-<a href="#">◉ <span>All Reports</span></a>
-<a href="#">◷ <span>Pending Reports</span></a>
-<a href="#">✓ <span>Rectified</span></a>
-</nav>
-<div class="nav-title">Management</div>
-<nav class="nav">
-<a href="#">♙ <span>Users</span></a>
-<a href="#">⚙ <span>Settings</span></a>
-</nav>
-<div class="admin-card"><strong>Administrator</strong><br><span style="color:#b8d1c0">PondGuardian Control Center</span></div>
-</aside>
-
-<main class="main">
-<header class="top">
-<div><h1>Admin Dashboard</h1><div class="sub">Monitor and manage water-body reports across Tamil Nadu.</div></div>
-<div class="admin"><div class="avatar">A</div><span>Admin</span></div>
-</header>
-
-<section class="stats">
-<div class="card"><div class="stat-head"><span>Total Reports</span><div class="stat-icon">📋</div></div><div class="value">248</div><div class="trend">↑ 12% this month</div></div>
-<div class="card"><div class="stat-head"><span>Pending</span><div class="stat-icon">⏳</div></div><div class="value">86</div><div class="trend">Needs attention</div></div>
-<div class="card"><div class="stat-head"><span>In Progress</span><div class="stat-icon">🔄</div></div><div class="value">54</div><div class="trend">Currently handled</div></div>
-<div class="card"><div class="stat-head"><span>Rectified</span><div class="stat-icon">✓</div></div><div class="value">108</div><div class="trend">43.5% resolved</div></div>
-</section>
-
-<section class="content">
-<div class="table-card">
-<div class="table-top"><h2>Recent Reports</h2><select class="filter"><option>All Status</option><option>Pending</option><option>In Progress</option><option>Rectified</option></select></div>
-<table>
-<thead><tr><th>Report ID</th><th>Location</th><th>Water Body</th><th>Issue</th><th>Date</th><th>Status</th></tr></thead>
-<tbody id="reportsTableBody">
-</tbody>
-</table>
-</div>
-
-<div class="card side-card">
-<h3>Report Status</h3>
-<div class="row"><span>Pending</span><strong>35%</strong></div><div class="bar"><span style="width:35%"></span></div>
-<div class="row"><span>In Progress</span><strong>22%</strong></div><div class="bar"><span style="width:22%"></span></div>
-<div class="row"><span>Rectified</span><strong>43%</strong></div><div class="bar"><span style="width:43%"></span></div>
-<h3 style="margin-top:28px">Quick Actions</h3>
-<a href="#" style="display:block;padding:11px;border-radius:9px;background:#edf7ef;color:#27643f;text-decoration:none;margin-bottom:8px;font-size:13px">＋ View all reports</a>
-<a href="#" style="display:block;padding:11px;border-radius:9px;background:#edf7ef;color:#27643f;text-decoration:none;font-size:13px">↓ Export report data</a>
-</div>
-</section>
-</main>
-</div>
-  <script type="module">
-
-    import { auth, db } from "./firebase-config.js";
-
-    import {
-        collection,
-        getDocs,
-        query,
-        orderBy
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-    import {
-        onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-
-    const reportsTableBody =
-        document.getElementById("reportsTableBody");
 
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --green-dark: #063b27;
+    --green: #2f7d4a;
+    --green-light: #eaf6ed;
+    --green-soft: #f4faf5;
+
+    --text: #17251e;
+    --muted: #718078;
+
+    --border: #dce8df;
+    --background: #f5f9f5;
+    --white: #ffffff;
+
+    --yellow: #f4aa00;
+    --blue: #3988df;
+    --red: #d93025;
+
+    --shadow:
+        0 8px 30px rgba(21, 65, 42, 0.07);
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
 
-    // Load reports from Firestore
-    async function loadReports() {
+button,
+input,
+select {
+    font-family: inherit;
+}
 
-        if (!reportsTableBody) {
-            console.error("Reports table body not found.");
-            return;
-        }
+button {
+    cursor: pointer;
+}
 
-        reportsTableBody.innerHTML = `
-            <tr>
-                <td colspan="6" style="text-align:center;padding:25px;">
-                    Loading reports...
-                </td>
-            </tr>
-        `;
+/* =========================
+   APP
+========================= */
 
+.app {
+    min-height: 100vh;
+    display: flex;
+}
 
-        try {
+/* =========================
+   SIDEBAR
+========================= */
 
-            const reportsQuery = query(
-                collection(db, "reports"),
-                orderBy("createdAt", "desc")
-            );
+.sidebar {
+    width: 270px;
+    background: linear-gradient(
+        180deg,
+        #063b27 0%,
+        #073321 100%
+    );
 
-            const snapshot =
-                await getDocs(reportsQuery);
+    color: white;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
 
+    padding: 22px 16px;
 
-            reportsTableBody.innerHTML = "";
+    display: flex;
+    flex-direction: column;
 
+    z-index: 100;
+}
 
-            // No reports
-            if (snapshot.empty) {
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
-                reportsTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="6"
-                            style="text-align:center;padding:25px;">
-                            No reports submitted yet.
-                        </td>
-                    </tr>
-                `;
+    padding: 4px 10px 28px;
+}
 
-                return;
-            }
+.brand img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
 
+.brand-name {
+    font-size: 19px;
+    font-weight: 800;
+}
 
-            // Display every report
-            snapshot.forEach((doc) => {
+.brand-sub {
+    font-size: 11px;
+    color: #a9cfb5;
+    margin-top: 3px;
+}
 
-                const report = doc.data();
+.nav-section {
+    margin-top: 8px;
+}
 
-                const row =
-                    document.createElement("tr");
+.nav-title {
+    padding: 12px 11px 7px;
 
+    font-size: 10px;
+    letter-spacing: 1.4px;
 
-                // Firestore document ID
-                const reportId =
-                    report.reportId || doc.id;
+    color: #8db99b;
+    font-weight: 700;
+}
 
+.nav-link {
+    width: 100%;
 
-                // Location
-                const location = [
-                    report.district,
-                    report.taluk,
-                    report.area
-                ]
-                .filter(Boolean)
-                .join(", ") || "-";
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
+    color: #dcece2;
+    text-decoration: none;
 
-                // Date
-                let reportDate = "-";
+    padding: 11px 12px;
 
-                if (report.createdAt) {
+    border-radius: 11px;
 
-                    try {
+    margin: 3px 0;
 
-                        const date =
-                            report.createdAt.toDate();
+    font-size: 14px;
+    font-weight: 500;
 
-                        reportDate =
-                            date.toLocaleDateString(
-                                "en-IN",
-                                {
-                                    day: "2-digit",
-                                    month: "short",
-                                    year: "numeric"
-                                }
-                            );
+    transition: 0.2s;
+}
 
-                    } catch (dateError) {
+.nav-link:hover {
+    background: rgba(255,255,255,0.08);
+}
 
-                        reportDate = "-";
-                    }
-                }
+.nav-link.active {
+    background: linear-gradient(
+        90deg,
+        #2d7d4b,
+        #276c42
+    );
 
+    color: white;
 
-                // Status
-                const status =
-                    report.status || "Pending";
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.15);
+}
 
+.nav-icon {
+    width: 23px;
+    text-align: center;
+    font-size: 18px;
+}
 
-                let statusClass = "pending";
+.badge {
+    margin-left: auto;
 
-                if (
-                    status.toLowerCase() ===
-                    "in progress"
-                ) {
+    min-width: 24px;
+    height: 22px;
 
-                    statusClass = "progress";
+    padding: 0 7px;
 
-                } else if (
-                    status.toLowerCase() ===
-                    "rectified"
-                ) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-                    statusClass = "done";
-                }
+    border-radius: 20px;
 
+    font-size: 11px;
+    font-weight: 800;
+}
 
-                row.innerHTML = `
+.badge-red {
+    background: #ef4b45;
+}
 
-                    <td>
-                        <strong>#${reportId.substring(0, 8)}</strong>
-                    </td>
+.badge-yellow {
+    background: #e6a000;
+}
 
-                    <td>
-                        ${location}
-                    </td>
+.badge-green {
+    background: #3c8b55;
+}
 
-                    <td>
-                        ${report.waterBodyType || "-"}
-                    </td>
+.admin-box {
+    margin-top: auto;
 
-                    <td>
-                        ${report.issueDescription || "-"}
-                    </td>
+    background:
+        linear-gradient(
+            145deg,
+            rgba(61, 143, 83, 0.35),
+            rgba(19, 70, 45, 0.8)
+        );
 
-                    <td>
-                        ${reportDate}
-                    </td>
+    border: 1px solid rgba(160,220,180,0.15);
 
-                    <td>
-                        <span class="status ${statusClass}">
-                            ${status}
-                        </span>
-                    </td>
+    border-radius: 16px;
 
-                `;
+    padding: 17px;
 
+    overflow: hidden;
 
-                reportsTableBody.appendChild(row);
+    position: relative;
+}
 
-            });
+.admin-box-title {
+    font-weight: 700;
+    font-size: 14px;
+}
 
+.admin-box-text {
+    margin-top: 5px;
 
-        } catch (error) {
+    color: #b8d2c0;
 
-            console.error(
-                "Error loading reports:",
-                error
-            );
+    font-size: 11px;
+    line-height: 1.5;
+}
 
+/* =========================
+   MAIN
+========================= */
 
-            reportsTableBody.innerHTML = `
-                <tr>
-                    <td colspan="6"
-                        style="text-align:center;padding:25px;color:#b42318;">
-                        Unable to load reports.
-                        <br>
-                        <small>
-                            ${error.message}
-                        </small>
-                    </td>
-                </tr>
-            `;
+.main {
+    margin-left: 270px;
 
-        }
+    width: calc(100% - 270px);
 
+    padding: 28px 34px 50px;
+}
+
+/* =========================
+   TOP HEADER
+========================= */
+
+.topbar {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 26px;
+}
+
+.mobile-menu {
+    display: none;
+
+    border: 0;
+    background: transparent;
+
+    font-size: 25px;
+}
+
+.greeting h1 {
+    margin: 0;
+
+    font-size: 29px;
+    line-height: 1.2;
+
+    letter-spacing: -0.7px;
+}
+
+.greeting p {
+    margin: 7px 0 0;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.updated {
+    color: #637168;
+    font-size: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.refresh-btn {
+    border: 0;
+    background: transparent;
+
+    color: var(--green);
+
+    font-size: 19px;
+}
+
+.notification {
+    position: relative;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--border);
+    background: white;
+
+    font-size: 18px;
+}
+
+.notification-badge {
+    position: absolute;
+
+    top: -3px;
+    right: -2px;
+
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+
+    background: #ed3e36;
+    color: white;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    display: grid;
+    place-items: center;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding-left: 5px;
+}
+
+.avatar {
+    width: 39px;
+    height: 39px;
+
+    border-radius: 50%;
+
+    background: var(--green-light);
+
+    display: grid;
+    place-items: center;
+
+    color: var(--green);
+
+    font-weight: 800;
+}
+
+.profile-name {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.profile-role {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+/* =========================
+   KPI CARDS
+========================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    padding: 18px;
+
+    box-shadow: var(--shadow);
+
+    min-height: 135px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::after {
+    content: "";
+
+    position: absolute;
+
+    right: -30px;
+    bottom: -40px;
+
+    width: 130px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: rgba(80,160,95,0.04);
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-title {
+    font-size: 12px;
+    color: #65746b;
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 11px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 20px;
+}
+
+.icon-green {
+    background: #dff1df;
+    color: #348a4c;
+}
+
+.icon-yellow {
+    background: #fff2cf;
+    color: #e09a00;
+}
+
+.icon-blue {
+    background: #e4f0ff;
+    color: #3988df;
+}
+
+.stat-number {
+    margin-top: 12px;
+
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.stat-change {
+    margin-top: 5px;
+
+    color: var(--green);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* =========================
+   ANALYTICS GRID
+========================= */
+
+.analytics {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr
+        1.1fr
+        0.9fr;
+
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+.panel {
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
+
+    padding: 20px;
+}
+
+.panel-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+.panel-title {
+    margin: 0;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.panel-subtitle {
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+/* =========================
+   ACTIVITY CHART
+========================= */
+
+.chart-wrap {
+    height: 220px;
+    position: relative;
+}
+
+.chart-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.chart-labels {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #8a968f;
+
+    font-size: 10px;
+
+    padding: 0 6px;
+}
+
+/* =========================
+   DONUT
+========================= */
+
+.status-content {
+    display: flex;
+
+    align-items: center;
+    gap: 25px;
+}
+
+.donut {
+    width: 145px;
+    height: 145px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            #62ad50 0deg,
+            #62ad50 var(--pending),
+            #f2a400 var(--pending),
+            #f2a400 calc(var(--pending) + var(--progress)),
+            #3d91df calc(var(--pending) + var(--progress)),
+            #3d91df 360deg
+        );
+
+    display: grid;
+    place-items: center;
+
+    position: relative;
+}
+
+.donut::before {
+    content: "";
+
+    position: absolute;
+
+    width: 91px;
+    height: 91px;
+
+    border-radius: 50%;
+
+    background: white;
+}
+
+.donut-center {
+    position: relative;
+
+    text-align: center;
+}
+
+.donut-number {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.donut-label {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.legend-row {
+    display: grid;
+
+    grid-template-columns:
+        10px
+        1fr;
+
+    gap: 8px;
+
+    font-size: 12px;
+}
+
+.legend-dot {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    margin-top: 3px;
+}
+
+.legend-name {
+    font-weight: 600;
+}
+
+.legend-value {
+    color: var(--muted);
+
+    margin-top: 3px;
+}
+
+/* =========================
+   DISTRICTS
+========================= */
+
+.district-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.district-row {
+    display: grid;
+
+    grid-template-columns:
+        82px
+        1fr
+        25px;
+
+    gap: 8px;
+
+    align-items: center;
+
+    font-size: 11px;
+}
+
+.district-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.district-track {
+    height: 7px;
+
+    background: #e7eee9;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.district-fill {
+    height: 100%;
+
+    background: #4c9663;
+
+    border-radius: 10px;
+
+    width: 0;
+
+    transition: width .5s ease;
+}
+
+.district-count {
+    text-align: right;
+
+    color: #516158;
+
+    font-weight: 700;
+}
+
+.view-link {
+    margin-top: 17px;
+
+    width: 100%;
+
+    border: 0;
+
+    background: #f0f8f1;
+
+    color: #317148;
+
+    border-radius: 9px;
+
+    padding: 10px;
+
+    font-size: 12px;
+}
+
+/* =========================
+   REPORTS
+========================= */
+
+.report-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        310px;
+
+    gap: 18px;
+}
+
+.reports-panel {
+    padding: 0;
+
+    overflow: hidden;
+}
+
+.report-header {
+    padding: 18px;
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.report-header h2 {
+    margin: 0;
+
+    font-size: 17px;
+}
+
+.report-tools {
+    display: flex;
+    gap: 8px;
+}
+
+.search-box,
+.filter {
+    height: 37px;
+
+    border: 1px solid #d7e3da;
+
+    border-radius: 9px;
+
+    background: white;
+
+    color: #52645a;
+
+    font-size: 11px;
+
+    padding: 0 10px;
+
+    outline: none;
+}
+
+.search-box {
+    width: 180px;
+}
+
+.search-box:focus,
+.filter:focus {
+    border-color: #5b9b70;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 850px;
+}
+
+th {
+    text-align: left;
+
+    background: #fafcfb;
+
+    color: #718078;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+
+    padding: 12px 15px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+td {
+    padding: 13px 15px;
+
+    border-bottom: 1px solid #edf2ee;
+
+    font-size: 11px;
+
+    vertical-align: middle;
+}
+
+.report-id {
+    color: #277145;
+
+    font-weight: 700;
+}
+
+.location {
+    font-weight: 600;
+}
+
+.location-small {
+    color: #89948e;
+
+    font-size: 9px;
+
+    margin-top: 3px;
+}
+
+.status-pill {
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.status-pending {
+    background: #fff1d2;
+    color: #9b6800;
+}
+
+.status-progress {
+    background: #e4efff;
+    color: #2866a1;
+}
+
+.status-rectified {
+    background: #e1f4e6;
+    color: #277143;
+}
+
+.action-btn {
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid #dce8df;
+
+    background: white;
+
+    border-radius: 8px;
+
+    color: #4d6958;
+
+    margin-right: 4px;
+}
+
+.action-btn:hover {
+    background: #eff7f1;
+}
+
+.no-data {
+    text-align: center;
+
+    color: #849088;
+
+    padding: 35px;
+}
+
+/* =========================
+   SIDE ACTIONS
+========================= */
+
+.side-column {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.quick-actions {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 9px;
+}
+
+.quick-btn {
+    min-height: 80px;
+
+    background: #f1f8f2;
+
+    border: 1px solid #e2eee4;
+
+    border-radius: 11px;
+
+    color: #2e7247;
+
+    font-size: 11px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+}
+
+.quick-btn span {
+    font-size: 21px;
+}
+
+.quick-btn:hover {
+    background: #e6f3e8;
+}
+
+/* =========================
+   ALERT
+========================= */
+
+.alert-panel {
+    border-color: #f0d7d3;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #fff8f7
+        );
+}
+
+.alert-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: #9d302a;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.alert-box {
+    margin-top: 13px;
+
+    padding: 14px;
+
+    border: 1px solid #f2c8c3;
+
+    background: #fff0ee;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.alert-icon {
+    width: 35px;
+    height: 35px;
+
+    border-radius: 9px;
+
+    background: #f5d0cb;
+
+    color: #d52f26;
+
+    display: grid;
+    place-items: center;
+}
+
+.alert-number {
+    font-size: 16px;
+    font-weight: 800;
+
+    color: #a62f28;
+}
+
+.alert-text {
+    font-size: 10px;
+
+    color: #a0524c;
+
+    margin-top: 2px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(7, 29, 18, .55);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 500;
+
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-card {
+    width: min(650px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.25);
+}
+
+.modal-header {
+    padding: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+    margin: 0;
+
+    font-size: 18px;
+}
+
+.close-modal {
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+
+    background: #f0f4f1;
+
+    border-radius: 50%;
+
+    font-size: 18px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+.detail {
+    padding: 13px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: #fafcfb;
+}
+
+.detail-label {
+    font-size: 9px;
+
+    color: #7a8780;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+}
+
+.detail-value {
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.issue-box {
+    margin-top: 15px;
+
+    padding: 15px;
+
+    border-radius: 11px;
+
+    background: #f1f8f2;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.evidence-grid {
+    margin-top: 15px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+.evidence-grid img,
+.evidence-grid video {
+    width: 100%;
+
+    height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 9px;
+
+    border: 1px solid var(--border);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    background: #123d2b;
+
+    color: white;
+
+    padding: 13px 17px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: translateY(10px);
+
+    transition: .25s;
+
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px) {
+
+    .analytics {
+        grid-template-columns: 1fr 1fr;
     }
 
+    .analytics .panel:last-child {
+        grid-column: span 2;
+    }
 
-    // Wait for Firebase Authentication
-    onAuthStateChanged(auth, (user) => {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-        if (user) {
+}
 
-            console.log(
-                "Admin dashboard authenticated:",
-                user.email
-            );
+@media(max-width:950px) {
 
-            loadReports();
+    .sidebar {
+        width: 230px;
+    }
 
-        } else {
+    .main {
+        margin-left: 230px;
 
-            console.warn(
-                "No authenticated Firebase user."
-            );
+        width: calc(100% - 230px);
 
-            reportsTableBody.innerHTML = `
-                <tr>
-                    <td colspan="6"
-                        style="text-align:center;padding:25px;color:#9a6a00;">
-                        Please login to PondGuardian first,
-                        then refresh this dashboard.
-                    </td>
-                </tr>
-            `;
+        padding: 25px;
+    }
+
+    .report-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media(max-width:700px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+
+        transition: .25s;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 18px;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .topbar {
+        align-items: flex-start;
+    }
+
+    .top-actions {
+        gap: 8px;
+    }
+
+    .updated,
+    .profile-role {
+        display: none;
+    }
+
+    .greeting h1 {
+        font-size: 22px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .stat-card {
+        min-height: 120px;
+
+        padding: 14px;
+    }
+
+    .stat-number {
+        font-size: 25px;
+    }
+
+    .analytics {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics .panel:last-child {
+        grid-column: span 1;
+    }
+
+    .status-content {
+        justify-content: center;
+    }
+
+    .report-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .report-tools {
+        width: 100%;
+
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .filter {
+        flex: 1;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media(max-width:450px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .top-actions .notification {
+        display: none;
+    }
+
+    .status-content {
+        flex-direction: column;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <img
+            src="logo.png"
+            alt="PondGuardian Logo"
+            onerror="this.style.display='none'"
+        >
+
+        <div>
+            <div class="brand-name">
+                PondGuardian
+            </div>
+
+            <div class="brand-sub">
+                Protect Every Drop
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            OVERVIEW
+        </div>
+
+        <a href="#" class="nav-link active">
+            <span class="nav-icon">⌂</span>
+            Dashboard
+        </a>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            REPORT MANAGEMENT
+        </div>
+
+        <a href="#" class="nav-link">
+            <span class="nav-icon">▤</span>
+            All Reports
+        </a>
+
+        <a href="#" class="nav-link">
+            <span class="nav-icon">⌛</span>
+            Pending Reports
+
+            <span
+                class="badge badge-red"
+                id="sidebarPending">
+                0
+            </span>
+        </a>
+
+        <a href="#" class="nav-link">
+            <span class="nav-icon">⟳</span>
+            In Progress
+
+            <span
+                class="badge badge-yellow"
+                id="sidebarProgress">
+                0
+            </span>
+        </a>
+
+        <a href="#" class="nav-link">
+            <span class="nav-icon">✓</span>
+            Rectified
+
+            <span
+                class="badge badge-green"
+                id="sidebarRectified">
+                0
+            </span>
+        </a>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            COMMUNITY
+        </div>
+
+        <a href="#" class="nav-link">
+            <span class="nav-icon">♙</span>
+            Users
+        </a>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            ANALYTICS
+         </div>
+
+    <a href="#analytics" class="nav-link">
+        <span class="nav-icon">📊</span>
+        <span>Analytics</span>
+    </a>
+
+    <a href="#trends" class="nav-link">
+        <span class="nav-icon">📈</span>
+        <span>Report Trends</span>
+    </a>
+
+    <a href="#locations" class="nav-link">
+        <span class="nav-icon">📍</span>
+        <span>Location Insights</span>
+    </a>
+
+</div>
+
+<!-- SETTINGS -->
+<div class="nav-section">
+
+    <div class="nav-title">
+        SYSTEM
+    </div>
+
+    <a href="#users" class="nav-link">
+        <span class="nav-icon">👥</span>
+        <span>Users</span>
+    </a>
+
+    <a href="#settings" class="nav-link">
+        <span class="nav-icon">⚙️</span>
+        <span>Settings</span>
+    </a>
+
+</div>
+
+<!-- Sidebar Footer -->
+<div class="sidebar-footer">
+
+    <div class="sidebar-admin">
+        <div class="admin-avatar">
+            A
+        </div>
+
+        <div class="admin-info">
+            <strong>Administrator</strong>
+            <span>System Admin</span>
+        </div>
+
+        <button
+            class="sidebar-more"
+            type="button"
+            aria-label="More options">
+            ⋮
+        </button>
+    </div>
+
+</div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main class="main-content">
+
+    <!-- TOP HEADER -->
+    <header class="dashboard-header">
+
+        <div class="header-left">
+
+            <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                type="button"
+                aria-label="Open menu">
+                ☰
+            </button>
+
+            <div>
+                <p class="breadcrumb">
+                    PondGuardian
+                    <span>/</span>
+                    Admin
+                </p>
+
+                <h1>
+                    Admin Dashboard
+                </h1>
+
+                <p class="header-subtitle">
+                    Monitor and manage water-body reports across Tamil Nadu.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="header-right">
+
+            <!-- Search -->
+            <div class="header-search">
+                <span>⌕</span>
+
+                <input
+                    type="search"
+                    id="globalSearch"
+                    placeholder="Search reports..."
+                    autocomplete="off">
+            </div>
+
+            <!-- Notifications -->
+            <button
+                class="header-icon-btn"
+                id="notificationBtn"
+                type="button"
+                aria-label="Notifications">
+
+                🔔
+
+                <span class="notification-dot"></span>
+
+            </button>
+
+            <!-- Admin Profile -->
+            <div class="header-admin">
+
+                <div class="header-avatar">
+                    A
+                </div>
+
+                <div class="header-admin-info">
+                    <strong>Admin</strong>
+                    <span>Administrator</span>
+                </div>
+
+                <span class="header-chevron">
+                    ▾
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         WELCOME / OVERVIEW
+    ========================= -->
+
+    <section class="welcome-section">
+
+        <div>
+
+            <h2>
+                Good day, Administrator 👋
+            </h2>
+
+            <p>
+                Here's what's happening with PondGuardian today.
+            </p>
+
+        </div>
+
+        <div class="dashboard-date">
+
+            <span>📅</span>
+
+            <span id="currentDate">
+                Loading date...
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         STATISTICS
+    ========================= -->
+
+    <section class="stats-grid">
+
+        <!-- Total -->
+        <article class="stat-card">
+
+            <div class="stat-card-top">
+
+                <div class="stat-icon total">
+                    📋
+                </div>
+
+                <span class="stat-label">
+                    TOTAL REPORTS
+                </span>
+
+            </div>
+
+            <div class="stat-value" id="totalReports">
+                0
+            </div>
+
+            <div class="stat-footer">
+
+                <span class="stat-trend positive">
+                    ↑ Live
+                </span>
+
+                <span>
+                    All submitted reports
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- Pending -->
+        <article class="stat-card">
+
+            <div class="stat-card-top">
+
+                <div class="stat-icon pending">
+                    ⏳
+                </div>
+
+                <span class="stat-label">
+                    PENDING
+                </span>
+
+            </div>
+
+            <div class="stat-value" id="pendingReports">
+                0
+            </div>
+
+            <div class="stat-footer">
+
+                <span class="stat-trend warning">
+                    ● Needs attention
+                </span>
+
+                <span>
+                    Awaiting action
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- In Progress -->
+        <article class="stat-card">
+
+            <div class="stat-card-top">
+
+                <div class="stat-icon progress">
+                    🔄
+                </div>
+
+                <span class="stat-label">
+                    IN PROGRESS
+                </span>
+
+            </div>
+
+            <div class="stat-value" id="progressReports">
+                0
+            </div>
+
+            <div class="stat-footer">
+
+                <span class="stat-trend info">
+                    ● Active
+                </span>
+
+                <span>
+                    Currently handled
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- Rectified -->
+        <article class="stat-card">
+
+            <div class="stat-card-top">
+
+                <div class="stat-icon rectified">
+                    ✓
+                </div>
+
+                <span class="stat-label">
+                    RECTIFIED
+                </span>
+
+            </div>
+
+            <div class="stat-value" id="rectifiedReports">
+                0
+            </div>
+
+            <div class="stat-footer">
+
+                <span class="stat-trend positive">
+                    ✓ Resolved
+                </span>
+
+                <span id="resolvedPercentage">
+                    0% resolution rate
+                </span>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN DASHBOARD GRID
+    ========================= -->
+
+    <section class="dashboard-grid">
+
+        <!-- REPORTS -->
+        <div class="reports-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Recent Reports
+                    </h2>
+
+                    <p>
+                        Latest environmental reports submitted by citizens.
+                    </p>
+
+                </div>
+
+                <div class="panel-actions">
+
+                    <select
+                        id="statusFilter"
+                        class="dashboard-filter">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+
+                        <option value="Rectified">
+                            Rectified
+                        </option>
+
+                    </select>
+
+                    <button
+                        id="refreshReportsBtn"
+                        class="refresh-btn"
+                        type="button">
+
+                        ↻
+                        Refresh
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Loading -->
+            <div
+                id="reportsLoading"
+                class="reports-loading">
+
+                <div class="loading-spinner"></div>
+
+                <span>
+                    Loading reports...
+                </span>
+
+            </div>
+
+
+            <!-- Empty State -->
+            <div
+                id="reportsEmpty"
+                class="reports-empty"
+                style="display:none;">
+
+                <div class="empty-icon">
+                    📋
+                </div>
+
+                <h3>
+                    No reports found
+                </h3>
+
+                <p>
+                    There are no reports matching the current filter.
+                </p>
+
+            </div>
+
+
+            <!-- Table -->
+            <div class="reports-table-wrapper">
+
+                <table class="reports-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                REPORT
+                            </th>
+
+                            <th>
+                                LOCATION
+                            </th>
+
+                            <th>
+                                WATER BODY
+                            </th>
+
+                            <th>
+                                ISSUE
+                            </th>
+
+                            <th>
+                                DATE
+                            </th>
+
+                            <th>
+                                STATUS
+                            </th>
+
+                            <th>
+                                ACTION
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="reportsTableBody">
+
+                        <!-- Firebase reports will appear here -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT COLUMN -->
+        <aside class="dashboard-sidebar">
+
+
+            <!-- STATUS CARD -->
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Report Status
+                        </h3>
+
+                        <p>
+                            Overall resolution progress
+                        </p>
+
+                    </div>
+
+                    <span class="card-header-icon">
+                        📊
+                    </span>
+
+                </div>
+
+
+                <!-- Pending -->
+                <div class="progress-item">
+
+                    <div class="progress-label">
+
+                        <span>
+                            Pending
+                        </span>
+
+                        <strong id="pendingPercentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="pendingBar"
+                            class="progress-fill pending-fill"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Progress -->
+                <div class="progress-item">
+
+                    <div class="progress-label">
+
+                        <span>
+                            In Progress
+                        </span>
+
+                        <strong id="progressPercentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="progressBar"
+                            class="progress-fill progress-fill-blue"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Rectified -->
+                <div class="progress-item">
+
+                    <div class="progress-label">
+
+                        <span>
+                            Rectified
+                        </span>
+
+                        <strong id="rectifiedPercentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="rectifiedBar"
+                            class="progress-fill rectified-fill"
+                            style="width:0%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WATER BODY CARD -->
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Water Bodies
+                        </h3>
+
+                        <p>
+                            Report distribution
+                        </p>
+
+                    </div>
+
+                    <span class="card-header-icon">
+                        💧
+                    </span>
+
+                </div>
+
+
+                <div class="water-body-list">
+
+                    <div class="water-body-row">
+
+                        <div class="water-body-name">
+
+                            <span class="water-dot pond"></span>
+
+                            <span>
+                                Ponds
+                            </span>
+
+                        </div>
+
+                        <strong id="pondCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="water-body-row">
+
+                        <div class="water-body-name">
+
+                            <span class="water-dot lake"></span>
+
+                            <span>
+                                Lakes
+                            </span>
+
+                        </div>
+
+                        <strong id="lakeCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="water-body-row">
+
+                        <div class="water-body-name">
+
+                            <span class="water-dot dam"></span>
+
+                            <span>
+                                Dams
+                            </span>
+
+                        </div>
+
+                        <strong id="damCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="water-body-row">
+
+                        <div class="water-body-name">
+
+                            <span class="water-dot river"></span>
+
+                            <span>
+                                Rivers
+                            </span>
+
+                        </div>
+
+                        <strong id="riverCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="water-body-row">
+
+                        <div class="water-body-name">
+
+                            <span class="water-dot other"></span>
+
+                            <span>
+                                Other
+                            </span>
+
+                        </div>
+
+                        <strong id="otherCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Quick Actions
+                        </h3>
+
+                        <p>
+                            Manage your dashboard
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="viewAllReportsBtn"
+                    class="quick-action"
+                    type="button">
+
+                    <span>
+                        📋
+                    </span>
+
+                    <div>
+                        <strong>
+                            View all reports
+                        </strong>
+
+                        <small>
+                            Browse every submission
+                        </small>
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </button>
+
+
+                <button
+                    id="exportReportsBtn"
+                    class="quick-action"
+                    type="button">
+
+                    <span>
+                        ↓
+                    </span>
+
+                    <div>
+                        <strong>
+                            Export report data
+                        </strong>
+
+                        <small>
+                            Download CSV file
+                        </small>
+                    </div>
+
+                    <b>
+                        →
+                    </b>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+
+    <!-- =========================
+         ANALYTICS SECTION
+    ========================= -->
+
+    <section
+        id="analytics"
+        class="analytics-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    INSIGHTS
+                </span>
+
+                <h2>
+                    Environmental Analytics
+                </h2>
+
+                <p>
+                    Understand where reports are coming from and how quickly they are being resolved.
+                </p>
+
+            </div>
+
+            <select
+                id="analyticsPeriod"
+                class="dashboard-filter">
+
+                <option value="all">
+                    All time
+                </option>
+
+                <option value="30">
+                    Last 30 days
+                </option>
+
+                <option value="90">
+                    Last 90 days
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="analytics-grid">
+
+            <!-- LOCATION ANALYTICS -->
+            <div class="dashboard-card analytics-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Top Reporting Locations
+                        </h3>
+
+                        <p>
+                            Areas receiving the most reports
+                        </p>
+
+                    </div>
+
+                    <span class="card-header-icon">
+                        📍
+                    </span>
+
+                </div>
+
+                <div
+                    id="locationAnalytics"
+                    class="analytics-list">
+
+                    <div class="analytics-empty">
+                        Waiting for report data...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ISSUE ANALYTICS -->
+            <div class="dashboard-card analytics-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Common Issues
+                        </h3>
+
+                        <p>
+                            Most frequently reported problems
+                        </p>
+
+                    </div>
+
+                    <span class="card-header-icon">
+                        ⚠️
+                    </span>
+
+                </div>
+
+                <div
+                    id="issueAnalytics"
+                    class="analytics-list">
+
+                    <div class="analytics-empty">
+                        Waiting for report data...
+                                 </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">ACTIVITY</span>
+                        <h2>Recent Activity</h2>
+                        <p>Latest updates from PondGuardian reports.</p>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div id="activityList" class="activity-list">
+                        <div class="activity-empty">
+                            <div class="empty-icon">◷</div>
+                            <div>
+                                <strong>Waiting for activity...</strong>
+                                <p>Recent report activity will appear here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Firebase / Dashboard Logic -->
+    <script type="module">
+
+        import { auth, db } from "./firebase-config.js";
+
+        import {
+            collection,
+            getDocs,
+            query,
+            orderBy,
+            onSnapshot
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+        /* ==========================================
+           DASHBOARD ELEMENTS
+        ========================================== */
+
+        const reportsTableBody =
+            document.getElementById("reportsTableBody");
+
+        const activityList =
+            document.getElementById("activityList");
+
+
+        /* ==========================================
+           LOAD REAL REPORT DATA
+        ========================================== */
+
+        async function loadDashboardReports() {
+
+            try {
+
+                const reportsQuery = query(
+                    collection(db, "reports"),
+                    orderBy("createdAt", "desc")
+                );
+
+                const snapshot =
+                    await getDocs(reportsQuery);
+
+                console.log(
+                    "PondGuardian reports loaded:",
+                    snapshot.size
+                );
+
+
+                /* ----------------------------------
+                   UPDATE TOTAL REPORTS
+                ---------------------------------- */
+
+                const totalReports =
+                    document.getElementById("totalReports");
+
+                if (totalReports) {
+                    totalReports.textContent =
+                        snapshot.size;
+                }
+
+
+                /* ----------------------------------
+                   COUNT STATUS
+                ---------------------------------- */
+
+                let pending = 0;
+                let progress = 0;
+                let rectified = 0;
+
+
+                snapshot.forEach((doc) => {
+
+                    const report = doc.data();
+
+                    const status =
+                        report.status || "Pending";
+
+
+                    if (status === "Pending") {
+                        pending++;
+                    }
+
+                    else if (
+                        status === "In Progress"
+                    ) {
+                        progress++;
+                    }
+
+                    else if (
+                        status === "Rectified"
+                    ) {
+                        rectified++;
+                    }
+
+                });
+
+
+                /* ----------------------------------
+                   UPDATE STAT CARDS
+                ---------------------------------- */
+
+                const pendingReports =
+                    document.getElementById(
+                        "pendingReports"
+                    );
+
+                const progressReports =
+                    document.getElementById(
+                        "progressReports"
+                    );
+
+                const rectifiedReports =
+                    document.getElementById(
+                        "rectifiedReports"
+                    );
+
+
+                if (pendingReports) {
+                    pendingReports.textContent =
+                        pending;
+                }
+
+                if (progressReports) {
+                    progressReports.textContent =
+                        progress;
+                }
+
+                if (rectifiedReports) {
+                    rectifiedReports.textContent =
+                        rectified;
+                }
+
+
+                /* ----------------------------------
+                   LOAD REPORT TABLE
+                ---------------------------------- */
+
+                if (reportsTableBody) {
+
+                    reportsTableBody.innerHTML = "";
+
+
+                    if (snapshot.empty) {
+
+                        reportsTableBody.innerHTML = `
+                            <tr>
+                                <td colspan="6"
+                                    style="text-align:center;padding:40px">
+                                    No reports submitted yet.
+                                </td>
+                            </tr>
+                        `;
+
+                    }
+
+                    else {
+
+                        snapshot.forEach((doc) => {
+
+                            const report =
+                                doc.data();
+
+                            const row =
+                                document.createElement("tr");
+
+
+                            let date = "-";
+
+                            if (report.createdAt) {
+
+                                date =
+                                    report.createdAt
+                                        .toDate()
+                                        .toLocaleDateString(
+                                            "en-IN"
+                                        );
+
+                            }
+
+
+                            row.innerHTML = `
+
+                                <td>
+                                    <strong>
+                                        #PG-${doc.id.slice(0, 6).toUpperCase()}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    ${report.district || "-"},
+                                    ${report.taluk || "-"}
+                                </td>
+
+                                <td>
+                                    ${report.area || "-"}
+                                </td>
+
+                                <td>
+                                    ${report.issueDescription || "-"}
+                                </td>
+
+                                <td>
+                                    ${date}
+                                </td>
+
+                                <td>
+                                    <span class="status ${
+                                        report.status === "Rectified"
+                                            ? "done"
+                                            : report.status === "In Progress"
+                                            ? "progress"
+                                            : "pending"
+                                    }">
+                                        ${report.status || "Pending"}
+                                    </span>
+                                </td>
+
+                            `;
+
+                            reportsTableBody.appendChild(row);
+
+                        });
+
+                    }
+
+                }
+
+
+                /* ----------------------------------
+                   ACTIVITY LIST
+                ---------------------------------- */
+
+                if (activityList) {
+
+                    activityList.innerHTML = "";
+
+
+                    snapshot.docs
+                        .slice(0, 5)
+                        .forEach((doc) => {
+
+                            const report =
+                                doc.data();
+
+                            const item =
+                                document.createElement("div");
+
+                            item.className =
+                                "activity-item";
+
+
+                            item.innerHTML = `
+
+                                <div class="activity-dot"></div>
+
+                                <div class="activity-content">
+
+                                    <strong>
+                                        New report submitted
+                                    </strong>
+
+                                    <p>
+                                        ${report.area || "Unknown location"},
+                                        ${report.district || ""}
+                                    </p>
+
+                                </div>
+
+                            `;
+
+                            activityList.appendChild(item);
+
+                        });
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Dashboard loading error:",
+                    error
+                );
+
+            }
 
         }
 
-    });
 
-  </script>
+        /* ==========================================
+           REAL-TIME UPDATES
+        ========================================== */
+
+        function listenForReports() {
+
+            const reportsQuery =
+                query(
+                    collection(db, "reports"),
+                    orderBy("createdAt", "desc")
+                );
+
+
+            onSnapshot(
+                reportsQuery,
+                () => {
+
+                    loadDashboardReports();
+
+                },
+                (error) => {
+
+                    console.error(
+                        "Realtime report listener error:",
+                        error
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ==========================================
+           START DASHBOARD
+        ========================================== */
+
+        loadDashboardReports();
+
+        listenForReports();
+
+    </script>
+
 </body>
-</html>
+    </html>
