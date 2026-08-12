@@ -70,9 +70,13 @@ function stopRecording() {
         alert("Video recording stopped!");
     }
 }
+// ===============================
+// EVIDENCE PREVIEW
+// ===============================
+
 const evidenceInput = document.getElementById("evidenceInput");
-const previewContainer = document.getElementById("previewContainer");
 const previewSection = document.getElementById("previewSection");
+const previewContainer = document.getElementById("previewContainer");
 
 let selectedFiles = [];
 
@@ -82,29 +86,30 @@ if (evidenceInput) {
 
         const files = Array.from(this.files);
 
-        files.forEach(function(file) {
+        files.forEach(function (file) {
 
-            if (!file.type.startsWith("image/")) {
-                alert("Please select an image.");
+            if (!file.type.startsWith("image/") &&
+                !file.type.startsWith("video/")) {
                 return;
             }
 
             if (file.size > 10 * 1024 * 1024) {
-                alert("Image must be below 10MB.");
+                alert(file.name + " is larger than 10MB.");
                 return;
             }
 
             selectedFiles.push(file);
         });
 
-        showPreviews();
+        renderEvidence();
 
-        this.value = "";
+        // Allow selecting the same file again
+        evidenceInput.value = "";
     });
 }
 
 
-function showPreviews() {
+function renderEvidence() {
 
     previewContainer.innerHTML = "";
 
@@ -115,49 +120,62 @@ function showPreviews() {
 
     previewSection.style.display = "block";
 
-    selectedFiles.forEach(function(file, index) {
+    selectedFiles.forEach(function (file, index) {
 
-        const reader = new FileReader();
+        const box = document.createElement("div");
 
-        reader.onload = function(event) {
+        box.className =
+            "relative flex-shrink-0 w-32 h-32 rounded-[12px] overflow-hidden border border-outline-variant shadow-sm bg-black";
 
-            const box = document.createElement("div");
 
-            box.className =
-                "relative flex-shrink-0 w-32 h-32 rounded-[12px] overflow-hidden border border-outline-variant shadow-sm";
+        // IMAGE PREVIEW
+        if (file.type.startsWith("image/")) {
 
-            box.innerHTML = `
-                <img
-                    src="${event.target.result}"
-                    class="w-full h-full object-cover"
-                    alt="Uploaded photo"
-                >
+            const img = document.createElement("img");
 
-                <button
-                    type="button"
-                    class="delete-photo absolute top-2 right-2 w-7 h-7 bg-white rounded-full text-red-600 flex items-center justify-center shadow"
-                    data-index="${index}">
-                    ×
-                </button>
-            `;
+            img.src = URL.createObjectURL(file);
 
-            previewContainer.appendChild(box);
-        };
+            img.className = "w-full h-full object-cover";
 
-        reader.readAsDataURL(file);
+            box.appendChild(img);
+        }
+
+
+        // VIDEO PREVIEW
+        if (file.type.startsWith("video/")) {
+
+            const video = document.createElement("video");
+
+            video.src = URL.createObjectURL(file);
+
+            video.className = "w-full h-full object-cover";
+
+            video.controls = true;
+
+            box.appendChild(video);
+        }
+
+
+        // DELETE BUTTON
+        const deleteButton = document.createElement("button");
+
+        deleteButton.type = "button";
+
+        deleteButton.innerHTML = "×";
+
+        deleteButton.className =
+            "absolute top-2 right-2 w-7 h-7 bg-white rounded-full text-red-600 font-bold text-lg flex items-center justify-center shadow-md";
+
+        deleteButton.addEventListener("click", function () {
+
+            selectedFiles.splice(index, 1);
+
+            renderEvidence();
+        });
+
+
+        box.appendChild(deleteButton);
+
+        previewContainer.appendChild(box);
     });
 }
-
-
-document.addEventListener("click", function(e) {
-
-    if (e.target.classList.contains("delete-photo")) {
-
-        const index = Number(e.target.dataset.index);
-
-        selectedFiles.splice(index, 1);
-
-        showPreviews();
-    }
-
-});
