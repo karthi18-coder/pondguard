@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module">
+    import { auth, db } from "./firebase-config.js";
+
+    window.firebaseAuth = auth;
+    window.firebaseDB = db;
+  </script>
 <title>PondGuardian — Admin Dashboard</title>
 <style>
 *{box-sizing:border-box}
@@ -93,5 +99,80 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:14px 16p
 </section>
 </main>
 </div>
+  <script type="module">
+    import {
+        collection,
+        getDocs,
+        query,
+        orderBy
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+    import { db } from "./firebase-config.js";
+
+    const reportsTableBody =
+        document.getElementById("reportsTableBody");
+
+    async function loadReports() {
+
+        if (!reportsTableBody) {
+            console.error("Reports table body not found.");
+            return;
+        }
+
+        try {
+
+            const reportsQuery = query(
+                collection(db, "reports"),
+                orderBy("createdAt", "desc")
+            );
+
+            const snapshot = await getDocs(reportsQuery);
+
+            reportsTableBody.innerHTML = "";
+
+            if (snapshot.empty) {
+                reportsTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-8">
+                            No reports submitted yet.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+
+                const report = doc.data();
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${report.district || "-"}</td>
+                    <td>${report.taluk || "-"}</td>
+                    <td>${report.area || "-"}</td>
+                    <td>${report.waterBodyType || "-"}</td>
+                    <td>${report.status || "Pending"}</td>
+                `;
+
+                reportsTableBody.appendChild(row);
+            });
+
+        } catch (error) {
+
+            console.error("Error loading reports:", error);
+
+            reportsTableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center py-8 text-red-600">
+                        Unable to load reports.
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    loadReports();
+  </script>
 </body>
 </html>
