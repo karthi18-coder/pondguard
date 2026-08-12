@@ -459,47 +459,18 @@
 </div>
 </div>
 <!-- Preview Area -->
-<div class="mt-6">
-<p class="font-label-sm text-label-sm text-on-surface-variant mb-3 uppercase tracking-wider font-semibold">Uploads (Preview)</p>
-<div class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
-<div class="relative flex-shrink-0 w-32 h-32 rounded-[12px] overflow-hidden group border border-outline-variant shadow-sm">
-<div class="bg-cover bg-center w-full h-full" data-alt="A close up shot of a calm pond surface with gentle ripples reflecting the soft light of a bright, modern day. The color palette features deep organic greens and serene blues, embodying a natural, hopeful aesthetic with clean, soft lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCWfi9X709SoNFJoryukZWzOtLO4n6WfH3G5DsavghBP_zeecUd0o-VcU1aFsCi5am21rqb7M-8iJx1gOSanUDWgIuPdqeYcWf-nGmC8et1MCZ5V7WEBPNYuEPAKThc6UgEt8z7ecqB_aIV3c3Ds5PyQJPQgA-NCNsP_X1F037VhMOUIi2yUue0oBorwYFLehDO_4BSiPO-TBXe3WqO3g5X2FKeHbF0IqhsCk3_Fhj0qdg6skSPFfak')"></div>
-<button class="absolute top-2 right-2 w-7 h-7 bg-white/90 text-primary rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:bg-white hover:scale-110">
-<span class="material-symbols-outlined text-sm font-bold">close</span>
-  </button>
-<div class="absolute bottom-1 left-1 right-1 bg-green-500/90 text-white text-[10px] font-bold px-2 py-1 rounded backdrop-blur-sm flex items-center gap-1">
-<span class="material-symbols-outlined text-[12px]">check_circle</span> Uploaded
-                                </div>
-</div>
-<!-- Second Image -->
-<div class="relative flex-shrink-0 w-32 h-32 rounded-[12px] overflow-hidden group border border-outline-variant shadow-sm">
+<div class="mt-6" id="previewSection" style="display: none;">
+
+    <p class="font-label-sm text-label-sm text-on-surface-variant mb-3 uppercase tracking-wider font-semibold">
+        Uploads (Preview)
+    </p>
 
     <div
-        class="bg-cover bg-center w-full h-full"
-        data-alt="A wide shot of a community park pond bordered by lush green grass."
-        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB8hxYPFvJqLgGAzh4g3zdjtgFyX_FNenC-8Yy0sxytHmQvVXyix2-hjN16l-y4D3HhaWJf0kOiwMPl7zKIR1iP5J2o2Y0W5mq9USndrVbFEBZLrwI7NMZQG9AL4bZRGjd5nTBScj4iclSqElCnDo-jCvB3nvaeHxMq8ZbkTJb7LvkEN4aHqtoWCtWpoSD3yOZRpp');">
-    </div>
-
-    <button
-        type="button"
-        class="absolute top-2 right-2 w-7 h-7 bg-white/90 text-primary rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:bg-white hover:scale-110">
-        <span class="material-symbols-outlined text-sm font-bold">
-            close
-        </span>
-    </button>
-
-    <div class="absolute bottom-1 left-1 right-1 bg-green-500/90 text-white text-[10px] font-bold px-2 py-1 rounded backdrop-blur-sm flex items-center gap-1">
-        <span class="material-symbols-outlined text-[12px]">
-            check_circle
-        </span>
-        Uploaded
+        id="previewContainer"
+        class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
     </div>
 
 </div>
-
-<!-- Close preview images container -->
-</div>
-
 <!-- Submit Button -->
 <div class="flex justify-end mt-6">
   
