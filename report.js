@@ -11,14 +11,173 @@ import {
     collection,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
 const submitReportBtn = document.getElementById("submitReportBtn");
 
 if (submitReportBtn) {
-    submitReportBtn.addEventListener("click", function(e) {
+
+    submitReportBtn.addEventListener("click", async function(e) {
+
         e.preventDefault();
 
-        alert("✅ Report Submitted Successfully!");
+        const user = auth.currentUser;
+
+        // Check login
+        if (!user) {
+            alert("🔐 Please login first to submit a report.");
+            return;
+        }
+
+        // Get form values
+        const mobile =
+            document.getElementById("mobile")?.value.trim();
+
+        const district =
+            document.getElementById("district")?.value;
+
+        const taluk =
+            document.getElementById("taluk")?.value.trim();
+
+        const areaInput =
+            document.querySelector("#reportForm input:not(#mobile):not(#taluk):not(#waterBodyName)");
+
+        const area =
+            areaInput?.value.trim() || "";
+
+        const issueDescription =
+            document.getElementById("issueDescription")?.value.trim();
+
+        const selectedWaterType =
+            document.querySelector(
+                'input[name="waterType"]:checked'
+            );
+
+        const waterBodyType =
+            selectedWaterType?.value || "";
+
+        // Validate
+        if (
+            !mobile ||
+            !district ||
+            !taluk ||
+            !area ||
+            !issueDescription ||
+            !waterBodyType
+        ) {
+            alert("⚠️ Please fill all required fields.");
+            return;
+        }
+
+        // Check evidence
+        const files =
+            evidenceInput
+                ? Array.from(evidenceInput.files)
+                : [];
+
+        if (files.length === 0) {
+            alert("📷 Please upload at least one photo or video.");
+            return;
+        }
+
+        try {
+
+            submitReportBtn.disabled = true;
+            submitReportBtn.textContent = "Uploading...";
+
+            const evidenceURLs = [];
+
+            // Upload every photo/video
+            for (const file of files) {
+
+                const fileName =
+                    `${Date.now()}_${file.name}`;
+
+                const storageRef =
+                    ref(
+                        storage,
+                        `reports/${user.uid}/${fileName}`
+                    );
+
+                await uploadBytes(storageRef, file);
+
+                const downloadURL =
+                    await getDownloadURL(storageRef);
+
+                evidenceURLs.push({
+                    name: file.name,
+                    type: file.type,
+                    url: downloadURL
+                });
+            }
+
+            submitReportBtn.textContent =
+                "Saving Report...";
+
+            // Save report to Firestore
+            await addDoc(
+                collection(db, "reports"),
+                {
+                    userId: user.uid,
+                    email: user.email || "",
+
+                    mobile: mobile,
+                    district: district,
+                    taluk: taluk,
+                    area: area,
+
+                    waterBodyType:
+                        waterBodyType,
+
+                    issueDescription:
+                        issueDescription,
+
+                    evidence:
+                        evidenceURLs,
+
+                    status: "Pending",
+
+                    createdAt:
+                        serverTimestamp()
+                }
+            );
+
+            alert(
+                "✅ Report submitted successfully!"
+            );
+
+            // Reset form
+            document
+                .getElementById("reportForm")
+                ?.reset();
+
+            if (previewContainer) {
+                previewContainer.innerHTML = "";
+            }
+
+            if (previewSection) {
+                previewSection.style.display = "none";
+            }
+
+            submitReportBtn.disabled = false;
+            submitReportBtn.textContent =
+                "Submit Report";
+
+        } catch (error) {
+
+            console.error(
+                "Report submission error:",
+                error
+            );
+
+            alert(
+                "❌ Report could not be submitted.\n\n" +
+                error.message
+            );
+
+            submitReportBtn.disabled = false;
+            submitReportBtn.textContent =
+                "Submit Report";
+        }
+
     });
 }
 let stream;
