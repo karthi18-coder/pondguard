@@ -96,6 +96,9 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:14px 16p
 </main>
 </div>
   <script type="module">
+
+    import { auth, db } from "./firebase-config.js";
+
     import {
         collection,
         getDocs,
@@ -103,17 +106,31 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:14px 16p
         orderBy
     } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-    import { db } from "./firebase-config.js";
+    import {
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
     const reportsTableBody =
         document.getElementById("reportsTableBody");
 
+
+    // Load reports from Firestore
     async function loadReports() {
 
         if (!reportsTableBody) {
             console.error("Reports table body not found.");
             return;
         }
+
+        reportsTableBody.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align:center;padding:25px;">
+                    Loading reports...
+                </td>
+            </tr>
+        `;
+
 
         try {
 
@@ -122,53 +139,197 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:14px 16p
                 orderBy("createdAt", "desc")
             );
 
-            const snapshot = await getDocs(reportsQuery);
+            const snapshot =
+                await getDocs(reportsQuery);
+
 
             reportsTableBody.innerHTML = "";
 
+
+            // No reports
             if (snapshot.empty) {
+
                 reportsTableBody.innerHTML = `
                     <tr>
-                        <td colspan="5" class="text-center py-8">
+                        <td colspan="6"
+                            style="text-align:center;padding:25px;">
                             No reports submitted yet.
                         </td>
                     </tr>
                 `;
+
                 return;
             }
 
+
+            // Display every report
             snapshot.forEach((doc) => {
 
                 const report = doc.data();
 
-                const row = document.createElement("tr");
+                const row =
+                    document.createElement("tr");
+
+
+                // Firestore document ID
+                const reportId =
+                    report.reportId || doc.id;
+
+
+                // Location
+                const location = [
+                    report.district,
+                    report.taluk,
+                    report.area
+                ]
+                .filter(Boolean)
+                .join(", ") || "-";
+
+
+                // Date
+                let reportDate = "-";
+
+                if (report.createdAt) {
+
+                    try {
+
+                        const date =
+                            report.createdAt.toDate();
+
+                        reportDate =
+                            date.toLocaleDateString(
+                                "en-IN",
+                                {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric"
+                                }
+                            );
+
+                    } catch (dateError) {
+
+                        reportDate = "-";
+                    }
+                }
+
+
+                // Status
+                const status =
+                    report.status || "Pending";
+
+
+                let statusClass = "pending";
+
+                if (
+                    status.toLowerCase() ===
+                    "in progress"
+                ) {
+
+                    statusClass = "progress";
+
+                } else if (
+                    status.toLowerCase() ===
+                    "rectified"
+                ) {
+
+                    statusClass = "done";
+                }
+
 
                 row.innerHTML = `
-                    <td>${report.district || "-"}</td>
-                    <td>${report.taluk || "-"}</td>
-                    <td>${report.area || "-"}</td>
-                    <td>${report.waterBodyType || "-"}</td>
-                    <td>${report.status || "Pending"}</td>
+
+                    <td>
+                        <strong>#${reportId.substring(0, 8)}</strong>
+                    </td>
+
+                    <td>
+                        ${location}
+                    </td>
+
+                    <td>
+                        ${report.waterBodyType || "-"}
+                    </td>
+
+                    <td>
+                        ${report.issueDescription || "-"}
+                    </td>
+
+                    <td>
+                        ${reportDate}
+                    </td>
+
+                    <td>
+                        <span class="status ${statusClass}">
+                            ${status}
+                        </span>
+                    </td>
+
                 `;
 
+
                 reportsTableBody.appendChild(row);
+
             });
+
 
         } catch (error) {
 
-            console.error("Error loading reports:", error);
+            console.error(
+                "Error loading reports:",
+                error
+            );
+
 
             reportsTableBody.innerHTML = `
                 <tr>
-                    <td colspan="5" class="text-center py-8 text-red-600">
+                    <td colspan="6"
+                        style="text-align:center;padding:25px;color:#b42318;">
                         Unable to load reports.
+                        <br>
+                        <small>
+                            ${error.message}
+                        </small>
                     </td>
                 </tr>
             `;
+
         }
+
     }
 
-    loadReports();
+
+    // Wait for Firebase Authentication
+    onAuthStateChanged(auth, (user) => {
+
+        if (user) {
+
+            console.log(
+                "Admin dashboard authenticated:",
+                user.email
+            );
+
+            loadReports();
+
+        } else {
+
+            console.warn(
+                "No authenticated Firebase user."
+            );
+
+            reportsTableBody.innerHTML = `
+                <tr>
+                    <td colspan="6"
+                        style="text-align:center;padding:25px;color:#9a6a00;">
+                        Please login to PondGuardian first,
+                        then refresh this dashboard.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+    });
+
   </script>
 </body>
 </html>
