@@ -1,4 +1,18 @@
- const submitReportBtn = document.getElementById("submitReportBtn");
+import { auth, db, storage } from "./firebase-config.js";
+
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+
+import {
+    addDoc,
+    collection,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const submitReportBtn = document.getElementById("submitReportBtn");
 
 if (submitReportBtn) {
     submitReportBtn.addEventListener("click", function(e) {
