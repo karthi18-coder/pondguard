@@ -388,31 +388,31 @@
   <label class="block font-label-md text-label-md text-on-surface mb-3">Water Body Type</label>
 <div class="flex flex-wrap gap-3">
 <label class="cursor-pointer">
-<input checked="" class="peer sr-only" name="waterType" type="radio"/>
+<input checked class="peer sr-only" name="waterType" type="radio" value="Pond"/>
 <div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
                                     Pond
                                 </div>
 </label>
 <label class="cursor-pointer">
-<input class="peer sr-only" name="waterType" type="radio"/>
+<input class="peer sr-only" name="waterType" type="radio" value="Lake"/>
 <div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
                                     Lake
                                 </div>
 </label>
   <label class="cursor-pointer">
-<input class="peer sr-only" name="waterType" type="radio"/>
+<input class="peer sr-only" name="waterType" type="radio" value="Dam"/>
 <div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
                                     Dam
                                 </div>
 </label>
 <label class="cursor-pointer">
-<input class="peer sr-only" name="waterType" type="radio"/>
+<input class="peer sr-only" name="waterType" type="radio" value="River"/>
 <div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
                                     River
                                 </div>
 </label>
 <label class="cursor-pointer">
-<input class="peer sr-only" name="waterType" type="radio"/>
+<input class="peer sr-only" name="waterType" type="radio" value="Other"/>
 <div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
                                     Other
                                 </div>
@@ -423,11 +423,17 @@
   <!-- Step 2: Describe Issue -->
 
 </div>
-<div>
-<label class="block font-label-md text-label-md text-on-surface mb-2">What's happening here?</label>
-<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 resize-y focus:border-primary" placeholder="e.g. Hazardous waste dumping, severe chemical spill visible..." rows="4"></textarea>
-</div>
-</div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">
+    What's happening here?
+</label>
+
+<textarea
+    id="issueDescription"
+    name="issueDescription"
+    class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 resize-y focus:border-primary"
+    placeholder="e.g. Hazardous waste dumping, severe chemical spill visible..."
+    rows="4"
+    required></textarea>
   <!-- Step 3: Add Photo/Video -->
 <div class="mb-10">
 <div class="flex items-center gap-3 mb-6 border-b border-surface-variant pb-4">
