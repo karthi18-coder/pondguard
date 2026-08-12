@@ -70,112 +70,85 @@ function stopRecording() {
         alert("Video recording stopped!");
     }
 }
-// ===============================
-// EVIDENCE PREVIEW
-// ===============================
 
+
+// Evidence upload preview
 const evidenceInput = document.getElementById("evidenceInput");
 const previewSection = document.getElementById("previewSection");
 const previewContainer = document.getElementById("previewContainer");
 
-let selectedFiles = [];
-
 if (evidenceInput) {
-
     evidenceInput.addEventListener("change", function () {
+
+        previewContainer.innerHTML = "";
 
         const files = Array.from(this.files);
 
-        files.forEach(function (file) {
-
-            if (!file.type.startsWith("image/") &&
-                !file.type.startsWith("video/")) {
-                return;
-            }
-
-            if (file.size > 10 * 1024 * 1024) {
-                alert(file.name + " is larger than 10MB.");
-                return;
-            }
-
-            selectedFiles.push(file);
-        });
-
-        renderEvidence();
-
-        // Allow selecting the same file again
-        evidenceInput.value = "";
-    });
-}
-
-
-function renderEvidence() {
-
-    previewContainer.innerHTML = "";
-
-    if (selectedFiles.length === 0) {
-        previewSection.style.display = "none";
-        return;
-    }
-
-    previewSection.style.display = "block";
-
-    selectedFiles.forEach(function (file, index) {
-
-        const box = document.createElement("div");
-
-        box.className =
-            "relative flex-shrink-0 w-32 h-32 rounded-[12px] overflow-hidden border border-outline-variant shadow-sm bg-black";
-
-
-        // IMAGE PREVIEW
-        if (file.type.startsWith("image/")) {
-
-            const img = document.createElement("img");
-
-            img.src = URL.createObjectURL(file);
-
-            img.className = "w-full h-full object-cover";
-
-            box.appendChild(img);
+        if (files.length === 0) {
+            previewSection.style.display = "none";
+            return;
         }
 
+        previewSection.style.display = "block";
 
-        // VIDEO PREVIEW
-        if (file.type.startsWith("video/")) {
+        files.forEach((file) => {
 
-            const video = document.createElement("video");
+            const previewBox = document.createElement("div");
 
-            video.src = URL.createObjectURL(file);
+            previewBox.className =
+                "relative flex-shrink-0 w-32 h-32 rounded-[12px] overflow-hidden border border-outline-variant shadow-sm bg-surface";
 
-            video.className = "w-full h-full object-cover";
+            const mediaURL = URL.createObjectURL(file);
 
-            video.controls = true;
+            if (file.type.startsWith("image/")) {
 
-            box.appendChild(video);
-        }
+                previewBox.innerHTML = `
+                    <img
+                        src="${mediaURL}"
+                        class="w-full h-full object-cover"
+                        alt="Uploaded image"
+                    >
 
+                    <button
+                        type="button"
+                        class="delete-preview absolute top-2 right-2 w-7 h-7 bg-white/90 text-red-600 rounded-full flex items-center justify-center shadow-sm"
+                    >
+                        ×
+                    </button>
+                `;
 
-        // DELETE BUTTON
-        const deleteButton = document.createElement("button");
+            } else if (file.type.startsWith("video/")) {
 
-        deleteButton.type = "button";
+                previewBox.innerHTML = `
+                    <video
+                        src="${mediaURL}"
+                        class="w-full h-full object-cover"
+                        controls
+                    ></video>
 
-        deleteButton.innerHTML = "×";
+                    <button
+                        type="button"
+                        class="delete-preview absolute top-2 right-2 w-7 h-7 bg-white/90 text-red-600 rounded-full flex items-center justify-center shadow-sm"
+                    >
+                        ×
+                    </button>
+                `;
 
-        deleteButton.className =
-            "absolute top-2 right-2 w-7 h-7 bg-white rounded-full text-red-600 font-bold text-lg flex items-center justify-center shadow-md";
+            }
 
-        deleteButton.addEventListener("click", function () {
+            previewContainer.appendChild(previewBox);
 
-            selectedFiles.splice(index, 1);
+            const deleteButton =
+                previewBox.querySelector(".delete-preview");
 
-            renderEvidence();
+            deleteButton.addEventListener("click", function () {
+                previewBox.remove();
+
+                if (previewContainer.children.length === 0) {
+                    previewSection.style.display = "none";
+                    evidenceInput.value = "";
+                }
+            });
         });
-
-
-        box.appendChild(deleteButton);
-
-        previewContainer.appendChild(box);
     });
 }
