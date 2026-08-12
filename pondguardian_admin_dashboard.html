@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PondGuardian — Admin Dashboard</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:#f4f8f4;color:#193126}
+.app{display:flex;min-height:100vh}
+.sidebar{width:250px;background:#123d2b;color:white;padding:24px 16px;position:fixed;inset:0 auto 0 0}
+.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800;padding:8px 12px 30px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:#4f9b68;display:grid;place-items:center}
+.nav-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#a9c8b4;padding:12px}
+.nav a{display:flex;gap:12px;align-items:center;color:#dcece1;text-decoration:none;padding:12px;border-radius:10px;margin:4px 0}
+.nav a.active,.nav a:hover{background:#255a41;color:#fff}
+.admin-card{position:absolute;left:16px;right:16px;bottom:20px;background:#1e5039;border:1px solid #35684d;border-radius:14px;padding:12px;font-size:13px}
+.main{margin-left:250px;width:calc(100% - 250px);padding:30px 34px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.top h1{margin:0;font-size:28px}.sub{color:#708277;margin-top:5px;font-size:14px}
+.admin{display:flex;align-items:center;gap:10px;background:white;border:1px solid #dce8df;padding:8px 12px;border-radius:30px}
+.avatar{width:34px;height:34px;border-radius:50%;background:#dcefe2;display:grid;place-items:center;color:#27643f;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
+.card{background:white;border:1px solid #dce8df;border-radius:16px;padding:20px;box-shadow:0 5px 18px #163b2510}
+.stat-head{display:flex;justify-content:space-between;color:#708277;font-size:13px}.stat-icon{width:38px;height:38px;border-radius:10px;background:#eaf5ed;display:grid;place-items:center}
+.value{font-size:30px;font-weight:800;margin-top:14px}.trend{font-size:12px;color:#3c8154;margin-top:6px}
+.content{display:grid;grid-template-columns:1fr 310px;gap:20px}
+.table-card{background:white;border:1px solid #dce8df;border-radius:16px;overflow:hidden}
+.table-top{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid #e5eee7}
+.table-top h2{margin:0;font-size:18px}.filter{border:1px solid #d6e3da;border-radius:9px;padding:9px 12px;background:white;color:#40584a}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:14px 16px;border-bottom:1px solid #edf2ee;font-size:13px}th{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:#728278;background:#fafcfb}
+.status{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:700}.pending{background:#fff4d9;color:#9a6a00}.progress{background:#e8f1ff;color:#32649a}.done{background:#e4f5e9;color:#267044}
+.side-card h3{margin-top:0;font-size:16px}.bar{height:9px;background:#e7eee9;border-radius:9px;overflow:hidden;margin:9px 0 17px}.bar span{display:block;height:100%;background:#4f9b68;border-radius:9px}.row{display:flex;justify-content:space-between;font-size:13px;color:#52675a}
+@media(max-width:950px){.stats{grid-template-columns:repeat(2,1fr)}.content{grid-template-columns:1fr}.sidebar{width:210px}.main{margin-left:210px;width:calc(100% - 210px)}}
+@media(max-width:650px){.sidebar{position:static;width:100%;height:auto}.app{display:block}.admin-card{position:static;margin-top:20px}.main{margin-left:0;width:100%;padding:20px}.stats{grid-template-columns:1fr}.top{align-items:flex-start;gap:15px;flex-direction:column}table{min-width:720px}.table-card{overflow:auto}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="brand"><div class="brand-mark">🌿</div>PondGuardian</div>
+<div class="nav-title">Dashboard</div>
+<nav class="nav">
+<a class="active" href="#">▦ <span>Overview</span></a>
+<a href="#">◉ <span>All Reports</span></a>
+<a href="#">◷ <span>Pending Reports</span></a>
+<a href="#">✓ <span>Rectified</span></a>
+</nav>
+<div class="nav-title">Management</div>
+<nav class="nav">
+<a href="#">♙ <span>Users</span></a>
+<a href="#">⚙ <span>Settings</span></a>
+</nav>
+<div class="admin-card"><strong>Administrator</strong><br><span style="color:#b8d1c0">PondGuardian Control Center</span></div>
+</aside>
+
+<main class="main">
+<header class="top">
+<div><h1>Admin Dashboard</h1><div class="sub">Monitor and manage water-body reports across Tamil Nadu.</div></div>
+<div class="admin"><div class="avatar">A</div><span>Admin</span></div>
+</header>
+
+<section class="stats">
+<div class="card"><div class="stat-head"><span>Total Reports</span><div class="stat-icon">📋</div></div><div class="value">248</div><div class="trend">↑ 12% this month</div></div>
+<div class="card"><div class="stat-head"><span>Pending</span><div class="stat-icon">⏳</div></div><div class="value">86</div><div class="trend">Needs attention</div></div>
+<div class="card"><div class="stat-head"><span>In Progress</span><div class="stat-icon">🔄</div></div><div class="value">54</div><div class="trend">Currently handled</div></div>
+<div class="card"><div class="stat-head"><span>Rectified</span><div class="stat-icon">✓</div></div><div class="value">108</div><div class="trend">43.5% resolved</div></div>
+</section>
+
+<section class="content">
+<div class="table-card">
+<div class="table-top"><h2>Recent Reports</h2><select class="filter"><option>All Status</option><option>Pending</option><option>In Progress</option><option>Rectified</option></select></div>
+<table>
+<thead><tr><th>Report ID</th><th>Location</th><th>Water Body</th><th>Issue</th><th>Date</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><strong>#PG-0248</strong></td><td>Hosur, Krishnagiri</td><td>Kelavarapalli Lake</td><td>Waste dumping</td><td>12 Aug 2026</td><td><span class="status pending">Pending</span></td></tr>
+<tr><td><strong>#PG-0247</strong></td><td>Salem, Salem</td><td>Mookaneri Lake</td><td>Water pollution</td><td>11 Aug 2026</td><td><span class="status progress">In Progress</span></td></tr>
+<tr><td><strong>#PG-0246</strong></td><td>Madurai, Madurai</td><td>Vandiyur Lake</td><td>Encroachment</td><td>11 Aug 2026</td><td><span class="status done">Rectified</span></td></tr>
+<tr><td><strong>#PG-0245</strong></td><td>Coimbatore, Coimbatore</td><td>Ukkadam Lake</td><td>Garbage accumulation</td><td>10 Aug 2026</td><td><span class="status pending">Pending</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card side-card">
+<h3>Report Status</h3>
+<div class="row"><span>Pending</span><strong>35%</strong></div><div class="bar"><span style="width:35%"></span></div>
+<div class="row"><span>In Progress</span><strong>22%</strong></div><div class="bar"><span style="width:22%"></span></div>
+<div class="row"><span>Rectified</span><strong>43%</strong></div><div class="bar"><span style="width:43%"></span></div>
+<h3 style="margin-top:28px">Quick Actions</h3>
+<a href="#" style="display:block;padding:11px;border-radius:9px;background:#edf7ef;color:#27643f;text-decoration:none;margin-bottom:8px;font-size:13px">＋ View all reports</a>
+<a href="#" style="display:block;padding:11px;border-radius:9px;background:#edf7ef;color:#27643f;text-decoration:none;font-size:13px">↓ Export report data</a>
+</div>
+</section>
+</main>
+</div>
+</body>
+</html>
