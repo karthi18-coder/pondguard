@@ -1220,5 +1220,46 @@ document.addEventListener("DOMContentLoaded", function () {
     transition-all duration-200">
    Submit Report 
  </button>
-  <script type="module" src="report.js"></script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const volunteerOptions =
+        document.querySelectorAll(
+            'input[name="participationType"]'
+        );
+
+    const volunteerDetails =
+        document.getElementById("volunteerDetails");
+
+    if (!volunteerDetails) {
+        console.error("Volunteer details section not found.");
+        return;
+    }
+
+    volunteerOptions.forEach(function (option) {
+
+        option.addEventListener("change", function () {
+
+            if (this.value === "None") {
+
+                volunteerDetails.classList.add("hidden");
+
+            } else {
+
+                volunteerDetails.classList.remove("hidden");
+
+            }
+
+        });
+
+    });
+
+});
+  </script>
+    <script type="module" src="report.js"></script>
+</form></div>
+</main>
+</body>
+</html>
    
