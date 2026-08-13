@@ -445,41 +445,572 @@
             for="nssUnit"
             class="block font-label-md text-label-md text-on-surface mb-2"
         >
-            NSS Unit / Programme Details
+            <!-- Community / Volunteer Details -->
+<div class="mt-8">
+
+    <div class="flex items-center gap-3 mb-4">
+        <div class="w-8 h-8 rounded-full bg-primary/10 text-primary
+                    flex items-center justify-center border border-primary/20">
+            <span class="material-symbols-outlined text-[20px]">
+                groups
+            </span>
+        </div>
+
+        <div>
+            <h3 class="font-headline-md text-headline-md text-primary">
+                Community / Volunteer Details
+            </h3>
+
+            <p class="text-sm text-on-surface-variant mt-1">
+                Optional — tell us if you are reporting as part of an
+                organization or volunteer group.
+            </p>
+        </div>
+    </div>
+
+    <!-- Participation Type -->
+    <div class="mb-5">
+
+        <label
+            class="block font-label-md text-label-md
+                   text-on-surface mb-3"
+        >
+            Are you reporting as a volunteer?
         </label>
 
-        <input
-            id="nssUnit"
-            name="nssUnit"
-            type="text"
-            placeholder="e.g. NSS Unit 12"
-            class="w-full bg-surface-container-lowest
-                   border border-outline-variant
-                   rounded-[12px] px-4 py-3
-                   font-body-md text-body-md
-                   text-on-surface
-                   focus:outline-none
-                   focus:border-primary"
-        >
+        <div class="flex flex-wrap gap-3">
+
+            <!-- No -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="None"
+                    id="participationNone"
+                    class="peer sr-only"
+                    checked
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    No
+                </div>
+            </label>
+
+            <!-- NSS -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="NSS"
+                    id="participationNSS"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    NSS
+                </div>
+            </label>
+
+            <!-- NCC -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="NCC"
+                    id="participationNCC"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    NCC
+                </div>
+            </label>
+
+            <!-- JRC -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="JRC"
+                    id="participationJRC"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    JRC
+                </div>
+            </label>
+
+            <!-- Eco Club -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="Eco Club"
+                    id="participationEco"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    Eco Club
+                </div>
+            </label>
+
+            <!-- Other -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="Other"
+                    id="participationOther"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    Other
+                </div>
+            </label>
+
+        </div>
+    </div>
+
+
+    <!-- Volunteer Details -->
+    <div
+        id="volunteerDetails"
+        class="hidden p-5 rounded-[16px]
+               bg-primary/5
+               border border-primary/20"
+    >
+
+        <div class="flex items-center gap-2 mb-5">
+
+            <span class="material-symbols-outlined text-primary">
+                school
+            </span>
+
+            <div>
+                <h4 class="font-semibold text-primary">
+                    Organization Details
+                </h4>
+
+                <p class="text-xs text-on-surface-variant">
+                    Provide your institution and volunteer information.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Institution -->
+        <div class="mb-5">
+
+            <label
+                for="institutionName"
+                class="block font-label-md text-label-md
+                       text-on-surface mb-2"
+            >
+                College / School / Institution Name
+            </label>
+
+            <input
+                id="institutionName"
+                name="institutionName"
+                type="text"
+                placeholder="Enter institution name"
+                class="w-full bg-surface-container-lowest
+                       border border-outline-variant
+                       rounded-[12px] px-4 py-3
+                       font-body-md text-body-md
+                       text-on-surface
+                       focus:outline-none
+                       focus:border-primary"
+            >
+
+        </div>
+
+
+        <!-- Department -->
+        <div class="mb-5">
+
+            <label
+                for="department"
+                class="block font-label-md text-label-md
+                       text-on-surface mb-2"
+            >
+                Department
+            </label>
+
+            <input
+                id="department"
+                name="department"
+                type="text"
+                placeholder="e.g. Computer Science and Engineering"
+                class="w-full bg-surface-container-lowest
+                       border border-outline-variant
+                       rounded-[12px] px-4 py-3
+                       font-body-md text-body-md
+                       text-on-surface
+                       focus:outline-none
+                       focus:border-primary"
+            >
+
+        </div>
+
+
+        <!-- Year + Unit -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+
+            <!-- Year -->
+            <div>
+
+                <label
+                    for="studyYear"
+                    class="block font-label-md text-label-md
+                           text-on-surface mb-2"
+                >
+                    Year of Study
+                </label>
+
+                <select
+                    id="studyYear"
+                    name="studyYear"
+                    class="w-full bg-surface-container-lowest
+                           border border-outline-variant
+                           rounded-[12px] px-4 py-3
+                           font-body-md text-body-md
+                           text-on-surface
+                           focus:outline-none
+                           focus:border-primary"
+                >
+
+                    <option value="">
+                        Select Year
+                    </option>
+
+                    <option value="1st Year">
+                        1st Year
+                    </option>
+
+                    <option value="2nd Year">
+                        2nd Year
+                    </option>
+
+                    <option value="3rd Year">
+                        3rd Year
+                    </option>
+
+                    <option value="4th Year">
+                        4th Year
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Unit -->
+            <div>
+
+                <label
+                    for="organizationUnit"
+                    class="block font-label-md text-label-md
+                           text-on-surface mb-2"
+                >
+                    Unit / Group Number
+                    <span class="text-xs text-outline">
+                        (Optional)
+                    </span>
+                </label>
+
+                <input
+                    id="organizationUnit"
+                    name="organizationUnit"
+                    type="text"
+                    placeholder="e.g. NSS Unit 12"
+                    class="w-full bg-surface-container-lowest
+                           border border-outline-variant
+                           rounded-[12px] px-4 py-3
+                           font-body-md text-body-md
+                           text-on-surface
+                           focus:outline-none
+                           focus:border-primary"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- Reporting As -->
+        <div class="mb-5">
+
+            <label
+                class="block font-label-md text-label-md
+                       text-on-surface mb-3"
+            >
+                Reporting As
+            </label>
+
+            <div class="flex flex-wrap gap-3">
+
+                <label class="cursor-pointer">
+
+                    <input
+                        type="radio"
+                        name="reportingAs"
+                        value="Individual"
+                        class="peer sr-only"
+                        checked
+                    >
+
+                    <div class="px-4 py-2 rounded-full
+                                border border-outline-variant
+                                peer-checked:bg-primary/10
+                                peer-checked:text-primary
+                                peer-checked:border-primary
+                                text-sm
+                                text-on-surface-variant">
+                        Individual
+                    </div>
+
+                </label>
+
+
+                <label class="cursor-pointer">
+
+                    <input
+                        type="radio"
+                        name="reportingAs"
+                        value="Volunteer Team"
+                        class="peer sr-only"
+                    >
+
+                    <div class="px-4 py-2 rounded-full
+                                border border-outline-variant
+                                peer-checked:bg-primary/10
+                                peer-checked:text-primary
+                                peer-checked:border-primary
+                                text-sm
+                                text-on-surface-variant">
+                        Volunteer Team
+                    </div>
+
+                </label>
+
+
+                <label class="cursor-pointer">
+
+                    <input
+                        type="radio"
+                        name="reportingAs"
+                        value="Institution Group"
+                        class="peer sr-only"
+                    >
+
+                    <div class="px-4 py-2 rounded-full
+                                border border-outline-variant
+                                peer-checked:bg-primary/10
+                                peer-checked:text-primary
+                                peer-checked:border-primary
+                                text-sm
+                                text-on-surface-variant">
+                        Institution Group
+                    </div>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- Volunteer Count -->
+        <div class="mb-5">
+
+            <label
+                for="volunteerCount"
+                class="block font-label-md text-label-md
+                       text-on-surface mb-2"
+            >
+                Number of Volunteers Involved
+                <span class="text-xs text-outline">
+                    (Optional)
+                </span>
+            </label>
+
+            <input
+                id="volunteerCount"
+                name="volunteerCount"
+                type="number"
+                min="1"
+                placeholder="e.g. 10"
+                class="w-full bg-surface-container-lowest
+                       border border-outline-variant
+                       rounded-[12px] px-4 py-3
+                       font-body-md text-body-md
+                       text-on-surface
+                       focus:outline-none
+                       focus:border-primary"
+            >
+
+        </div>
+
+
+        <!-- Activity -->
+        <div>
+
+            <label
+                for="volunteerActivity"
+                class="block font-label-md text-label-md
+                       text-on-surface mb-2"
+            >
+                Volunteer Activity
+            </label>
+
+            <select
+                id="volunteerActivity"
+                name="volunteerActivity"
+                class="w-full bg-surface-container-lowest
+                       border border-outline-variant
+                       rounded-[12px] px-4 py-3
+                       font-body-md text-body-md
+                       text-on-surface
+                       focus:outline-none
+                       focus:border-primary"
+            >
+
+                <option value="">
+                    Select Activity
+                </option>
+
+                <option value="Waste Cleanup">
+                    Waste Cleanup
+                </option>
+
+                <option value="Water Body Restoration">
+                    Water Body Restoration
+                </option>
+
+                <option value="Plantation / Greenery">
+                    Plantation / Greenery
+                </option>
+
+                <option value="Environmental Awareness">
+                    Environmental Awareness
+                </option>
+
+                <option value="Water Quality Monitoring">
+                    Water Quality Monitoring
+                </option>
+
+                <option value="Environmental Monitoring">
+                    Environmental Monitoring
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
     </div>
 
 </div>
 
-<script>
-    const nssYes = document.getElementById("nssYes");
-    const nssNo = document.getElementById("nssNo");
-    const nssDetails = document.getElementById("nssDetails");
 
-    function updateNSSDetails() {
-        if (nssYes.checked) {
-            nssDetails.classList.remove("hidden");
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const participationInputs =
+        document.querySelectorAll(
+            'input[name="participationType"]'
+        );
+
+    const volunteerDetails =
+        document.getElementById("volunteerDetails");
+
+    function updateVolunteerSection() {
+
+        const selected =
+            document.querySelector(
+                'input[name="participationType"]:checked'
+            );
+
+        if (!selected) return;
+
+        if (selected.value === "None") {
+
+            volunteerDetails.classList.add("hidden");
+
         } else {
-            nssDetails.classList.add("hidden");
+
+            volunteerDetails.classList.remove("hidden");
+
         }
+
     }
 
-    nssYes.addEventListener("change", updateNSSDetails);
-    nssNo.addEventListener("change", updateNSSDetails);
+    participationInputs.forEach(function (input) {
+
+        input.addEventListener(
+            "change",
+            updateVolunteerSection
+        );
+
+    });
+
+    updateVolunteerSection();
+
+});
 </script>
   <div>
     <label
