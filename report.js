@@ -101,7 +101,7 @@ if (reportForm) {
                 .trim() || "";
 
         const area =
-            getAreaValue();
+    document.getElementById("area")?.value.trim() || "";
 
         const issueDescription =
             document.getElementById("issueDescription")
