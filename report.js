@@ -116,6 +116,35 @@ if (reportForm) {
         const waterBodyType =
             selectedWaterType?.value || "";
 
+        // Community / Volunteer Details
+const participationType =
+    document.querySelector(
+        'input[name="participationType"]:checked'
+    )?.value || "None";
+
+const institutionName =
+    document.getElementById("institutionName")?.value.trim() || "";
+
+const department =
+    document.getElementById("department")?.value.trim() || "";
+
+const studyYear =
+    document.getElementById("studyYear")?.value || "";
+
+const organizationUnit =
+    document.getElementById("organizationUnit")?.value.trim() || "";
+
+const reportingAs =
+    document.querySelector(
+        'input[name="reportingAs"]:checked'
+    )?.value || "Individual";
+
+const volunteerCount =
+    document.getElementById("volunteerCount")?.value || "";
+
+const volunteerActivity =
+    document.getElementById("volunteerActivity")?.value || "";
+
 
         // ----------------------------------------------
         // GET SELECTED EVIDENCE FILES
@@ -249,6 +278,34 @@ if (reportForm) {
 
                 evidenceCount:
                     files.length,
+                // Community / Volunteer Details
+participationType:
+    document.querySelector(
+        'input[name="participationType"]:checked'
+    )?.value || "None",
+
+institutionName:
+    document.getElementById("institutionName")?.value.trim() || "",
+
+department:
+    document.getElementById("department")?.value.trim() || "",
+
+studyYear:
+    document.getElementById("studyYear")?.value || "",
+
+organizationUnit:
+    document.getElementById("organizationUnit")?.value.trim() || "",
+
+reportingAs:
+    document.querySelector(
+        'input[name="reportingAs"]:checked'
+    )?.value || "Individual",
+
+volunteerCount:
+    document.getElementById("volunteerCount")?.value || "",
+
+volunteerActivity:
+    document.getElementById("volunteerActivity")?.value || "",
 
                 status:
                     "Pending",
