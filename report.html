@@ -291,6 +291,196 @@
     required
 />
 </div>
+  <!-- NSS Volunteer Details -->
+<div class="mt-6">
+    <label class="block font-label-md text-label-md text-on-surface mb-3">
+        Are you an NSS Volunteer?
+    </label>
+
+    <div class="flex flex-wrap gap-3">
+
+        <!-- Yes -->
+        <label class="cursor-pointer">
+            <input
+                type="radio"
+                name="nssVolunteer"
+                value="Yes"
+                class="peer sr-only"
+                id="nssYes"
+            >
+
+            <div class="px-5 py-2 rounded-full border border-outline-variant
+                        peer-checked:bg-primary/10
+                        peer-checked:text-primary
+                        peer-checked:border-primary
+                        font-label-md text-label-md
+                        transition-all text-on-surface-variant
+                        hover:bg-surface-variant">
+                Yes
+            </div>
+        </label>
+
+        <!-- No -->
+        <label class="cursor-pointer">
+            <input
+                type="radio"
+                name="nssVolunteer"
+                value="No"
+                class="peer sr-only"
+                id="nssNo"
+                checked
+            >
+
+            <div class="px-5 py-2 rounded-full border border-outline-variant
+                        peer-checked:bg-primary/10
+                        peer-checked:text-primary
+                        peer-checked:border-primary
+                        font-label-md text-label-md
+                        transition-all text-on-surface-variant
+                        hover:bg-surface-variant">
+                No
+            </div>
+        </label>
+
+    </div>
+</div>
+
+<!-- NSS College Details -->
+<div
+    id="nssDetails"
+    class="hidden mt-6 p-5 rounded-[16px]
+           bg-primary/5 border border-primary/20"
+>
+
+    <div class="flex items-center gap-2 mb-4">
+        <span class="material-symbols-outlined text-primary">
+            school
+        </span>
+
+        <h3 class="font-headline-md text-headline-md text-primary">
+            NSS Volunteer Details
+        </h3>
+    </div>
+
+    <!-- College Name -->
+    <div class="mb-5">
+        <label
+            for="collegeName"
+            class="block font-label-md text-label-md text-on-surface mb-2"
+        >
+            College Name
+        </label>
+
+        <input
+            id="collegeName"
+            name="collegeName"
+            type="text"
+            placeholder="Enter your college name"
+            class="w-full bg-surface-container-lowest
+                   border border-outline-variant
+                   rounded-[12px] px-4 py-3
+                   font-body-md text-body-md
+                   text-on-surface
+                   focus:outline-none
+                   focus:border-primary"
+        >
+    </div>
+
+    <!-- Department -->
+    <div class="mb-5">
+        <label
+            for="collegeDepartment"
+            class="block font-label-md text-label-md text-on-surface mb-2"
+        >
+            Department
+        </label>
+
+        <input
+            id="collegeDepartment"
+            name="collegeDepartment"
+            type="text"
+            placeholder="e.g. Computer Science and Engineering"
+            class="w-full bg-surface-container-lowest
+                   border border-outline-variant
+                   rounded-[12px] px-4 py-3
+                   font-body-md text-body-md
+                   text-on-surface
+                   focus:outline-none
+                   focus:border-primary"
+        >
+    </div>
+
+    <!-- Year of Study -->
+    <div class="mb-5">
+        <label
+            for="collegeYear"
+            class="block font-label-md text-label-md text-on-surface mb-2"
+        >
+            Year of Study
+        </label>
+
+        <select
+            id="collegeYear"
+            name="collegeYear"
+            class="w-full bg-surface-container-lowest
+                   border border-outline-variant
+                   rounded-[12px] px-4 py-3
+                   font-body-md text-body-md
+                   text-on-surface
+                   focus:outline-none
+                   focus:border-primary"
+        >
+            <option value="">Select Year</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <!-- NSS Unit -->
+    <div>
+        <label
+            for="nssUnit"
+            class="block font-label-md text-label-md text-on-surface mb-2"
+        >
+            NSS Unit / Programme Details
+        </label>
+
+        <input
+            id="nssUnit"
+            name="nssUnit"
+            type="text"
+            placeholder="e.g. NSS Unit 12"
+            class="w-full bg-surface-container-lowest
+                   border border-outline-variant
+                   rounded-[12px] px-4 py-3
+                   font-body-md text-body-md
+                   text-on-surface
+                   focus:outline-none
+                   focus:border-primary"
+        >
+    </div>
+
+</div>
+
+<script>
+    const nssYes = document.getElementById("nssYes");
+    const nssNo = document.getElementById("nssNo");
+    const nssDetails = document.getElementById("nssDetails");
+
+    function updateNSSDetails() {
+        if (nssYes.checked) {
+            nssDetails.classList.remove("hidden");
+        } else {
+            nssDetails.classList.add("hidden");
+        }
+    }
+
+    nssYes.addEventListener("change", updateNSSDetails);
+    nssNo.addEventListener("change", updateNSSDetails);
+</script>
   <div>
     <label
         class="block font-label-md text-label-md text-on-surface mb-2"
