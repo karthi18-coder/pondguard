@@ -259,5 +259,229 @@ onAuthStateChanged(auth, (user) => {
   </script>
 </script>
   </script>
+  <!-- =====================================================
+     USER DASHBOARD MODAL
+===================================================== -->
+
+<div
+    class="modal fade"
+    id="userDashboardModal"
+    tabindex="-1"
+    aria-labelledby="userDashboardModalLabel"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+
+        <div class="modal-content border-0 shadow-lg">
+
+            <!-- HEADER -->
+
+            <div class="modal-header bg-success text-white">
+
+                <div>
+
+                    <h4 class="modal-title fw-bold" id="userDashboardModalLabel">
+                        📊 My Dashboard
+                    </h4>
+
+                    <small id="dashboardUserEmail">
+                        Loading user...
+                    </small>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <!-- BODY -->
+
+            <div class="modal-body bg-light">
+
+                <!-- Loading -->
+
+                <div
+                    id="dashboardLoading"
+                    class="text-center py-5"
+                >
+
+                    <div
+                        class="spinner-border text-success"
+                        role="status"
+                    ></div>
+
+                    <p class="mt-3 text-muted">
+                        Loading your reports...
+                    </p>
+
+                </div>
+
+
+                <!-- Dashboard content -->
+
+                <div id="dashboardContent" style="display:none;">
+
+                    <!-- STATISTICS -->
+
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-6 col-lg-3">
+
+                            <div class="card border-0 shadow-sm h-100">
+
+                                <div class="card-body">
+
+                                    <small class="text-muted">
+                                        Total Reports
+                                    </small>
+
+                                    <h2
+                                        id="dashboardTotal"
+                                        class="fw-bold text-primary mb-0"
+                                    >
+                                        0
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6 col-lg-3">
+
+                            <div class="card border-0 shadow-sm h-100">
+
+                                <div class="card-body">
+
+                                    <small class="text-muted">
+                                        Pending
+                                    </small>
+
+                                    <h2
+                                        id="dashboardPending"
+                                        class="fw-bold text-warning mb-0"
+                                    >
+                                        0
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6 col-lg-3">
+
+                            <div class="card border-0 shadow-sm h-100">
+
+                                <div class="card-body">
+
+                                    <small class="text-muted">
+                                        Under Review
+                                    </small>
+
+                                    <h2
+                                        id="dashboardReview"
+                                        class="fw-bold text-info mb-0"
+                                    >
+                                        0
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6 col-lg-3">
+
+                            <div class="card border-0 shadow-sm h-100">
+
+                                <div class="card-body">
+
+                                    <small class="text-muted">
+                                        Resolved
+                                    </small>
+
+                                    <h2
+                                        id="dashboardResolved"
+                                        class="fw-bold text-success mb-0"
+                                    >
+                                        0
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REPORTS -->
+
+                    <div class="card border-0 shadow-sm">
+
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <h5 class="fw-bold mb-0">
+                                    📋 My Reports
+                                </h5>
+
+                                <button
+                                    id="refreshDashboardBtn"
+                                    class="btn btn-outline-success btn-sm"
+                                >
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    Refresh
+                                </button>
+
+                            </div>
+
+
+                            <div id="userReportsContainer">
+
+                                <!-- Reports inserted by JavaScript -->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div
+                    id="dashboardError"
+                    class="alert alert-danger"
+                    style="display:none;"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
 </body>
 </html>
