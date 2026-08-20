@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>PondGuardian | Save Our Water Bodies</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Dashboard styles only. Existing homepage styles are preserved. -->
+  <style>
+    .pg-dashboard-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+      overflow-y: auto;
+    }
+
+    .pg-dashboard-overlay.show {
+      display: flex;
+    }
+
+    .pg-dashboard {
+      width: min(1000px, 100%);
+      max-height: 92vh;
+      overflow-y: auto;
+      background: #f6faf7;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .pg-dashboard-header {
+      background: linear-gradient(135deg, #176b45, #198754);
+      color: #fff;
+      padding: 22px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .pg-dashboard-header h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .pg-dashboard-header p {
+      margin: 5px 0 0;
+      opacity: 0.85;
+      font-size: 13px;
+    }
+
+    .pg-dashboard-close {
+      border: 0;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .pg-dashboard-body {
+      padding: 24px;
+    }
+
+    .pg-dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .pg-stat-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      border: 1px solid #e7eee9;
+    }
+
+    .pg-stat-card span {
+      display: block;
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .pg-stat-card strong {
+      font-size: 28px;
+      color: #176b45;
+    }
+
+    .pg-stat-card.pending strong { color: #b7791f; }
+    .pg-stat-card.review strong { color: #087ea4; }
+    .pg-stat-card.resolved strong { color: #198754; }
+
+    .pg-reports-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .pg-reports-title h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #173c2b;
+    }
+
+    .pg-refresh-btn {
+      border: 1px solid #198754;
+      color: #198754;
+      background: #fff;
+      padding: 8px 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .pg-refresh-btn:hover {
+      background: #198754;
+      color: #fff;
+    }
+
+    .pg-report-card {
+      background: #fff;
+      border: 1px solid #e3ebe6;
+      border-radius: 15px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    }
+
+    .pg-report-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .pg-report-id {
+      color: #198754;
+      font-weight: 700;
+      word-break: break-all;
+    }
+
+    .pg-report-date {
+      color: #777;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .pg-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pg-status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .pg-status-review {
+      background: #cff4fc;
+      color: #055160;
+    }
+
+    .pg-status-resolved {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .pg-status-rejected {
+      background: #f8d7da;
+      color: #842029;
+    }
+
+    .pg-report-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 20px;
+      margin-top: 16px;
+      padding-top: 15px;
+      border-top: 1px solid #edf1ee;
+    }
+
+    .pg-report-field strong {
+      display: block;
+      color: #374151;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .pg-report-field span {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .pg-report-issue {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #edf1ee;
+    }
+
+    .pg-report-issue strong {
+      display: block;
+      color: #374151;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .pg-report-issue p {
+      margin: 0;
+      color: #666;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .pg-loading,
+    .pg-empty,
+    .pg-error {
+      background: #fff;
+      border-radius: 14px;
+      padding: 35px 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .pg-loading-spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid #dcebe2;
+      border-top-color: #198754;
+      border-radius: 50%;
+      animation: pgSpin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes pgSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .pg-error {
+      color: #842029;
+      background: #f8d7da;
+    }
+
+    .pg-profile-email {
+      padding: 10px 14px;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+      color: #555;
+      word-break: break-all;
+    }
+
+    .pg-dashboard-button {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      padding: 10px 14px;
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+    }
+
+    .pg-dashboard-button:hover {
+      background: rgba(25, 135, 84, 0.08);
+    }
+
+    @media (max-width: 700px) {
+      .pg-dashboard-overlay {
+        padding: 8px;
+      }
+
+      .pg-dashboard {
+        max-height: 96vh;
+        border-radius: 14px;
+      }
+
+      .pg-dashboard-body {
+        padding: 15px;
+      }
+
+      .pg-dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pg-report-top {
+        flex-direction: column;
+      }
+
+      .pg-report-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+  <header class="site-header">
+
+    <!-- BRAND -->
+    <a href="index.html" class="brand">
+
+      <img
+        src="logo.png"
+        alt="PondGuardian Logo"
+        class="brand-logo"
+      >
+
+      <span class="brand-name">
+        Pond<span>Guardian</span>
+      </span>
+
+    </a>
+
+
+    <!-- Firebase Login / Profile -->
+    <div id="authNav">
+
+      <a href="login.html" class="login-button">
+        Login
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <div class="hero-main">
+
+      <!-- PondGuardian Community Cleanup Image -->
+      <section class="pond-image-section">
+
+        <div class="pond-image-wrapper">
+
+          <img
+            src="pondclean.png.png"
+            alt="PondGuardian community members cleaning and protecting a pond"
+            class="pond-clean-image"
+          >
+
+        </div>
+
+      </section>
+
+
+      <!-- Report Button AFTER Image -->
+      <div class="hero-actions">
+
+        <a
+          href="#"
+          id="reportIssueBtn"
+          class="btn btn-warning report-button"
+        >
+          <span>📋</span>
+          <span>Report an Issue</span>
+        </a>
+
+      </div>
+
+
+      <div
+        id="loginRequiredMessage"
+        class="login-required-message"
+      >
+
+        <div class="login-message-box">
+
+          <div class="login-message-icon">
+            🔐
+          </div>
+
+          <strong>
+            Create an Account
+          </strong>
+
+          <p>
+            Please create an account first to report an issue.
+          </p>
+
+          <button id="loginNowBtn">
+            Create Account
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- How It Works -->
+      <section
+        class="process-section"
+        id="how-it-works"
+      >
+
+        <div class="section-heading">
+
+          <span>
+            — HOW IT WORKS —
+          </span>
+
+          <h2>
+            Simple steps. Big impact.
+          </h2>
+
+          <p>
+            From identifying a problem to taking action,
+            PondGuardian connects the community with the people
+            who can help.
+          </p>
+
+        </div>
+
+
+        <div class="steps-grid">
+
+          <!-- Your 4 step cards stay here -->
+
+        </div>
+
+      </section>
+
+
+      <div class="steps-grid">
+
+        <article class="step-card">
+
+          <div class="step-number">
+            01
+          </div>
+
+          <div class="step-icon">
+            📋
+          </div>
+
+          <h3>
+            Report
+          </h3>
+
+          <p>
+            Citizens can report pollution, waste and other problems affecting water bodies.
+          </p>
+
+        </article>
+
+
+        <article class="step-card">
+
+          <div class="step-number">
+            02
+          </div>
+
+          <div class="step-icon">
+            👥
+          </div>
+
+          <h3>
+            Track
+          </h3>
+
+          <p>
+            Reported issues can be reviewed and tracked through the platform.
+          </p>
+
+        </article>
+
+
+        <article class="step-card">
+
+          <div class="step-number">
+            03
+          </div>
+
+          <div class="step-icon">
+            🏛️
+          </div>
+
+          <h3>
+            Action
+          </h3>
+
+          <p>
+            Officials can review reported problems and take appropriate action.
+          </p>
+
+        </article>
+
+
+        <article class="step-card">
+
+          <div class="step-number">
+            04
+          </div>
+
+          <div class="step-icon">
+            💧
+          </div>
+
+          <h3>
+            Restore
+          </h3>
+
+          <p>
+            Together, we work towards cleaner and healthier water bodies.
+          </p>
+
+        </article>
+
+      </div>
+
+
+      <section
+        class="about-section"
+        id="about"
+      >
+
+        <div class="about-content">
+
+          <span class="section-label">
+            WHY PONDGUARDIAN?
+          </span>
+
+          <h2>
+            Every water body
+            <span>deserves a guardian.</span>
+          </h2>
+
+          <p>
+            Ponds, lakes, rivers and dams are an important part of
+            our communities. But pollution, waste and neglect can
+            slowly damage them.
+          </p>
+
+          <p>
+            PondGuardian gives citizens a simple way to bring
+            attention to these problems and helps connect reports
+            with action.
+          </p>
+
+        </div>
+
+
+        <div class="about-visual">
+
+          <div class="water-circle">
+            💧
+          </div>
+
+          <div class="circle-text">
+            PROTECT • REPORT • RESTORE
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section
+        class="impact-section"
+        id="impact"
+      >
+
+        <div class="impact-grid">
+
+          <div class="impact-item">
+
+            <strong>
+              2,500+
+            </strong>
+
+            <span>
+              Active Guardians
+            </span>
+
+          </div>
+
+
+          <div class="impact-item">
+
+            <strong>
+              1,200+
+            </strong>
+
+            <span>
+              Issues Reported
+            </span>
+
+          </div>
+
+
+          <div class="impact-item">
+
+            <strong>
+              980+
+            </strong>
+
+            <span>
+              Issues Resolved
+            </span>
+
+          </div>
+
+
+          <div class="impact-item">
+
+            <strong>
+              150+
+            </strong>
+
+            <span>
+              Water Bodies Protected
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <footer class="site-footer">
+
+    <div>
+
+      <strong>
+        Pond<span>Guardian</span>
+      </strong>
+
+      <p>
+        Protecting water bodies, one report at a time.
+      </p>
+
+    </div>
+
+    <p>
+      © 2026 PondGuardian
+    </p>
+
+  </footer>
+
+</div>
+
+
+<!-- =====================================================
+     USER DASHBOARD
+     No Bootstrap
+===================================================== -->
+
+<div
+  id="userDashboardOverlay"
+  class="pg-dashboard-overlay"
+  aria-hidden="true"
+>
+
+  <div
+    class="pg-dashboard"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dashboardTitle"
+  >
+
+    <div class="pg-dashboard-header">
+
+      <div>
+
+        <h2 id="dashboardTitle">
+          📊 My Dashboard
+        </h2>
+
+        <p id="dashboardUserEmail">
+          Loading user...
+        </p>
+
+      </div>
+
+      <button
+        id="closeDashboardBtn"
+        class="pg-dashboard-close"
+        type="button"
+        aria-label="Close dashboard"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="pg-dashboard-body">
+
+      <!-- Statistics -->
+
+      <div class="pg-dashboard-stats">
+
+        <div class="pg-stat-card">
+
+          <span>
+            Total Reports
+          </span>
+
+          <strong id="dashboardTotal">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="pg-stat-card pending">
+
+          <span>
+            Pending
+          </span>
+
+          <strong id="dashboardPending">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="pg-stat-card review">
+
+          <span>
+            Under Review
+          </span>
+
+          <strong id="dashboardReview">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="pg-stat-card resolved">
+
+          <span>
+            Resolved
+          </span>
+
+          <strong id="dashboardResolved">
+            0
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- Reports -->
+
+      <div class="pg-reports-title">
+
+        <h3>
+          📋 My Reports
+        </h3>
+
+        <button
+          id="refreshDashboardBtn"
+          class="pg-refresh-btn"
+          type="button"
+        >
+          ↻ Refresh
+        </button>
+
+      </div>
+
+
+      <div id="dashboardLoading" class="pg-loading">
+
+        <div class="pg-loading-spinner"></div>
+
+        Loading your reports...
+
+      </div>
+
+
+      <div
+        id="dashboardError"
+        class="pg-error"
+        style="display:none;"
+      ></div>
+
+
+      <div
+        id="dashboardEmpty"
+        class="pg-empty"
+        style="display:none;"
+      >
+
+        <div style="font-size:42px;">
+          📋
+        </div>
+
+        <h3>
+          No reports yet
+        </h3>
+
+        <p>
+          You haven't submitted any pond reports.
+        </p>
+
+      </div>
+
+
+      <div id="userReportsContainer"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Existing project script -->
+<script src="script.js"></script>
+
+
+<!-- =====================================================
+     FIREBASE + DASHBOARD
+===================================================== -->
+
+<script type="module">
+
+  import {
+    auth,
+    db
+  } from "./firebase-config.js";
+
+
+  import {
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+  import {
+    collection,
+    query,
+    where,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+  // =====================================================
+  // ELEMENTS
+  // =====================================================
+
+  const authNav =
+    document.getElementById("authNav");
+
+  const reportButton =
+    document.getElementById("reportIssueBtn");
+
+  const loginMessage =
+    document.getElementById("loginRequiredMessage");
+
+  const loginNowBtn =
+    document.getElementById("loginNowBtn");
+
+  const dashboardOverlay =
+    document.getElementById("userDashboardOverlay");
+
+  const closeDashboardBtn =
+    document.getElementById("closeDashboardBtn");
+
+  const refreshDashboardBtn =
+    document.getElementById("refreshDashboardBtn");
+
+
+  let currentUser = null;
+
+  let unsubscribeReports = null;
+
+
+  // =====================================================
+  // REPORT BUTTON
+  // =====================================================
+
+  reportButton.addEventListener(
+    "click",
+    (event) => {
+
+      event.preventDefault();
+
+      if (auth.currentUser) {
+
+        window.location.href =
+          "report.html";
+
+      } else {
+
+        loginMessage.style.display =
+          "flex";
+
+      }
+
+    }
+  );
+
+
+  // =====================================================
+  // CREATE ACCOUNT / LOGIN
+  // =====================================================
+
+  loginNowBtn.addEventListener(
+    "click",
+    () => {
+
+      window.location.href =
+        "login.html?redirect=report";
+
+    }
+  );
+
+
+  // =====================================================
+  // AUTH STATE
+  // =====================================================
+
+  onAuthStateChanged(
+    auth,
+    (user) => {
+
+      currentUser = user;
+
+      if (user) {
+
+        showLoggedInNavigation(user);
+
+      } else {
+
+        showLoggedOutNavigation();
+
+        closeDashboard();
+
+      }
+
+    }
+  );
+
+
+  // =====================================================
+  // LOGGED-IN NAVIGATION
+  // =====================================================
+
+  function showLoggedInNavigation(user) {
+
+    authNav.innerHTML = `
+
+      <div class="profile-menu">
+
+        <button
+          id="profileBtn"
+          class="login-button"
+          type="button"
+        >
+          👤 Profile
+        </button>
+
+
+        <div
+          id="profileDropdown"
+          class="profile-dropdown"
+        >
+
+          <div class="profile-email pg-profile-email">
+            ${escapeHTML(user.email || "User")}
+          </div>
+
+
+          <button
+            id="dashboardBtn"
+            class="pg-dashboard-button"
+            type="button"
+          >
+            📊 Dashboard
+          </button>
+
+
+          <button
+            id="logoutBtn"
+            type="button"
+          >
+            🚪 Logout
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    const profileBtn =
+      document.getElementById(
+        "profileBtn"
+      );
+
+    const profileDropdown =
+      document.getElementById(
+        "profileDropdown"
+      );
+
+
+    profileBtn.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+        profileDropdown.classList.toggle(
+          "show"
+        );
+
+      }
+    );
+
+
+    document.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          !authNav.contains(event.target)
+        ) {
+
+          profileDropdown.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+
+    document
+      .getElementById("dashboardBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          profileDropdown.classList.remove(
+            "show"
+          );
+
+          openDashboard(user);
+
+        }
+      );
+
+
+    document
+      .getElementById("logoutBtn")
+      .addEventListener(
+        "click",
+        async () => {
+
+          try {
+
+            await signOut(auth);
+
+            closeDashboard();
+
+            window.location.href =
+              "index.html";
+
+          } catch (error) {
+
+            console.error(
+              "Logout error:",
+              error
+            );
+
+            alert(
+              "Logout failed. Please try again."
+            );
+
+          }
+
+        }
+      );
+
+  }
+
+
+  // =====================================================
+  // LOGGED-OUT NAVIGATION
+  // =====================================================
+
+  function showLoggedOutNavigation() {
+
+    authNav.innerHTML = `
+
+      <a
+        href="login.html"
+        class="login-button"
+      >
+        Login
+      </a>
+
+    `;
+
+  }
+
+
+  // =====================================================
+  // OPEN DASHBOARD
+  // =====================================================
+
+  function openDashboard(user) {
+
+    if (!user) {
+
+      window.location.href =
+        "login.html";
+
+      return;
+
+    }
+
+
+    currentUser = user;
+
+
+    document.getElementById(
+      "dashboardUserEmail"
+    ).textContent =
+      user.email || "Logged-in User";
+
+
+    dashboardOverlay.classList.add(
+      "show"
+    );
+
+    dashboardOverlay.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+
+    document.body.style.overflow =
+      "hidden";
+
+
+    loadUserReports(user);
+
+  }
+
+
+  // =====================================================
+  // CLOSE DASHBOARD
+  // =====================================================
+
+  function closeDashboard() {
+
+    dashboardOverlay.classList.remove(
+      "show"
+    );
+
+    dashboardOverlay.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+    document.body.style.overflow =
+      "";
+
+
+    if (unsubscribeReports) {
+
+      unsubscribeReports();
+
+      unsubscribeReports = null;
+
+    }
+
+  }
+
+
+  closeDashboardBtn.addEventListener(
+    "click",
+    closeDashboard
+  );
+
+
+  dashboardOverlay.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        event.target === dashboardOverlay
+      ) {
+
+        closeDashboard();
+
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        event.key === "Escape" &&
+        dashboardOverlay.classList.contains(
+          "show"
+        )
+      ) {
+
+        closeDashboard();
+
+      }
+
+    }
+  );
+
+
+  // =====================================================
+  // LOAD USER REPORTS FROM FIRESTORE
+  // =====================================================
+
+  function loadUserReports(user) {
+
+    const loading =
+      document.getElementById(
+        "dashboardLoading"
+      );
+
+    const errorBox =
+      document.getElementById(
+        "dashboardError"
+      );
+
+    const emptyBox =
+      document.getElementById(
+        "dashboardEmpty"
+      );
+
+    const reportsContainer =
+      document.getElementById(
+        "userReportsContainer"
+      );
+
+
+    loading.style.display =
+      "block";
+
+    errorBox.style.display =
+      "none";
+
+    emptyBox.style.display =
+      "none";
+
+    reportsContainer.innerHTML =
+      "";
+
+
+    /*
+      IMPORTANT:
+
+      report.js saves reports like this:
+
+      collection: "reports"
+
+      userId: user.uid
+
+      reportId
+      email
+      mobile
+      district
+      taluk
+      area
+      waterBodyType
+      issueDescription
+      evidence
+      evidenceCount
+      status
+      createdAt
+
+      We query only the reports belonging
+      to the currently authenticated user.
+    */
+
+    const reportsQuery =
+      query(
+        collection(db, "reports"),
+        where(
+          "userId",
+          "==",
+          user.uid
+        )
+      );
+
+
+    /*
+      onSnapshot gives realtime updates.
+
+      So when the admin changes:
+
+      Pending → Under Review
+
+      or
+
+      Under Review → Resolved
+
+      the user's dashboard updates automatically.
+    */
+
+    unsubscribeReports =
+      onSnapshot(
+        reportsQuery,
+        (snapshot) => {
+
+          loading.style.display =
+            "none";
+
+          errorBox.style.display =
+            "none";
+
+
+          const reports = [];
+
+
+          snapshot.forEach(
+            (doc) => {
+
+              reports.push({
+                id: doc.id,
+                ...doc.data()
+              });
+
+            }
+          );
+
+
+          // Newest first
+
+          reports.sort(
+            (a, b) => {
+
+              const dateA =
+                a.createdAt?.toDate
+                  ? a.createdAt.toDate()
+                  : new Date(0);
+
+              const dateB =
+                b.createdAt?.toDate
+                  ? b.createdAt.toDate()
+                  : new Date(0);
+
+              return dateB - dateA;
+
+            }
+          );
+
+
+          updateStatistics(
+            reports
+          );
+
+
+          if (reports.length === 0) {
+
+            emptyBox.style.display =
+              "block";
+
+            reportsContainer.innerHTML =
+              "";
+
+            return;
+
+          }
+
+
+          emptyBox.style.display =
+            "none";
+
+
+          renderReports(
+            reports,
+            reportsContainer
+          );
+
+        },
+
+        (error) => {
+
+          console.error(
+            "Firestore dashboard error:",
+            error
+          );
+
+
+          loading.style.display =
+            "none";
+
+          emptyBox.style.display =
+            "none";
+
+          reportsContainer.innerHTML =
+            "";
+
+
+          errorBox.textContent =
+            "Unable to load your reports. " +
+            error.message;
+
+          errorBox.style.display =
+            "block";
+
+        }
+      );
+
+  }
+
+
+  // =====================================================
+  // REFRESH BUTTON
+  // =====================================================
+
+  refreshDashboardBtn.addEventListener(
+    "click",
+    () => {
+
+      if (
+        currentUser &&
+        dashboardOverlay.classList.contains(
+          "show"
+        )
+      ) {
+
+        /*
+          onSnapshot is already realtime.
+          Calling loadUserReports again would
+          create another listener, so we don't
+          create another listener here.
+
+          Instead, briefly show the loading
+          message as feedback.
+        */
+
+        const loading =
+          document.getElementById(
+            "dashboardLoading"
+          );
+
+        loading.style.display =
+          "block";
+
+        setTimeout(
+          () => {
+
+            loading.style.display =
+              "none";
+
+          },
+          400
+        );
+
+      }
+
+    }
+  );
+
+
+  // =====================================================
+  // STATISTICS
+  // =====================================================
+
+  function updateStatistics(
+    reports
+  ) {
+
+    let pending = 0;
+
+    let review = 0;
+
+    let resolved = 0;
+
+
+    reports.forEach(
+      (report) => {
+
+        const status =
+          String(
+            report.status ||
+            "Pending"
+          )
+            .toLowerCase()
+            .trim();
+
+
+        if (
+          status === "pending"
+        ) {
+
+          pending++;
+
+        }
+
+        else if (
+          status === "under review" ||
+          status === "review" ||
+          status === "in review"
+        ) {
+
+          review++;
+
+        }
+
+        else if (
+          status === "resolved" ||
+          status === "rectified" ||
+          status === "completed"
+        ) {
+
+          resolved++;
+
+        }
+
+      }
+    );
+
+
+    document.getElementById(
+      "dashboardTotal"
+    ).textContent =
+      reports.length;
+
+
+    document.getElementById(
+      "dashboardPending"
+    ).textContent =
+      pending;
+
+
+    document.getElementById(
+      "dashboardReview"
+    ).textContent =
+      review;
+
+
+    document.getElementById(
+      "dashboardResolved"
+    ).textContent =
+      resolved;
+
+  }
+
+
+  // =====================================================
+  // RENDER REPORTS
+  // =====================================================
+
+  function renderReports(
+    reports,
+    container
+  ) {
+
+    container.innerHTML = "";
+
+
+    reports.forEach(
+      (report) => {
+
+        const card =
+          document.createElement(
+            "article"
+          );
+
+
+        card.className =
+          "pg-report-card";
+
+
+        const status =
+          report.status ||
+          "Pending";
+
+
+        const statusInfo =
+          getStatusInfo(
+            status
+          );
+
+
+        let dateText =
+          "Date unavailable";
+
+
+        if (
+          report.createdAt?.toDate
+        ) {
+
+          dateText =
+            report.createdAt
+              .toDate()
+              .toLocaleDateString(
+                "en-IN",
+                {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric"
+                }
+              );
+
+        }
+
+
+        card.innerHTML = `
+
+          <div class="pg-report-top">
+
+            <div>
+
+              <div>
+                <strong>
+                  Report ID:
+                </strong>
+
+                <span class="pg-report-id">
+                  ${escapeHTML(
+                    report.reportId ||
+                    report.id ||
+                    "N/A"
+                  )}
+                </span>
+              </div>
+
+              <div class="pg-report-date">
+                Submitted: ${dateText}
+              </div>
+
+            </div>
+
+
+            <span
+              class="pg-status ${statusInfo.className}"
+            >
+              ${statusInfo.icon}
+              ${escapeHTML(status)}
+            </span>
+
+          </div>
+
+
+          <div class="pg-report-grid">
+
+            <div class="pg-report-field">
+
+              <strong>
+                District
+              </strong>
+
+              <span>
+                ${escapeHTML(
+                  report.district ||
+                  "N/A"
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="pg-report-field">
+
+              <strong>
+                Taluk
+              </strong>
+
+              <span>
+                ${escapeHTML(
+                  report.taluk ||
+                  "N/A"
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="pg-report-field">
+
+              <strong>
+                Area
+              </strong>
+
+              <span>
+                ${escapeHTML(
+                  report.area ||
+                  "N/A"
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="pg-report-field">
+
+              <strong>
+                Water Body
+              </strong>
+
+              <span>
+                ${escapeHTML(
+                  report.waterBodyType ||
+                  "N/A"
+                )}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="pg-report-issue">
+
+            <strong>
+              Issue Reported
+            </strong>
+
+            <p>
+              ${escapeHTML(
+                report.issueDescription ||
+                "No description provided."
+              )}
+            </p>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(
+          card
+        );
+
+      }
+    );
+
+  }
+
+
+  // =====================================================
+  // STATUS STYLE
+  // =====================================================
+
+  function getStatusInfo(
+    status
+  ) {
+
+    const value =
+      String(status)
+        .toLowerCase()
+        .trim();
+
+
+    if (
+      value === "resolved" ||
+      value === "rectified" ||
+      value === "completed"
+    ) {
+
+      return {
+        className:
+          "pg-status-resolved",
+        icon: "✓"
+      };
+
+    }
+
+
+    if (
+      value === "under review" ||
+      value === "review" ||
+      value === "in review"
+    ) {
+
+      return {
+        className:
+          "pg-status-review",
+        icon: "🔍"
+      };
+
+    }
+
+
+    if (
+      value === "rejected"
+    ) {
+
+      return {
+        className:
+          "pg-status-rejected",
+        icon: "✕"
+      };
+
+    }
+
+
+    return {
+      className:
+        "pg-status-pending",
+      icon: "⏳"
+    };
+
+  }
+
+
+  // =====================================================
+  // HTML SAFETY
+  // =====================================================
+
+  function escapeHTML(
+    value
+  ) {
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.textContent =
+      value ?? "";
+
+    return div.innerHTML;
+
+  }
+
+</script>
+
+</body>
+</html>
