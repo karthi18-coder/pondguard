@@ -392,34 +392,40 @@
 
       </div>
 
+<div
+    id="loginRequiredMessage"
+    class="login-required-message"
+>
+    <div class="login-message-box">
 
-      <div
-        id="loginRequiredMessage"
-        class="login-required-message"
-      >
+        <!-- Close button -->
+        <button
+            type="button"
+            id="closeLoginMessage"
+            class="login-message-close"
+            aria-label="Close"
+        >
+            ×
+        </button>
 
-        <div class="login-message-box">
-
-          <div class="login-message-icon">
+        <div class="login-message-icon">
             🔐
-          </div>
-
-          <strong>
-            Create an Account
-          </strong>
-
-          <p>
-            Please create an account first to report an issue.
-          </p>
-
-          <button id="loginNowBtn">
-            Create Account
-          </button>
-
         </div>
 
-      </div>
+        <strong>
+            Create an Account
+        </strong>
 
+        <p>
+            Please create an account first to report an issue.
+        </p>
+
+        <button id="loginNowBtn">
+            Create Account
+        </button>
+
+    </div>
+</div>
 
       <!-- How It Works -->
       <section
