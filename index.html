@@ -899,6 +899,14 @@
 
   const loginNowBtn =
     document.getElementById("loginNowBtn");
+  const closeLoginMessage =
+    document.getElementById("closeLoginMessage");
+
+closeLoginMessage.addEventListener("click", () => {
+
+    loginMessage.style.display = "none";
+
+});
 
   const dashboardOverlay =
     document.getElementById("userDashboardOverlay");
