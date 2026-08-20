@@ -879,8 +879,8 @@ main {
     border: 1px solid #e5e7eb;
     border-radius: 50%;
 
-    background: #ffffff;
-    color: #6b7280;
+    background: red;
+    color: red;
 
     font-size: 22px;
     font-weight: 500;
