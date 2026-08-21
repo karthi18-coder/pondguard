@@ -1550,53 +1550,35 @@ function startRealtimeReports() {
 
 function setupAuthState() {
 
-  if (!auth) {
+    auth.onAuthStateChanged(user => {
 
-    console.error(
-      "Firebase Auth is not available."
-    );
+        console.log("========== PONDGUARDIAN AUTH DEBUG ==========");
 
-    startRealtimeReports();
+        if (!user) {
+            console.error("❌ NO FIREBASE USER LOGGED IN");
 
-    return;
+            alert("Firebase authentication failed. No user is signed in.");
 
-  }
+            return;
+        }
 
+        console.log("✅ Firebase user authenticated");
+        console.log("Email:", user.email);
+        console.log("UID:", user.uid);
+        console.log("Project:", "pondguardian-b4808");
 
-  auth.onAuthStateChanged(
-    user => {
+        const adminEmail = $("adminEmail");
 
-      const adminEmail =
-        $("adminEmail");
+        if (adminEmail) {
+            adminEmail.textContent = user.email || "Administrator";
+        }
+      console.log(
+    "🔥 ADMIN UID USED BY DASHBOARD:",
+    user.uid
+);
 
-
-      if (adminEmail) {
-
-        adminEmail.textContent =
-          user?.email ||
-          "Administrator";
-
-      }
-
-
-      /*
-       * IMPORTANT:
-       *
-       * This dashboard currently
-       * loads reports for the
-       * authenticated Firebase user.
-       *
-       * Real admin-only access
-       * should be enforced with
-       * Firebase Security Rules.
-       */
-
-
-      startRealtimeReports();
-
-    }
-  );
-
+        startRealtimeReports();
+    });
 }
 
 
