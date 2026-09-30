@@ -1,0 +1,1085 @@
+ <!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PondGuardian - Report Issue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+     darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-high": "#e8e8e5",
+                "on-tertiary-fixed": "#331111",
+                "on-primary-fixed": "#002114",
+                "surface": "#f9faf6",
+                "on-background": "#1a1c1a",
+                "tertiary-fixed-dim": "#f5b7b4",
+                "on-tertiary-fixed-variant": "#673a39",
+                "on-primary": "#ffffff",
+                "surface-variant": "#e2e3e0",
+                "primary-container": "#1b4332",
+                "inverse-on-surface": "#f0f1ee",
+                "primary-fixed": "#c1ecd4",
+                "primary": "#8B1E1E",
+                "on-secondary": "#ffffff",
+                "primary-fixed-dim": "#a5d0b9",
+                "on-surface-variant": "#414844",
+                "secondary-container": "#aeeecb",
+                "tertiary-fixed": "#ffdad8",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#f3f4f1",
+                "surface-container-lowest": "#ffffff",
+                "surface-tint": "#3f6653",
+                "tertiary": "#401b1b",
+                "on-primary-fixed-variant": "#274e3d",
+                "surface-container-highest": "#e2e3e0",
+                "outline-variant": "#c1c8c2",
+                "secondary": "#C62828",
+                "secondary-fixed": "#b1f0ce",
+                "on-tertiary-container": "#d29895",
+                "on-error": "#ffffff",
+                "on-secondary-fixed-variant": "#0e5138",
+                "outline": "#717973",
+                "surface-dim": "#dadad7",
+                "on-secondary-container": "#316e52",
+                "on-surface": "#1a1c1a",
+                "secondary-fixed-dim": "#95d4b3",
+                "tertiary-container": "#5a302f",
+                "on-primary-container": "#86af99",
+                "on-secondary-fixed": "#002114",
+                "inverse-primary": "#a5d0b9",
+                "surface-bright": "#f9faf6",
+                "inverse-surface": "#2f312f",
+                "error-container": "#ffdad6",
+                "surface-container": "#eeeeeb",
+                "background": "#f9faf6",
+                "on-error-container": "#93000a",
+                "error": "#ba1a1a"
+        },"borderRadius": {
+                "DEFAULT": "1rem",
+                "lg": "2rem",
+                "xl": "3rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "gutter": "24px",
+                "container-max": "1280px",
+                "margin-mobile": "16px",
+                "margin-desktop": "48px",
+                "unit": "8px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-lg-mobile": [
+                        "Plus Jakarta Sans"
+                ],
+                "label-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-xl": [
+                        "Plus Jakarta Sans"
+                ],
+                "label-sm": [
+                        "Plus Jakarta Sans"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                   {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+  
+  </head>
+<body class="relative overflow-x-hidden font-body-md text-body-md">
+<div class="water-pattern"></div>
+<!-- Background Shader -->
+<div class="fixed inset-0 z-0 pointer-events-none opacity-20 mix-blend-multiply">
+
+</div>
+<!-- Top Navigation Shell -->
+<nav class="bg-surface/90 dark:bg-on-primary-fixed/90 backdrop-blur-md docked full-width top-0 sticky z-50 shadow-[0_4px_20px_rgba(0,0,0,0.1)] hidden md:block border-b border-white/10">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<img alt="PondGuardian Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKxWnv-CJeAM6_z4KrpuTKAfC_BXf8jILD98mZc_8x7NyBmG3URH8aGP6HuYtTl8Iy4hJTy0jWXfW5EEP6GRqJ7ZQBICfsa_XQEDAuEy7hb4fMmGEhK6RLAFewUy12eFqTiT3TngLNyAxh730ObG0U1dzXzZloKhnatReoCbQcdLcaR6K5pW7PzflRD6w68z_Ep3uKBPCMFvHorCq3YCcGv8DHZVdK-pGMUYsfHnZKIGecuuAVAK4hq2KeoBTiTn6A8Q"/>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">PondGuardian</span>
+  <div class="flex gap-6">
+
+<a class="text-primary border-b-2 border-primary font-bold pb-1 hover:text-primary transition-colors duration-200" href="#">My Reports</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary transition-colors duration-200" href="user-dashboard.html">Profile</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="bg-primary text-white px-6 py-2 rounded-full font-label-md text-label-md hover:bg-secondary transition-colors shadow-sm">
+                    New Report
+                </button>
+</div>
+</div>
+</nav>
+  
+<!-- Mobile Header -->
+<header class="md:hidden flex items-center justify-between px-5 py-4 sticky top-0 bg-surface z-50 border-b border-surface-variant">
+
+    <!-- Back Button -->
+    <button
+        type="button"
+        onclick="history.back()"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-on-surface-variant hover:bg-surface-container transition-colors"
+        aria-label="Go back">
+
+        <span class="material-symbols-outlined text-[28px]">
+            arrow_back
+        </span>
+
+    </button>
+  <!-- Logo + Title -->
+<div class="flex items-center gap-2">
+    <img
+        src="logo.png"
+        alt="PondGuardian Logo"
+        class="h-12 w-12 object-contain"
+    >
+
+    <!-- Page Title -->
+    <div class="flex-1 text-center">
+        <span class="font-headline-md text-headline-md font-bold text-primary">
+            New Report
+        </span>
+    </div>
+
+    <!-- Notification + Settings -->
+    <div class="flex items-center gap-2">
+
+        <button
+            type="button"
+            class="flex items-center justify-center w-10 h-10 rounded-full text-on-surface-variant hover:bg-surface-container transition-colors"
+            aria-label="Notifications">
+
+            <span class="material-symbols-outlined text-[27px]">
+                notifications
+            </span>
+
+        </button>
+
+        <button
+            type="button"
+            class="flex items-center justify-center w-10 h-10 rounded-full text-on-surface-variant hover:bg-surface-container transition-colors"
+            aria-label="Settings">
+
+            <span class="material-symbols-outlined text-[27px]">
+                settings
+            </span>
+
+        </button>
+
+    </div>
+
+</header>
+<main class="relative z-10 max-w-3xl mx-auto px-margin-mobile md:px-0 py-8 md:py-16">
+<!-- Header -->
+<div class="mb-12 text-center md:text-left text-white drop-shadow-md">
+
+    <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4 flex items-center justify-center md:justify-start gap-2 text-red-700">
+        <span class="material-symbols-outlined text-4xl text-red-600">warning</span>
+        Environmental Alert Report
+    </h1>
+<p class="font-body-lg text-body-lg"
+   style="color: #000000 !important;">
+    Urgent: Tell us what needs immediate attention. Your report directly flags issues for rapid municipal response.
+</p>
+
+</div>
+<!-- Form Card -->
+<div class="bg-surface rounded-DEFAULT md:rounded-lg shadow-ambient-elevated p-6 md:p-10 mb-8 border border-white/20 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-secondary"></div>
+<form id="reportForm">
+<!-- Step 1: Location -->
+<div class="mb-10">
+<div class="flex items-center gap-3 mb-6 border-b border-surface-variant pb-4">
+<div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-label-md text-label-md border border-primary/20">1</div>
+<h2 class="font-headline-md text-headline-md text-primary">Location Details</h2>
+</div>
+  <div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Your Name</label>
+<input
+    id="name"
+    name="name"
+    class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 focus:border-primary"
+    placeholder="e.g. John"
+    type="text"
+    required
+/>
+</div>
+
+    <!-- Community / Volunteer Details -->
+<div class="mt-8">
+
+    <div class="flex items-center gap-3 mb-4">
+        <div class="w-8 h-8 rounded-full bg-primary/10 text-primary
+                    flex items-center justify-center border border-primary/20">
+            <span class="material-symbols-outlined text-[20px]">
+                groups
+            </span>
+        </div>
+
+        <div>
+            <h3 class="font-headline-md text-headline-md text-primary">
+                Community / Volunteer Details
+            </h3>
+
+            <p class="text-sm text-on-surface-variant mt-1">
+                Optional — tell us if you are reporting as part of an
+                organization or volunteer group.
+            </p>
+        </div>
+    </div>
+
+    <!-- Participation Type -->
+    <div class="mb-5">
+
+        <label
+            class="block font-label-md text-label-md
+                   text-on-surface mb-3"
+        >
+            Are you reporting as a volunteer?
+        </label>
+
+        <div class="flex flex-wrap gap-3">
+
+            <!-- No -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="None"
+                    id="participationNone"
+                    class="peer sr-only"
+                    checked
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    No
+                </div>
+            </label>
+
+            <!-- NSS -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="NSS"
+                    id="participationNSS"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    NSS
+                </div>
+            </label>
+
+            <!-- NCC -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="NCC"
+                    id="participationNCC"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    NCC
+                </div>
+            </label>
+
+            <!-- JRC -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="JRC"
+                    id="participationJRC"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    JRC
+                </div>
+            </label>
+
+            <!-- Eco Club -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="Eco Club"
+                    id="participationEco"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    Eco Club
+                </div>
+            </label>
+
+            <!-- Other -->
+            <label class="cursor-pointer">
+                <input
+                    type="radio"
+                    name="participationType"
+                    value="Other"
+                    id="participationOther"
+                    class="peer sr-only"
+                >
+
+                <div class="px-5 py-2 rounded-full
+                            border border-outline-variant
+                            peer-checked:bg-primary/10
+                            peer-checked:text-primary
+                            peer-checked:border-primary
+                            font-label-md text-label-md
+                            transition-all text-on-surface-variant
+                            hover:bg-surface-variant">
+                    Other
+                </div>
+            </label>
+
+        </div>
+    </div>
+
+
+    <!-- Volunteer Details -->
+    <div
+        id="volunteerDetails"
+        class="hidden p-5 rounded-[16px]
+               bg-primary/5
+               border border-primary/20"
+    >
+
+        <div class="flex items-center gap-2 mb-5">
+
+            <span class="material-symbols-outlined text-primary">
+                school
+            </span>
+
+            <div>
+                <h4 class="font-semibold text-primary">
+                    Organization Details
+                </h4>
+
+                <p class="text-xs text-on-surface-variant">
+                    Provide your institution and volunteer information.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Institution -->
+        <div class="mb-5">
+
+            <label
+                for="institutionName"
+                class="block font-label-md text-label-md
+                       text-on-surface mb-2"
+            >
+                College / School / Institution Name
+            </label>
+
+            <input
+                id="institutionName"
+                name="institutionName"
+                type="text"
+                placeholder="Enter institution name"
+                class="w-full bg-surface-container-lowest
+                       border border-outline-variant
+                       rounded-[12px] px-4 py-3
+                       font-body-md text-body-md
+                       text-on-surface
+                       focus:outline-none
+                       focus:border-primary"
+            >
+
+        </div>
+
+
+        <!-- Department -->
+        <div class="mb-5">
+
+            <label
+                for="department"
+                class="block font-label-md text-label-md
+                       text-on-surface mb-2"
+            >
+                Department
+            </label>
+
+            <input
+                id="department"
+                name="department"
+                type="text"
+                placeholder="e.g. Computer Science and Engineering"
+                class="w-full bg-surface-container-lowest
+                       border border-outline-variant
+                       rounded-[12px] px-4 py-3
+                       font-body-md text-body-md
+                       text-on-surface
+                       focus:outline-none
+                       focus:border-primary"
+            >
+
+        </div>
+
+
+        <!-- Year + Unit -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+
+            <!-- Year -->
+            <div>
+
+                <label
+                    for="studyYear"
+                    class="block font-label-md text-label-md
+                           text-on-surface mb-2"
+                >
+                    Year of Study
+                </label>
+
+                <select
+                    id="studyYear"
+                    name="studyYear"
+                    class="w-full bg-surface-container-lowest
+                           border border-outline-variant
+                           rounded-[12px] px-4 py-3
+                           font-body-md text-body-md
+                           text-on-surface
+                           focus:outline-none
+                           focus:border-primary"
+                >
+
+                    <option value="">
+                        Select Year
+                    </option>
+
+                    <option value="1st Year">
+                        1st Year
+                    </option>
+
+                    <option value="2nd Year">
+                        2nd Year
+                    </option>
+
+                    <option value="3rd Year">
+                        3rd Year
+                    </option>
+
+                    <option value="4th Year">
+                        4th Year
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Unit -->
+            <div>
+
+                <label
+                    for="organizationUnit"
+                    class="block font-label-md text-label-md
+                           text-on-surface mb-2"
+                >
+                    Unit / Group Number
+                    <span class="text-xs text-outline">
+                        (Optional)
+                    </span>
+                </label>
+
+                <input
+                    id="organizationUnit"
+                    name="organizationUnit"
+                    type="text"
+                    placeholder="e.g. NSS Unit 12"
+                    class="w-full bg-surface-container-lowest
+                           border border-outline-variant
+                           rounded-[12px] px-4 py-3
+                           font-body-md text-body-md
+                           text-on-surface
+                           focus:outline-none
+                           focus:border-primary"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- Reporting As -->
+        <div class="mb-5">
+
+            <label
+                class="block font-label-md text-label-md
+                       text-on-surface mb-3"
+            >
+                Reporting As
+            </label>
+
+            <div class="flex flex-wrap gap-3">
+
+                <label class="cursor-pointer">
+
+                    <input
+                        type="radio"
+                        name="reportingAs"
+                        value="Individual"
+                        class="peer sr-only"
+                        checked
+                    >
+
+                    <div class="px-4 py-2 rounded-full
+                                border border-outline-variant
+                                peer-checked:bg-primary/10
+                                peer-checked:text-primary
+                                peer-checked:border-primary
+                                text-sm
+                                text-on-surface-variant">
+                        Individual
+                    </div>
+
+                </label>
+
+
+                <label class="cursor-pointer">
+
+                    <input
+                        type="radio"
+                        name="reportingAs"
+                        value="Volunteer Team"
+                        class="peer sr-only"
+                    >
+
+                    <div class="px-4 py-2 rounded-full
+                                border border-outline-variant
+                                peer-checked:bg-primary/10
+                                peer-checked:text-primary
+                                peer-checked:border-primary
+                                text-sm
+                                text-on-surface-variant">
+                        Volunteer Team
+                    </div>
+
+                </label>
+
+
+                <label class="cursor-pointer">
+
+                    <input
+                        type="radio"
+                        name="reportingAs"
+                        value="Institution Group"
+                        class="peer sr-only"
+                    >
+
+                    <div class="px-4 py-2 rounded-full
+                                border border-outline-variant
+                                peer-checked:bg-primary/10
+                                peer-checked:text-primary
+                                peer-checked:border-primary
+                                text-sm
+                                text-on-surface-variant">
+                        Institution Group
+                    </div>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- Volunteer Count -->
+        <div class="mb-5">
+
+            <label
+                for="volunteerCount"
+                class="block font-label-md text-label-md
+                       text-on-surface mb-2"
+            >
+                Number of Volunteers Involved
+                <span class="text-xs text-outline">
+                    (Optional)
+                </span>
+            </label>
+
+            <input
+                id="volunteerCount"
+                name="volunteerCount"
+                type="number"
+                min="1"
+                placeholder="e.g. 10"
+                class="w-full bg-surface-container-lowest
+                       border border-outline-variant
+                       rounded-[12px] px-4 py-3
+                       font-body-md text-body-md
+                       text-on-surface
+                       focus:outline-none
+                       focus:border-primary"
+            >
+
+        </div>
+
+
+        <!-- Activity -->
+        <div>
+
+            <label
+                for="volunteerActivity"
+                class="block font-label-md text-label-md
+                       text-on-surface mb-2"
+            >
+                Volunteer Activity
+            </label>
+
+            <select
+                id="volunteerActivity"
+                name="volunteerActivity"
+                class="w-full bg-surface-container-lowest
+                       border border-outline-variant
+                       rounded-[12px] px-4 py-3
+                       font-body-md text-body-md
+                       text-on-surface
+                       focus:outline-none
+                       focus:border-primary"
+            >
+
+                <option value="">
+                    Select Activity
+                </option>
+
+                <option value="Waste Cleanup">
+                    Waste Cleanup
+                </option>
+
+                <option value="Water Body Restoration">
+                    Water Body Restoration
+                </option>
+
+                <option value="Plantation / Greenery">
+                    Plantation / Greenery
+                </option>
+
+                <option value="Environmental Awareness">
+                    Environmental Awareness
+                </option>
+
+                <option value="Water Quality Monitoring">
+                    Water Quality Monitoring
+                </option>
+
+                <option value="Environmental Monitoring">
+                    Environmental Monitoring
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const participationInputs =
+        document.querySelectorAll(
+            'input[name="participationType"]'
+        );
+
+    const volunteerDetails =
+        document.getElementById("volunteerDetails");
+
+    function updateVolunteerSection() {
+
+        const selected =
+            document.querySelector(
+                'input[name="participationType"]:checked'
+            );
+
+        if (!selected) return;
+
+        if (selected.value === "None") {
+
+            volunteerDetails.classList.add("hidden");
+
+        } else {
+
+            volunteerDetails.classList.remove("hidden");
+
+        }
+
+    }
+
+    participationInputs.forEach(function (input) {
+
+        input.addEventListener(
+            "change",
+            updateVolunteerSection
+        );
+
+    });
+
+    updateVolunteerSection();
+
+});
+</script>                       
+
+        
+    <label
+        class="block font-label-md text-label-md text-on-surface mb-2"
+        for="mobile">
+        Mobile Number
+    </label>
+
+    <input
+        id="mobile"
+        name="mobile"
+        type="tel"
+        inputmode="numeric"
+        maxlength="10"
+        minlength="10"
+        pattern="[6-9][0-9]{9}"
+        required
+        placeholder="Enter 10-digit mobile number"
+        class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-4"
+        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
+    >
+
+    <p class="text-xs text-on-surface-variant mt-1">
+        Enter exactly 10 digits
+    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div>
+        <label class="block font-label-md text-label-md text-on-surface mb-2">
+            District
+        </label>
+      
+            <select
+    id="district"
+    name="district"
+            
+            required
+            class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow focus:border-primary"
+        >
+            <option value="">Select District</option>
+            <option value="Ariyalur">Ariyalur</option>
+            <option value="Chengalpattu">Chengalpattu</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Coimbatore">Coimbatore</option>
+            <option value="Cuddalore">Cuddalore</option>
+            <option value="Dharmapuri">Dharmapuri</option>
+            <option value="Dindigul">Dindigul</option>
+            <option value="Erode">Erode</option>
+            <option value="Kallakurichi">Kallakurichi</option>
+            <option value="Kanchipuram">Kanchipuram</option>
+            <option value="Kanyakumari">Kanyakumari</option>
+            <option value="Karur">Karur</option>
+            <option value="Krishnagiri">Krishnagiri</option>
+            <option value="Madurai">Madurai</option>
+            <option value="Mayiladuthurai">Mayiladuthurai</option>
+            <option value="Nagapattinam">Nagapattinam</option>
+            <option value="Namakkal">Namakkal</option>
+            <option value="Nilgiris">Nilgiris</option>
+            <option value="Perambalur">Perambalur</option>
+            <option value="Pudukkottai">Pudukkottai</option>
+            <option value="Ramanathapuram">Ramanathapuram</option>
+            <option value="Ranipet">Ranipet</option>
+            <option value="Salem">Salem</option>
+            <option value="Sivaganga">Sivaganga</option>
+            <option value="Tenkasi">Tenkasi</option>
+            <option value="Thanjavur">Thanjavur</option>
+            <option value="Theni">Theni</option>
+            <option value="Thoothukudi">Thoothukudi</option>
+            <option value="Tiruchirappalli">Tiruchirappalli</option>
+            <option value="Tirunelveli">Tirunelveli</option>
+            <option value="Tirupathur">Tirupathur</option>
+            <option value="Tiruppur">Tiruppur</option>
+            <option value="Tiruvallur">Tiruvallur</option>
+            <option value="Tiruvannamalai">Tiruvannamalai</option>
+            <option value="Tiruvarur">Tiruvarur</option>
+            <option value="Vellore">Vellore</option>
+            <option value="Viluppuram">Viluppuram</option>
+            <option value="Virudhunagar">Virudhunagar</option>
+        </select>
+    </div>
+</div>
+<div>
+    <label class="block font-label-md text-label-md text-on-surface mb-2">
+        Taluk
+    </label>
+
+    <input
+        id="taluk"
+        name="taluk"
+        class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 focus:border-primary"
+        placeholder=""
+        type="text"
+    />
+</div>
+</div>
+    <div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Area</label>
+      <input
+    id="area"
+    name="area"
+    type="text"
+    required
+    class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 focus:border-primary"
+    placeholder="Enter area / water body name"
+>
+
+    </div>
+<div>
+
+  <label class="block font-label-md text-label-md text-on-surface mb-3">Water Body Type</label>
+<div class="flex flex-wrap gap-3">
+<label class="cursor-pointer">
+<input checked class="peer sr-only" name="waterType" type="radio" value="Pond"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
+                                    Pond
+                                </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="waterType" type="radio" value="Lake"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
+                                    Lake
+                                </div>
+</label>
+  <label class="cursor-pointer">
+<input class="peer sr-only" name="waterType" type="radio" value="Dam"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
+                                    Dam
+                                </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="waterType" type="radio" value="River"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
+                                    River
+                                </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="waterType" type="radio" value="Other"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant">
+                                    Other
+                                </div>
+</label>
+</div>
+</div>
+</div>
+  <!-- Step 2: Describe Issue -->
+
+</div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">
+    What's happening here?
+</label>
+
+<textarea
+    id="issueDescription"
+    name="issueDescription"
+    class="w-full bg-surface-container-lowest border border-outline-variant rounded-[12px] px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none input-ring transition-shadow placeholder:text-outline/70 resize-y focus:border-primary"
+    placeholder="e.g. Hazardous waste dumping, severe chemical spill visible..."
+    rows="4"
+    required></textarea>
+<!-- Upload Box -->
+<div class="relative border-2 border-dashed border-outline-variant/60 rounded-lg p-8 text-center bg-surface hover:bg-surface-container-low hover:border-primary/50 transition-all cursor-pointer group overflow-hidden">
+
+    <input
+        id="evidenceInput"
+        class="absolute inset-0 opacity-0 cursor-pointer z-10"
+        type="file"
+        accept="image/*,video/*"
+        multiple
+    >
+  <div class="flex flex-col items-center gap-4 text-on-surface-variant">
+    <div class="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center">
+        <span class="material-symbols-outlined text-3xl">
+            add_a_photo
+        </span>
+    </div>
+
+    <div>
+        <p class="font-label-md text-label-md mb-1 font-semibold">
+            Click to upload or drag and drop
+        </p>
+
+        <p class="font-body-sm text-sm text-outline">
+            Clear photos or videos help expedite the response (max. 10MB)
+        </p>
+    </div>
+  </div>
+
+    <!-- upload icon/text here -->
+
+</div>
+
+<!-- Preview Area -->
+<div class="mt-6" id="previewSection" style="display: none;">
+    <p class="font-label-sm text-label-sm text-on-surface-variant mb-3 uppercase tracking-wider font-semibold">
+        Uploads (Preview)
+    </p>
+
+    <div
+        id="previewContainer"
+        class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
+    </div>
+</div>
+<!-- Submit Button -->
+
+  
+ <button
+    type="submit"
+    id="submitReportBtn"
+    class="inline-flex items-center justify-center gap-2 px-6 py-3
+    bg-emerald-700/85
+    text-white font-semibold
+    shadow-lg shadow-emerald-900/30
+    border border-emerald-500/30
+    hover:bg-emerald-800
+    hover:shadow-emerald-900/40
+    transition-all duration-200">
+   Submit Report 
+ </button>
+
+    <script type="module" src="report.js"></script>
+</form></div>
+</main>
+</body>
+</html>
+   

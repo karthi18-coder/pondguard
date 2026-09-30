@@ -1,0 +1,581 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #166534;
+    --primary-dark: #14532d;
+    --secondary: #22c55e;
+    --light-green: #f0fdf4;
+    --input-bg: #f0fdf4;
+    --text: #172018;
+    --muted: #647067;
+    --border: #dce7df;
+    --white: #ffffff;
+    --error: #dc2626;
+    --success: #15803d;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light-green);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =========================
+   LEFT VISUAL SIDE
+========================= */
+
+.visual-side {
+    width: 50%;
+    min-height: 100vh;
+
+    position: relative;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 60px;
+
+    background-image:
+        url("images/pond-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.visual-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(10, 55, 25, 0.9),
+            rgba(10, 55, 25, 0.25),
+            rgba(0, 0, 0, 0.05)
+        );
+}
+
+.visual-content {
+    position: relative;
+    z-index: 2;
+
+    color: white;
+
+    max-width: 520px;
+}
+
+.logo-box {
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,0.15);
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    border-radius: 22px;
+
+    backdrop-filter: blur(10px);
+
+    margin-bottom: 25px;
+}
+
+.logo {
+    width: 65px;
+    height: 65px;
+
+    object-fit: contain;
+}
+
+.visual-content h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.visual-content h2 {
+    font-size: 30px;
+    line-height: 1.25;
+
+    color: #bbf7d0;
+
+    margin-bottom: 20px;
+}
+
+.visual-content p {
+    font-size: 17px;
+    line-height: 1.7;
+
+    color: rgba(255,255,255,0.9);
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.auth-side {
+    width: 50%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background: #f8faf9;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 470px;
+
+    background: white;
+
+    padding: 42px;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 60px rgba(21, 83, 45, 0.10);
+
+    border: 1px solid rgba(22, 101, 52, 0.08);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   MOBILE LOGO
+========================= */
+
+.mobile-logo {
+    display: none;
+
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 30px;
+}
+
+.mobile-logo img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.mobile-logo span {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.card-header {
+    margin-bottom: 30px;
+}
+
+.card-header h1 {
+    font-size: 30px;
+    line-height: 1.25;
+
+    color: var(--primary);
+
+    margin-bottom: 10px;
+}
+
+.card-header p {
+    color: var(--muted);
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper > .material-symbols-outlined {
+    position: absolute;
+
+    left: 15px;
+
+    color: #829087;
+
+    font-size: 21px;
+
+    pointer-events: none;
+}
+
+.input-wrapper input {
+    width: 100%;
+
+    height: 54px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: var(--input-bg);
+
+    padding: 0 48px;
+
+    font-size: 15px;
+
+    color: var(--text);
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.input-wrapper input:focus {
+    border-color: var(--secondary);
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.input-wrapper input::placeholder {
+    color: #9aa69e;
+}
+
+.input-wrapper input[type="tel"] {
+    padding-left: 65px;
+}
+
+.mobile-prefix {
+    position: absolute;
+
+    left: 15px;
+
+    font-weight: 600;
+
+    color: var(--primary);
+
+    z-index: 2;
+}
+
+.input-group small {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #7a877f;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   PASSWORD BUTTON
+========================= */
+
+.password-toggle {
+    position: absolute;
+
+    right: 13px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #78857c;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: var(--primary);
+}
+
+
+/* =========================
+   LOGIN OPTIONS
+========================= */
+
+.login-options {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin: 8px 0 20px;
+}
+
+.remember {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.remember input {
+    width: 17px;
+    height: 17px;
+
+    accent-color: var(--primary);
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-button {
+    width: 100%;
+
+    height: 54px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.primary-button:hover {
+    background: var(--primary-dark);
+
+    transform: translateY(-1px);
+}
+
+.primary-button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+.text-button {
+    border: none;
+
+    background: transparent;
+
+    color: var(--primary);
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    font-size: inherit;
+}
+
+.text-button:hover {
+    text-decoration: underline;
+}
+
+.back-button {
+    border: none;
+
+    background: transparent;
+
+    color: var(--primary);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 28px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #e5ebe7;
+}
+
+.divider span {
+    color: #89958d;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   SIGNUP TEXT
+========================= */
+
+.signup-text {
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+.message {
+    min-height: 20px;
+
+    margin-bottom: 14px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.message.error {
+    color: var(--error);
+}
+
+.message.success {
+    color: var(--success);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .visual-side {
+        display: none;
+    }
+
+    .auth-side {
+        width: 100%;
+
+        min-height: 100vh;
+
+        padding: 25px 18px;
+
+        align-items: center;
+    }
+
+    .auth-card {
+        max-width: 500px;
+
+        padding: 30px 24px;
+
+        border-radius: 20px;
+    }
+
+    .mobile-logo {
+        display: flex;
+    }
+
+    .card-header h1 {
+        font-size: 27px;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .auth-side {
+        padding: 15px;
+    }
+
+    .auth-card {
+        padding: 25px 18px;
+
+        box-shadow: none;
+
+        border: none;
+    }
+
+    .login-options {
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+}

@@ -1,0 +1,13 @@
+# Firebase configuration
+firebase-config.js
+
+# Environment variables
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+
+# Editor
+.vscode/
